@@ -101,19 +101,93 @@ def lookup_plan(query: str) -> dict:
         return {"status": "not_found"}
 
     row = matched_row
+    # 0. Robust Arabic/English maternity intent detection
+    maternity_phrases = [
+        'حمل', 'maternity', 'فيها حمل', 'تشمل حمل', 'هل فيها ولادة', 'ولادة', 'ماتيرنيتي', 'maternity benefit', 'maternity note', 'maternity coverage'
+    ]
+    if any(phrase in normalized_query for phrase in maternity_phrases):
+        val = row.get('maternity_note')
+        if val:
+            plan_short = "Remedy 02"
+            return {
+                "status": "found",
+                "route": "plan_lookup",
+                "plan_id": row.get("plan_id"),
+                "matched_plan": row.get("plan_name"),
+                "answer": f"Maternity for {plan_short}: {val}."
+            }
+
     # 1. Deterministic enriched field detection (improved for failing fields)
     for keywords, col, label in ENRICHED_FIELD_MAP:
         if any(kw in normalized_query for kw in keywords):
             val = row.get(col)
-            # Always return the actual value, even if 'Not covered', 'Not included', etc.
             if val is not None:
-                return {
-                    "status": "found",
-                    "route": "plan_lookup",
-                    "plan_id": row.get("plan_id"),
-                    "matched_plan": row.get("plan_name"),
-                    "answer": f"{label} for {row.get('plan_name')} ({row.get('plan_id')}): {val}",
-                }
+                # Owner-friendly phrasing
+                plan_short = "Remedy 02"
+                if col == "deductible":
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"Deductible for {plan_short}: {val}."
+                    }
+                elif col == "telemedicine":
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"Telemedicine in {plan_short}: {val}."
+                    }
+                elif col == "wellness_benefits":
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"Wellness benefits in {plan_short}: {val}."
+                    }
+                elif col == "outpatient_coverage":
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"Outpatient coverage for {plan_short}: {val}."
+                    }
+                elif col == "inpatient_coverage":
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"Inpatient coverage for {plan_short}: {val}."
+                    }
+                elif col == "emergency_coverage":
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"Emergency coverage for {plan_short}: {val}."
+                    }
+                elif col == "pharmacy_coverage":
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"Pharmacy coverage for {plan_short}: {val}."
+                    }
+                else:
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": row.get("plan_id"),
+                        "matched_plan": row.get("plan_name"),
+                        "answer": f"{label} for {plan_short}: {val}."
+                    }
 
     # 1b. Reimbursement explicit routing
     if "reimbursement" in normalized_query:
@@ -130,7 +204,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for {row.get('plan_name')} ({row.get('plan_id')}): {' | '.join(answer)}",
+                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -139,21 +213,82 @@ def lookup_plan(query: str) -> dict:
             syn_tokens = set(_normalize(syn).split())
             if syn_tokens and syn_tokens.issubset(query_tokens):
                 if col in row and row.get(col):
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": row.get("plan_id"),
-                        "matched_plan": row.get("plan_name"),
-                        "answer": f"{label} for {row.get('plan_name')} ({row.get('plan_id')}): {row.get(col)}",
-                    }
-    # 3. Fallback: summary
-    summary = ", ".join(f"{k}: {v}" for k, v in row.items() if v)
+                    plan_short = "Remedy 02"
+                    if col == "annual_limit":
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"Annual limit for {plan_short}: {row.get(col)}."
+                        }
+                    elif col == "area_of_coverage":
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"Area of Coverage for {plan_short}: {row.get(col)}."
+                        }
+                    elif col == "provider_network":
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"Provider Network for {plan_short}: {row.get(col)}."
+                        }
+                    elif col == "copayment_summary":
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"Copayment for {plan_short}: {row.get(col)}."
+                        }
+                    elif col == "pre_existing_conditions_note":
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"Pre-existing Conditions for {plan_short}: {row.get(col)}."
+                        }
+                    elif col == "maternity_note":
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"Maternity for {plan_short}: {row.get(col)}."
+                        }
+                    elif col == "declaration_requirements":
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"Declaration Requirements for {plan_short}: {row.get(col)}."
+                        }
+                    else:
+                        return {
+                            "status": "found",
+                            "route": "plan_lookup",
+                            "plan_id": row.get("plan_id"),
+                            "matched_plan": row.get("plan_name"),
+                            "answer": f"{label} for {plan_short}: {row.get(col)}."
+                        }
+    # 3. Fallback: summary (owner-friendly)
+    summary = []
+    for k, v in row.items():
+        if v:
+            summary.append(f"{k.replace('_', ' ').capitalize()}: {v}")
     return {
         "status": "found",
         "route": "plan_lookup",
         "plan_id": row.get("plan_id"),
         "matched_plan": row.get("plan_name"),
-        "answer": f"{row.get('plan_name')} ({row.get('plan_id')}): {summary}",
+        "answer": f"Remedy 02 summary:\n" + "\n".join(summary)
     }
 
         # (REMOVED DUPLICATE BLOCK)

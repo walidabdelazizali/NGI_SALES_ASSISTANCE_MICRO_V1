@@ -40,28 +40,48 @@ def lookup_network(query: str) -> dict[str, str]:
     providers = _load_providers()
     aliases = _load_aliases()
 
-    # Helper to build answer
-    def build_answer(row):
+    # Helper to build owner-friendly answer
+    def build_answer(row, direct_billing_intent=False):
+        provider = row.get('provider_name')
+        network = row.get('network_name')
+        city = row.get('city')
+        emirate = row.get('emirate')
         direct_billing = row.get('direct_billing_possible', '').strip().lower()
-        direct_billing_str = ''
-        if 'direct billing' in normalized_query or 'direct' in normalized_query or 'مباشر' in normalized_query:
+        if direct_billing_intent:
             if direct_billing == 'yes':
-                direct_billing_str = ' Direct billing is available.'
-            elif direct_billing == 'no':
-                direct_billing_str = ' Direct billing is NOT available.'
-        return f"{row.get('provider_name')} is in network {row.get('network_name')} (city: {row.get('city')}, emirate: {row.get('emirate')}).{direct_billing_str}"
+                answer = f"Direct billing is available for {provider}."
+            else:
+                answer = f"Direct billing is NOT available for {provider}."
+            answer = f"[NETWORK] {answer}\nPlan: {network}.\nLocation: {city}, {emirate}."
+            return answer
+        # Required canonical output contract for generic network
+        answer = f"{provider} is in network."
+        answer += f"\nPlan: {network}."
+        answer += f"\nLocation: {city}, {emirate}."
+        return answer
+
+    # Direct billing intent detection (must take precedence)
+    direct_billing_intent = any(x in normalized_query for x in ["direct billing", "direct", "مباشر"])
 
     # Try alias match (robust: substring match)
     for alias, provider_name in aliases.items():
         if alias in normalized_query:
             for row in providers:
                 if _normalize(row.get("provider_name", "")) == _normalize(provider_name):
+                    if direct_billing_intent:
+                        return {
+                            "status": "found",
+                            "route": "network_lookup",
+                            "provider": row.get("provider_name"),
+                            "network": row.get("network_name"),
+                            "answer": build_answer(row, direct_billing_intent=True)
+                        }
                     return {
                         "status": "found",
                         "route": "network_lookup",
                         "provider": row.get("provider_name"),
                         "network": row.get("network_name"),
-                        "answer": build_answer(row),
+                        "answer": build_answer(row)
                     }
 
     # Try direct provider name match (robust: substring match)
