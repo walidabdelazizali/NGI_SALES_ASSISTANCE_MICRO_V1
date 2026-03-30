@@ -1,0 +1,6 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
+BEN-PR-001,REMEDY_02,REMEDY 02,Essential vaccinations and inoculations,Covered up to AED 100 for newborn and child vaccinations as stipulated by DHA and MOH guidance,Curated from Remedy 02 extract.
+BEN-PR-002,REMEDY_02,REMEDY 02,Preventive services vaccines and immunizations,Covered,Curated from Remedy 02 extract.
+BEN-PR-003,REMEDY_02,REMEDY 02,Adult pneumococcal conjugate vaccine,Covered,Curated from Remedy 02 extract.
+BEN-PR-004,REMEDY_02,REMEDY 02,Influenza vaccine,Covered once per year limited to vaccine and administration cost,Curated from Remedy 02 extract.
+BEN-PR-005,REMEDY_02,REMEDY 02,Shingrix vaccine,Covered for eligible members as defined by DHA and limited to vaccine and administration cost,Curated from Remedy 02 extract.

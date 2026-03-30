@@ -1,0 +1,13 @@
+provider_id,provider_name,provider_type,city,emirate,network_name,direct_billing_possible,notes,status
+PROV-001,Aster Hospital Qusais,Hospital,Dubai,Dubai,HN Basic Plus,Yes,Direct outpatient access per extracted network statement.,Extracted
+PROV-002,Aster Hospital Mankhool,Hospital,Dubai,Dubai,HN Basic Plus,Yes,Direct outpatient access per extracted network statement.,Extracted
+PROV-003,Aster Hospital Jebel Ali,Hospital,Dubai,Dubai,HN Basic Plus,Yes,Direct outpatient access per extracted network statement.,Extracted
+PROV-004,Burjeel Specialty Hospital Sharjah,Hospital,Sharjah,Sharjah,HN Basic Plus,Yes,Direct outpatient access per extracted network statement.,Extracted
+PROV-005,International Modern Hospital,Hospital,Dubai,Dubai,HN Basic Plus,Yes,Direct outpatient access per extracted network statement.,Extracted
+PROV-006,Ajman Specialty Hospital,Hospital,Ajman,Ajman,HN Basic Plus,Yes,Direct outpatient access per extracted network statement.,Extracted
+PROV-007,Al Saha wa Al Shifaa Hospital For One Day Surgery,Hospital,Sharjah,Sharjah,HN Basic Plus,Yes,Direct outpatient access per extracted network statement.,Extracted
+PROV-008,NMC Royal Hospital,Hospital,Abu Dhabi,Abu Dhabi,HN Premium,No,No direct billing for OP.,Extracted
+PROV-009,Mediclinic City Hospital,Hospital,Dubai,Dubai,HN Premium,Yes,Direct billing for all services.,Extracted
+PROV-010,Thumbay Hospital,Hospital,Ajman,Ajman,HN Basic Plus,No,No direct billing.,Extracted
+PROV-011,Al Zahra Hospital,Hospital,Sharjah,Sharjah,HN Premium,Yes,Direct billing for all services.,Extracted
+PROV-012,Canadian Specialist Hospital,Hospital,Dubai,Dubai,HN Premium,No,No direct billing.,Extracted

@@ -1,0 +1,5 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
+BEN-OP-001,REMEDY_02,REMEDY 02,Examination and treatment by authorized general practitioners specialists and consultants,15 percent coinsurance per visit with no charge for follow-up visits within 7 days for the same treatment and doctor,Curated from Remedy 02 extract.
+BEN-OP-002,REMEDY_02,REMEDY 02,Laboratory tests carried out in authorized facility,15 percent copay at time of payment,Curated from Remedy 02 extract.
+BEN-OP-003,REMEDY_02,REMEDY 02,Radiology diagnostic services carried out in authorized facility,15 percent copay at time of payment,Curated from Remedy 02 extract.
+BEN-OP-004,REMEDY_02,REMEDY 02,Physiotherapy,Covered for maximum 12 sessions per year with 15 percent copay per session,Curated from Remedy 02 extract.

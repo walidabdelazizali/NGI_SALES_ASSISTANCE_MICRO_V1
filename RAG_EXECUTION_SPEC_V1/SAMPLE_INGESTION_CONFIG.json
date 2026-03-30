@@ -1,0 +1,286 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sample Ingestion Configuration",
+  "description": "Reference configuration for RAG ingestion pipeline - Technology-agnostic template",
+  "version": "1.0",
+  "date": "2026-03-19",
+  
+  "ingestion_config": {
+    "source_files": {
+      "description": "KB_PACK_V1 JSONL files to ingest",
+      "base_path": "C:/micro-insurance-kb-v1/KB_PACK_V1/",
+      "files": [
+        {
+          "file": "faq_chunks.jsonl",
+          "chunk_type": "FAQ",
+          "total_chunks": 20,
+          "ingestion_phase": "Phase 1",
+          "priority": 1,
+          "description": "Customer-facing FAQ explanations"
+        },
+        {
+          "file": "rules_chunks.jsonl",
+          "chunk_type": "Rules",
+          "total_chunks": 27,
+          "ingestion_phase": "Phase 1",
+          "priority": 2,
+          "description": "Policy reasoning and rules"
+        },
+        {
+          "file": "mapping_reference.jsonl",
+          "chunk_type": "Mapping",
+          "total_chunks": 20,
+          "ingestion_phase": "Phase 1",
+          "priority": 3,
+          "description": "Cross-reference relationships"
+        },
+        {
+          "file": "plans_chunks.jsonl",
+          "chunk_type": "Plans",
+          "total_chunks": 10,
+          "ingestion_phase": "Phase 2",
+          "priority": 4,
+          "description": "Plan placeholders (low confidence)",
+          "warning": "ALL chunks in this file are placeholders with is_placeholder=true"
+        },
+        {
+          "file": "network_chunks.jsonl",
+          "chunk_type": "Network",
+          "total_chunks": 10,
+          "ingestion_phase": "Phase 2",
+          "priority": 5,
+          "description": "Network placeholders (low confidence)",
+          "warning": "ALL chunks in this file are placeholders with is_placeholder=true"
+        }
+      ]
+    },
+    
+    "ingestion_phases": {
+      "description": "2-phase ingestion strategy for risk mitigation",
+      "phase_1": {
+        "name": "Strong Knowledge Foundation",
+        "chunks": ["FAQ", "Rules", "Mapping"],
+        "total_chunks": 67,
+        "status": "HIGH PRIORITY - READY FOR CUSTOMER USE",
+        "ingestion_order": ["FAQ", "Rules", "Mapping"],
+        "validation_required": [
+          "All 67 chunks indexed",
+          "FAQ retrieval relevance >85%",
+          "Rules provide reasoning enrichment",
+          "Mapping cross-references functional",
+          "NO placeholders indexed yet"
+        ]
+      },
+      "phase_2": {
+        "name": "Placeholder-Aware Context Layer",
+        "chunks": ["Plans", "Network"],
+        "total_chunks": 20,
+        "status": "LOW PRIORITY - HIGH CAUTION - PLACEHOLDERS ONLY",
+        "ingestion_order": ["Plans", "Network"],
+        "mandatory_safety": [
+          "ALL chunks MUST have is_placeholder=true",
+          "ALL chunks MUST have safe_for_client_direct_use=false",
+          "ALL chunks MUST have retrieval_weight_hint<=0.3",
+          "Customer-facing filtering MUST exclude is_placeholder=true",
+          "Answer generation MUST add disclaimers"
+        ],
+        "validation_required": [
+          "All 20 placeholders indexed with correct safety flags",
+          "Placeholder filter test passed (0% leaks)",
+          "Disclaimer test passed",
+          "Trust hierarchy maintained (FAQ > Rules > Placeholders)"
+        ]
+      }
+    },
+    
+    "metadata_application": {
+      "description": "Metadata derivation rules for each chunk type",
+      "reference_spec": "METADATA_APPLICATION_SPEC.md",
+      "core_fields": {
+        "chunk_id": {
+          "format": "{CHUNK_TYPE}-CHUNK-{SEQUENCE}",
+          "example": "FAQ-CHUNK-001",
+          "required": true
+        },
+        "chunk_type": {
+          "derivation": "From source file name",
+          "valid_values": ["FAQ", "Rules", "Plans", "Network", "Mapping"],
+          "required": true
+        },
+        "source_file": {
+          "derivation": "Source JSONL file name",
+          "example": "faq_chunks.jsonl",
+          "required": true
+        },
+        "source_id": {
+          "derivation": "Original chunk ID from source file",
+          "example": "FAQ-001",
+          "required": true
+        },
+        "text": {
+          "derivation": "Chunk text content",
+          "required": true
+        },
+        "status": {
+          "derivation": "Direct copy from source JSONL",
+          "valid_values": ["Approved", "Active", "Needs Review", "Pending Detail", "Deprecated"],
+          "required": true
+        }
+      },
+      
+      "safety_fields": {
+        "is_placeholder": {
+          "derivation_logic": "TRUE if chunk_type in ['Plans', 'Network'] AND status='Pending Detail', else FALSE",
+          "critical": true,
+          "validation": "ALL Plans chunks MUST be true, ALL Network chunks MUST be true, ALL FAQ/Rules/Mapping MUST be false"
+        },
+        "safe_for_client_direct_use": {
+          "derivation_logic": "FALSE if is_placeholder=true OR chunk_type='Mapping' OR (chunk_type='Rules' AND status='Needs Review' for RULE-008), else TRUE for FAQ/Rules with Approved/Active status",
+          "critical": true,
+          "validation": "ALL placeholders MUST be false"
+        },
+        "requires_plan_confirmation": {
+          "derivation_logic": "TRUE if 'plan'/'coverage'/'benefit' in text OR related_plan_id not null OR chunk_type='Plans'",
+          "critical": false
+        },
+        "requires_network_verification": {
+          "derivation_logic": "TRUE if chunk_type='Network' OR 'provider'/'hospital'/'clinic'/'network' in text",
+          "critical": false
+        }
+      },
+      
+      "retrieval_fields": {
+        "retrieval_weight_hint": {
+          "description": "Base weight for retrieval scoring, enforces trust hierarchy",
+          "weight_matrix": {
+            "FAQ_Approved": 1.0,
+            "FAQ_Needs_Review": 0.95,
+            "FAQ_Pending_Detail": 0.9,
+            "Rules_Active": 0.9,
+            "Rules_Needs_Review": 0.85,
+            "Mapping_High_Confidence": 0.6,
+            "Mapping_Medium_Confidence": 0.5,
+            "Mapping_Low_Confidence": 0.4,
+            "Plans_Placeholder": 0.2,
+            "Network_Placeholder": 0.2
+          },
+          "validation": "MUST be between 0.0-1.0, placeholders MUST be <=0.3",
+          "critical": true
+        },
+        "ingestion_priority": {
+          "derivation_logic": "'Phase 1' if chunk_type in ['FAQ', 'Rules', 'Mapping'], else 'Phase 2'",
+          "critical": false
+        },
+        "confidence": {
+          "derivation_logic": "'Very Low' if is_placeholder=true, 'High' if FAQ Approved or Rules Active, 'Medium-High' if FAQ Needs Review/Pending Detail, etc.",
+          "critical": false
+        }
+      }
+    },
+    
+    "ingestion_pipeline": {
+      "description": "Step-by-step ingestion process",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Parse JSONL files",
+          "action": "Read and parse each JSONL file into chunk objects"
+        },
+        {
+          "step": 2,
+          "name": "Apply metadata derivation",
+          "action": "Apply all metadata derivation rules from METADATA_APPLICATION_SPEC.md",
+          "reference": "METADATA_APPLICATION_SPEC.md Rules 1-9"
+        },
+        {
+          "step": 3,
+          "name": "Validate metadata",
+          "action": "Run all validation checks from VALIDATION_AND_QA_SPEC.md Layer 1",
+          "blocker": "Deployment BLOCKED if validation fails"
+        },
+        {
+          "step": 4,
+          "name": "Generate embeddings",
+          "action": "Use embedding model to generate vector for each chunk text",
+          "technology_choice": "Implementation-specific (OpenAI, Sentence Transformers, etc.)"
+        },
+        {
+          "step": 5,
+          "name": "Index in vector database",
+          "action": "Insert chunk with embedding and metadata into vector DB",
+          "technology_choice": "Implementation-specific (Pinecone, Weaviate, Qdrant, etc.)"
+        },
+        {
+          "step": 6,
+          "name": "Validate ingestion",
+          "action": "Run all validation checks from VALIDATION_AND_QA_SPEC.md Layer 2",
+          "blocker": "Deployment BLOCKED if validation fails"
+        },
+        {
+          "step": 7,
+          "name": "Test retrieval",
+          "action": "Run 50 sample queries, validate retrieval quality",
+          "reference": "VALIDATION_AND_QA_SPEC.md Layer 3"
+        }
+      ]
+    },
+    
+    "validation_gates": {
+      "description": "Hard gates that MUST pass before deployment",
+      "pre_ingestion": {
+        "chunk_count": "87 total (20 FAQ + 27 Rules + 20 Mapping + 10 Plans + 10 Network)",
+        "metadata_completeness": "All required fields present",
+        "placeholder_flags": "All Plans/Network have is_placeholder=true",
+        "weight_range": "All weights 0.0-1.0, placeholders <=0.3"
+      },
+      "post_ingestion": {
+        "index_completeness": "All expected chunks indexed",
+        "metadata_searchability": "All filters work correctly",
+        "FAQ_retrieval_relevance": ">=85%"
+      },
+      "reference": "DEPLOYMENT_READINESS_GATES.md"
+    },
+    
+    "re_ingestion_scenarios": {
+      "description": "When and how to re-ingest chunks",
+      "content_update": {
+        "trigger": "FAQ or Rule content revised",
+        "action": "Re-ingest updated file only (no changes to other files unless dependencies changed)"
+      },
+      "placeholder_replacement": {
+        "trigger": "Real plan or network data becomes available",
+        "action": [
+          "Create new chunk with is_placeholder=false, safe_for_client_direct_use=true, retrieval_weight_hint=0.9",
+          "Mark old placeholder as status=Deprecated, set superseded_by link",
+          "Update mappings to reference new chunk",
+          "Remove old placeholder from active retrieval within 30 days",
+          "Validate replacement"
+        ],
+        "priority": "HIGH - Timeline: Plans 6 months, Network 3 months",
+        "reference": "INGESTION_SEQUENCE.md Scenario B"
+      },
+      "bulk_re_ingestion": {
+        "trigger": "20%+ of KB changed or new KB version",
+        "action": "Full re-ingestion following Phase 1 → Phase 2 order"
+      }
+    }
+  },
+  
+  "implementation_notes": {
+    "technology_agnostic": "This configuration is technology-agnostic. Implementation teams choose specific tools (embedding model, vector DB, RAG framework) based on their requirements.",
+    "reference_specifications": [
+      "EXECUTION_OVERVIEW.md - Master control document",
+      "INGESTION_SEQUENCE.md - Exact ingestion order",
+      "METADATA_APPLICATION_SPEC.md - Metadata derivation rules",
+      "VALIDATION_AND_QA_SPEC.md - Validation checks",
+      "DEPLOYMENT_READINESS_GATES.md - Go/No-Go criteria"
+    ],
+    "critical_requirements": [
+      "Preserve 2-phase ingestion (Phase 1: 67 strong chunks, Phase 2: 20 placeholders)",
+      "Apply ALL metadata derivation rules correctly",
+      "Validate placeholder safety flags (CRITICAL - legal liability)",
+      "Test retrieval quality before deployment",
+      "Run all validation gates before deployment"
+    ]
+  }
+}

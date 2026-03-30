@@ -1,0 +1,4 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
+BEN-ISA-001,REMEDY_02,REMEDY 02,Medical expenses benefits,Emergency medical evacuation repatriation transportation of mortal remains hospitalization dental emergency due to accident and family support benefits with stated USD sublimits,Curated from Remedy 02 extract.
+BEN-ISA-002,REMEDY_02,REMEDY 02,Travel expenses benefits,Passport luggage delay flight delay trip cancellation and trip curtailment support with stated USD sublimits,Curated from Remedy 02 extract.
+BEN-ISA-003,REMEDY_02,REMEDY 02,Medical and travel assistance complimentary services,24 by 7 telemedicine referral admission monitoring translation medicine delivery and emergency travel support services,Curated from Remedy 02 extract.

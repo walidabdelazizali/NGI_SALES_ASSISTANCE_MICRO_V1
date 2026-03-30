@@ -1,0 +1,4 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
+BEN-MAT-001,REMEDY_02,REMEDY 02,Waiting period,Nil,Curated from Remedy 02 extract.
+BEN-MAT-002,REMEDY_02,REMEDY 02,In-patient maternity services,10 percent copay with maximum AED 10000 for normal delivery and medically necessary C-section including complications and medically necessary termination,Curated from Remedy 02 extract.
+BEN-MAT-003,REMEDY_02,REMEDY 02,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 02 extract.

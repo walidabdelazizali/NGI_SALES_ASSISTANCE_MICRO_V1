@@ -1,0 +1,241 @@
+# NGI_SALES_ASSISTANCE_OWNER_MASTER_V2.xlsx — Final Tab and Column Structure
+
+## Tabs and Columns
+
+### README
+- section
+- details
+
+### PLAN_MASTER
+- plan_id
+- plan_name
+- plan_family
+- annual_max_benefit
+- currency
+- tpa
+- area_of_cover_key
+- medical_network_name
+- op_access_summary
+- ip_access_summary
+- specialist_referral_rule
+- group_declaration_rule_key
+- individual_declaration_rule_key
+- pre_existing_rule_key
+- reimbursement_outside_network_key
+- reimbursement_outside_uae_key
+- copayment_summary
+- labs_radiology_summary
+- maternity_summary
+- alternative_medicine_summary
+- status
+- owner_notes
+
+### AREA_OF_COVERAGE
+- area_of_cover_key
+- plan_id
+- plan_name
+- territory_type (e.g. UAE, GCC, Worldwide, Emergency Only)
+- description
+- exclusions
+- emergency_coverage
+- notes
+- source_type
+- source_ref
+- status
+
+### NETWORK_MASTER
+- network_id
+- network_name
+- plan_id
+- plan_name
+- network_type (e.g. HN Basic Plus, Open, Restricted)
+- op_access_type (e.g. clinics_only, clinics_and_hospitals)
+- ip_access_type
+- notes
+- source_type
+- source_ref
+- status
+
+### NETWORK_SPECIAL_PROVIDERS
+- special_provider_id
+- network_id
+- plan_id
+- plan_name
+- provider_name
+- provider_type (e.g. hospital, clinic)
+- city
+- emirate
+- inclusion_type (e.g. OP_allowed, IP_allowed, both)
+- notes
+- source_type
+- source_ref
+- status
+
+### GROUP_DECLARATION_RULES
+- group_declaration_rule_key
+- plan_id
+- plan_name
+- rule_text
+- notes
+- source_type
+- source_ref
+- status
+
+### INDIVIDUAL_DECLARATION_RULES
+- individual_declaration_rule_key
+- plan_id
+- plan_name
+- rule_text
+- notes
+- source_type
+- source_ref
+- status
+
+### PRE_EXISTING_RULES
+- pre_existing_rule_key
+- plan_id
+- plan_name
+- rule_text
+- notes
+- source_type
+- source_ref
+- status
+
+### INPATIENT_BENEFITS
+- benefit_id
+- plan_id
+- plan_name
+- benefit_name
+- benefit_category
+- coverage_text
+- coverage_limit
+- copay
+- deductible
+- approval_required
+- waiting_period
+- exclusions
+- notes
+- source_type
+- source_ref
+- status
+
+### OUTPATIENT_BENEFITS
+- benefit_id
+- plan_id
+- plan_name
+- benefit_name
+- benefit_category
+- coverage_text
+- coverage_limit
+- copay
+- deductible
+- approval_required
+- waiting_period
+- exclusions
+- notes
+- source_type
+- source_ref
+- status
+
+### PREVENTIVE_VACCINES
+- benefit_id
+- plan_id
+- plan_name
+- vaccine_name
+- coverage_text
+- coverage_limit
+- copay
+- deductible
+- approval_required
+- waiting_period
+- exclusions
+- notes
+- source_type
+- source_ref
+- status
+
+### ADDITIONAL_BENEFITS
+- benefit_id
+- plan_id
+- plan_name
+- benefit_name
+- benefit_category
+- coverage_text
+- coverage_limit
+- copay
+- deductible
+- approval_required
+- waiting_period
+- exclusions
+- notes
+- source_type
+- source_ref
+- status
+
+### TRAVEL_EMERGENCY_ASSIST
+- benefit_id
+- plan_id
+- plan_name
+- benefit_name
+- coverage_text
+- coverage_limit
+- copay
+- deductible
+- approval_required
+- waiting_period
+- exclusions
+- notes
+- source_type
+- source_ref
+- status
+
+### MATERNITY
+- benefit_id
+- plan_id
+- plan_name
+- benefit_name
+- benefit_category
+- coverage_text
+- coverage_limit
+- copay
+- deductible
+- approval_required
+- waiting_period
+- exclusions
+- notes
+- source_type
+- source_ref
+- status
+
+### ALIASES
+- alias_id
+- alias_type (e.g. provider_name, plan_name, network_name)
+- raw_value
+- normalized_value
+- target_entity_type (e.g. provider, plan, network)
+- target_entity_id
+- target_entity_name
+- notes
+- status
+
+# Data Preservation
+- Existing Remedy 02 summary row in PLAN_MASTER is preserved if compatible.
+
+# Data to Populate Later
+- All tabs require detailed population in future phases.
+
+# Assumptions
+- All columns are business-driven, flat, and owner-friendly.
+- Linkage keys are used for cross-tab relationships.
+- No placeholder columns; all columns have clear business meaning.
+
+# Owner Review Checklist
+- [ ] All tab names match business structure
+- [ ] All columns are clear and business-relevant
+- [ ] No merged unrelated concepts
+- [ ] Linkage keys are present where needed
+- [ ] No placeholder columns
+- [ ] Remedy 02 is supported by design
+
+# Explicit Statement
+This workbook structure is now defined but still draft-only and not yet the runtime source of truth.

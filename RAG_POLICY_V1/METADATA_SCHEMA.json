@@ -1,0 +1,558 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Micro Insurance KB V1 - RAG Metadata Schema",
+  "version": "1.0",
+  "date": "2026-03-19",
+  "description": "Comprehensive metadata schema for all ingested knowledge chunks. Defines required and optional fields for safe, filterable, weighted retrieval.",
+  
+  "core_fields": {
+    "chunk_id": {
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier for this chunk across all collections",
+      "pattern": "^(FAQ|RULE|PLAN|NETWORK|MAP)-CHUNK-\\d{3}$",
+      "examples": ["FAQ-CHUNK-001", "RULE-CHUNK-015", "PLAN-CHUNK-003"],
+      "usage": "Primary key for retrieval, deduplication, and cross-referencing"
+    },
+    
+    "chunk_type": {
+      "type": "string",
+      "required": true,
+      "description": "Type of knowledge chunk",
+      "enum": ["FAQ", "Rules", "Plans", "Network", "Mapping"],
+      "examples": ["FAQ", "Rules", "Plans"],
+      "usage": "Filter chunks by type, apply type-specific retrieval strategies"
+    },
+    
+    "source_file": {
+      "type": "string",
+      "required": true,
+      "description": "Origin JSONL file name",
+      "examples": ["faq_chunks.jsonl", "rules_chunks.jsonl", "plans_chunks.jsonl"],
+      "usage": "Traceability, versioning, source validation"
+    },
+    
+    "source_id": {
+      "type": "string",
+      "required": true,
+      "description": "Original document ID from source Excel file",
+      "pattern": "^(FAQ|RULE|PLAN|PROV|MAP)-\\d{3}$",
+      "examples": ["FAQ-001", "RULE-012", "PLAN-005", "PROV-003", "MAP-010"],
+      "usage": "Link to source data, cross-reference resolution, audit trail"
+    },
+    
+    "text": {
+      "type": "string",
+      "required": true,
+      "description": "Retrieval-ready text content combining all relevant fields",
+      "min_length": 50,
+      "max_length": 5000,
+      "examples": ["Question: What is a deductible? Answer: A deductible is..."],
+      "usage": "Primary content for embedding generation and semantic search"
+    },
+    
+    "status": {
+      "type": "string",
+      "required": true,
+      "description": "Content approval and completeness status",
+      "enum": ["Approved", "Needs Review", "Pending Detail", "Active", "Deprecated"],
+      "examples": ["Approved", "Pending Detail", "Active"],
+      "usage": "Filter production-ready vs. draft content, prioritize retrieval"
+    }
+  },
+  
+  "safety_fields": {
+    "is_placeholder": {
+      "type": "boolean",
+      "required": true,
+      "description": "TRUE if chunk is structural placeholder, not confirmed business data",
+      "default": false,
+      "examples": [true, false],
+      "usage": "CRITICAL: Filter placeholder content from customer-facing answers",
+      "enforcement": "MANDATORY for plans_chunks and network_chunks (all TRUE)"
+    },
+    
+    "safe_for_client_direct_use": {
+      "type": "boolean",
+      "required": true,
+      "description": "TRUE if chunk can be presented directly to customers without disclaimers",
+      "default": true,
+      "examples": [true, false],
+      "usage": "Guardrail for answer generation, FALSE for all placeholders",
+      "enforcement": "Must be FALSE when is_placeholder=true"
+    },
+    
+    "requires_plan_confirmation": {
+      "type": "boolean",
+      "required": false,
+      "description": "TRUE if answer depends on specific plan terms and benefits",
+      "default": false,
+      "examples": [true, false],
+      "usage": "Trigger disclaimer: 'Depends on your plan. Check policy documents.'",
+      "enforcement": "Set TRUE for plan-specific FAQs or placeholder plans"
+    },
+    
+    "requires_network_verification": {
+      "type": "boolean",
+      "required": false,
+      "description": "TRUE if answer depends on live provider network status",
+      "default": false,
+      "examples": [true, false],
+      "usage": "Trigger disclaimer: 'Verify provider status with customer service.'",
+      "enforcement": "Set TRUE for network-dependent FAQs or placeholder providers"
+    },
+    
+    "requires_policy_caution": {
+      "type": "boolean",
+      "required": false,
+      "description": "TRUE if chunk references policy terms requiring legal precision",
+      "default": false,
+      "examples": [true, false],
+      "usage": "Add extra caution to answer generation, recommend policy review"
+    }
+  },
+  
+  "retrieval_fields": {
+    "retrieval_weight_hint": {
+      "type": "number",
+      "required": true,
+      "description": "Suggested scoring multiplier for retrieval ranking (0.0-1.0)",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "examples": [1.0, 0.9, 0.5, 0.2],
+      "usage": "Apply to semantic similarity score to adjust ranking",
+      "recommendations": {
+        "FAQ_Approved": 1.0,
+        "FAQ_NeedsReview": 0.95,
+        "Rules_Active": 0.9,
+        "Mapping_High": 0.6,
+        "Mapping_Medium": 0.5,
+        "Mapping_Low": 0.4,
+        "Plans_Placeholder": 0.2,
+        "Network_Placeholder": 0.2
+      }
+    },
+    
+    "ingestion_priority": {
+      "type": "string",
+      "required": false,
+      "description": "Ingestion phase classification",
+      "enum": ["Phase 1", "Phase 2"],
+      "examples": ["Phase 1", "Phase 2"],
+      "usage": "Phase 1 = strong knowledge (FAQ, Rules, Mapping), Phase 2 = placeholders"
+    },
+    
+    "confidence": {
+      "type": "string",
+      "required": false,
+      "description": "Confidence level for mapping cross-references",
+      "enum": ["High", "Medium", "Low"],
+      "examples": ["High", "Medium", "Low"],
+      "usage": "Downweight low-confidence mappings, monitor retrieval quality",
+      "applies_to": "Mapping chunks only"
+    }
+  },
+  
+  "content_fields": {
+    "category": {
+      "type": "string",
+      "required": false,
+      "description": "Content category for FAQs or Rules",
+      "examples": ["Eligibility", "Coverage Basics", "Claims Process", "Cost & Payment"],
+      "usage": "Faceted search, category-based retrieval, analytics",
+      "applies_to": "FAQ and Rules chunks"
+    },
+    
+    "subcategory": {
+      "type": "string",
+      "required": false,
+      "description": "More specific content subcategory",
+      "examples": ["Deductibles", "Pre-existing Conditions", "Claim Filing"],
+      "usage": "Fine-grained filtering, topic clustering",
+      "applies_to": "FAQ chunks (optional)"
+    },
+    
+    "priority": {
+      "type": "string",
+      "required": false,
+      "description": "Business priority for FAQ content",
+      "enum": ["High", "Medium", "Low"],
+      "examples": ["High", "Medium"],
+      "usage": "Prioritize high-priority FAQs in retrieval when relevant",
+      "applies_to": "FAQ chunks"
+    },
+    
+    "related_plan_type": {
+      "type": "string",
+      "required": false,
+      "description": "Plan type context for FAQ or mapping",
+      "examples": ["Individual", "Family", "Group", "Generic"],
+      "usage": "Filter FAQs by plan type if available",
+      "applies_to": "FAQ and Mapping chunks"
+    }
+  },
+  
+  "dependency_flags": {
+    "needs_plan_link": {
+      "type": "boolean",
+      "required": false,
+      "description": "TRUE if FAQ answer would benefit from plan-specific context",
+      "default": false,
+      "examples": [true, false],
+      "usage": "Trigger plan context retrieval, identify content gaps",
+      "applies_to": "FAQ and Mapping chunks"
+    },
+    
+    "needs_rule_link": {
+      "type": "boolean",
+      "required": false,
+      "description": "TRUE if FAQ answer would benefit from business rule context",
+      "default": false,
+      "examples": [true, false],
+      "usage": "Trigger rule context retrieval, cross-reference enrichment",
+      "applies_to": "FAQ and Mapping chunks"
+    },
+    
+    "needs_network_check": {
+      "type": "boolean",
+      "required": false,
+      "description": "TRUE if FAQ answer depends on provider/network information",
+      "default": false,
+      "examples": [true, false],
+      "usage": "Trigger network context retrieval, identify operational gaps",
+      "applies_to": "FAQ and Mapping chunks"
+    }
+  },
+  
+  "mapping_fields": {
+    "question_id": {
+      "type": "string",
+      "required": false,
+      "description": "FAQ ID this mapping references",
+      "pattern": "^FAQ-\\d{3}$",
+      "examples": ["FAQ-001", "FAQ-015"],
+      "usage": "Cross-reference from mapping to FAQ",
+      "applies_to": "Mapping chunks only"
+    },
+    
+    "primary_rule_id": {
+      "type": "string",
+      "required": false,
+      "description": "Primary rule supporting this FAQ",
+      "pattern": "^RULE-\\d{3}$",
+      "examples": ["RULE-001", "RULE-012"],
+      "usage": "Link FAQ to most relevant rule",
+      "applies_to": "Mapping chunks only"
+    },
+    
+    "secondary_rule_id": {
+      "type": "string",
+      "required": false,
+      "description": "Secondary rule supporting this FAQ (optional)",
+      "pattern": "^RULE-\\d{3}$",
+      "examples": ["RULE-005", "RULE-018"],
+      "usage": "Link FAQ to additional relevant rules",
+      "applies_to": "Mapping chunks only"
+    },
+    
+    "tertiary_rule_id": {
+      "type": "string",
+      "required": false,
+      "description": "Tertiary rule supporting this FAQ (optional)",
+      "pattern": "^RULE-\\d{3}$",
+      "examples": ["RULE-009"],
+      "usage": "Link FAQ to tertiary relevant rules",
+      "applies_to": "Mapping chunks only"
+    },
+    
+    "related_plan_id": {
+      "type": "string",
+      "required": false,
+      "description": "Plan this mapping references (optional, often placeholder)",
+      "pattern": "^PLAN-\\d{3}$",
+      "examples": ["PLAN-001", "PLAN-005"],
+      "usage": "Link FAQ to plan context (caution: may be placeholder)",
+      "applies_to": "Mapping chunks only"
+    },
+    
+    "answer_type": {
+      "type": "string",
+      "required": false,
+      "description": "Classification of answer complexity",
+      "enum": ["Direct Answer", "Multi-Part Answer", "Requires Document Reference", "Requires Agent Review"],
+      "examples": ["Direct Answer", "Multi-Part Answer"],
+      "usage": "Route complex questions appropriately",
+      "applies_to": "Mapping chunks"
+    }
+  },
+  
+  "versioning_fields": {
+    "version": {
+      "type": "string",
+      "required": false,
+      "description": "Chunk content version",
+      "pattern": "^\\d+\\.\\d+$",
+      "examples": ["1.0", "1.1", "2.0"],
+      "usage": "Track content updates, version history"
+    },
+    
+    "created_date": {
+      "type": "string",
+      "required": false,
+      "description": "Date chunk was created (ISO 8601)",
+      "format": "date",
+      "examples": ["2026-03-19"],
+      "usage": "Audit trail, freshness tracking"
+    },
+    
+    "updated_date": {
+      "type": "string",
+      "required": false,
+      "description": "Date chunk was last updated (ISO 8601)",
+      "format": "date",
+      "examples": ["2026-03-19"],
+      "usage": "Audit trail, freshness tracking"
+    },
+    
+    "deprecated_date": {
+      "type": "string",
+      "required": false,
+      "description": "Date chunk was deprecated (ISO 8601)",
+      "format": "date",
+      "examples": ["2026-06-15"],
+      "usage": "Track when content became obsolete"
+    },
+    
+    "superseded_by": {
+      "type": "string",
+      "required": false,
+      "description": "Chunk ID of replacement content",
+      "examples": ["PLAN-CHUNK-105"],
+      "usage": "Link old placeholder to new real data"
+    }
+  },
+  
+  "plan_specific_fields": {
+    "plan_id": {
+      "type": "string",
+      "required": false,
+      "description": "Plan identifier",
+      "pattern": "^PLAN-\\d{3}$",
+      "examples": ["PLAN-001", "PLAN-005"],
+      "usage": "Unique plan reference",
+      "applies_to": "Plans chunks only"
+    },
+    
+    "plan_name": {
+      "type": "string",
+      "required": false,
+      "description": "Human-readable plan name",
+      "examples": ["Basic Individual Plan", "Comprehensive Family Plan"],
+      "usage": "Display name, plan identification",
+      "applies_to": "Plans chunks only"
+    },
+    
+    "plan_type": {
+      "type": "string",
+      "required": false,
+      "description": "Plan category",
+      "enum": ["Individual", "Family", "Group"],
+      "examples": ["Individual", "Family"],
+      "usage": "Plan categorization, filtering",
+      "applies_to": "Plans chunks only"
+    }
+  },
+  
+  "network_specific_fields": {
+    "provider_id": {
+      "type": "string",
+      "required": false,
+      "description": "Provider identifier",
+      "pattern": "^PROV-\\d{3}$",
+      "examples": ["PROV-001", "PROV-008"],
+      "usage": "Unique provider reference",
+      "applies_to": "Network chunks only"
+    },
+    
+    "provider_name": {
+      "type": "string",
+      "required": false,
+      "description": "Provider name",
+      "examples": ["Dubai Medical Center", "Abu Dhabi General Hospital"],
+      "usage": "Display name, provider identification",
+      "applies_to": "Network chunks only"
+    },
+    
+    "provider_type": {
+      "type": "string",
+      "required": false,
+      "description": "Provider category",
+      "enum": ["Hospital", "Clinic", "Pharmacy", "Specialist", "Lab"],
+      "examples": ["Hospital", "Clinic"],
+      "usage": "Provider categorization, filtering",
+      "applies_to": "Network chunks only"
+    },
+    
+    "network_name": {
+      "type": "string",
+      "required": false,
+      "description": "Network this provider belongs to",
+      "examples": ["Premium Network", "Basic Network"],
+      "usage": "Network filtering, plan-network matching",
+      "applies_to": "Network chunks only"
+    },
+    
+    "verification_method": {
+      "type": "string",
+      "required": false,
+      "description": "How to verify this provider's current status",
+      "examples": ["Call customer service", "Check online provider directory"],
+      "usage": "Instruct users on verification process",
+      "applies_to": "Network chunks only"
+    }
+  },
+  
+  "usage_guidelines": {
+    "mandatory_for_ingestion": [
+      "chunk_id",
+      "chunk_type",
+      "source_file",
+      "source_id",
+      "text",
+      "status",
+      "is_placeholder",
+      "safe_for_client_direct_use",
+      "retrieval_weight_hint"
+    ],
+    
+    "recommended_for_production": [
+      "ingestion_priority",
+      "category",
+      "priority",
+      "confidence",
+      "requires_plan_confirmation",
+      "requires_network_verification"
+    ],
+    
+    "optional_for_advanced_use": [
+      "version",
+      "created_date",
+      "updated_date",
+      "deprecated_date",
+      "superseded_by",
+      "requires_policy_caution"
+    ],
+    
+    "filtering_examples": {
+      "production_ready": "status IN ('Approved', 'Active') AND is_placeholder = false",
+      "high_confidence": "retrieval_weight_hint >= 0.9 AND safe_for_client_direct_use = true",
+      "needs_disclaimer": "requires_plan_confirmation = true OR requires_network_verification = true",
+      "placeholder_only": "is_placeholder = true",
+      "phase_1_content": "ingestion_priority = 'Phase 1'",
+      "faq_approved": "chunk_type = 'FAQ' AND status = 'Approved'"
+    }
+  },
+  
+  "validation_rules": {
+    "cross_field_constraints": [
+      {
+        "rule": "If is_placeholder = true, then safe_for_client_direct_use MUST be false",
+        "severity": "CRITICAL"
+      },
+      {
+        "rule": "If is_placeholder = true, then retrieval_weight_hint MUST be <= 0.3",
+        "severity": "CRITICAL"
+      },
+      {
+        "rule": "If chunk_type = 'Plans' or 'Network', then is_placeholder SHOULD be true (for current package)",
+        "severity": "HIGH"
+      },
+      {
+        "rule": "If status = 'Deprecated', then superseded_by SHOULD be provided",
+        "severity": "MEDIUM"
+      },
+      {
+        "rule": "If confidence = 'Low', then retrieval_weight_hint SHOULD be <= 0.5",
+        "severity": "MEDIUM"
+      }
+    ]
+  },
+  
+  "example_metadata": {
+    "faq_approved": {
+      "chunk_id": "FAQ-CHUNK-001",
+      "chunk_type": "FAQ",
+      "source_file": "faq_chunks.jsonl",
+      "source_id": "FAQ-001",
+      "text": "Question: What is a deductible?...",
+      "status": "Approved",
+      "is_placeholder": false,
+      "safe_for_client_direct_use": true,
+      "retrieval_weight_hint": 1.0,
+      "ingestion_priority": "Phase 1",
+      "category": "Cost & Payment",
+      "subcategory": "Deductibles",
+      "priority": "High",
+      "requires_plan_confirmation": true
+    },
+    
+    "rule_active": {
+      "chunk_id": "RULE-CHUNK-005",
+      "chunk_type": "Rules",
+      "source_file": "rules_chunks.jsonl",
+      "source_id": "RULE-005",
+      "text": "Rule: Waiting Period Application...",
+      "status": "Active",
+      "is_placeholder": false,
+      "safe_for_client_direct_use": true,
+      "retrieval_weight_hint": 0.9,
+      "ingestion_priority": "Phase 1",
+      "category": "Eligibility & Underwriting"
+    },
+    
+    "plan_placeholder": {
+      "chunk_id": "PLAN-CHUNK-003",
+      "chunk_type": "Plans",
+      "source_file": "plans_chunks.jsonl",
+      "source_id": "PLAN-003",
+      "text": "IMPORTANT: This is a structural placeholder...",
+      "status": "Pending Detail",
+      "is_placeholder": true,
+      "safe_for_client_direct_use": false,
+      "retrieval_weight_hint": 0.2,
+      "ingestion_priority": "Phase 2",
+      "plan_id": "PLAN-003",
+      "plan_name": "Basic Individual Plan",
+      "plan_type": "Individual",
+      "requires_plan_confirmation": true,
+      "requires_policy_caution": true
+    },
+    
+    "mapping_high_confidence": {
+      "chunk_id": "MAP-CHUNK-005",
+      "chunk_type": "Mapping",
+      "source_file": "mapping_reference.jsonl",
+      "source_id": "MAP-005",
+      "text": "FAQ FAQ-005 (Does my plan cover dental?) links to...",
+      "status": "Approved",
+      "is_placeholder": false,
+      "safe_for_client_direct_use": false,
+      "retrieval_weight_hint": 0.6,
+      "ingestion_priority": "Phase 1",
+      "confidence": "High",
+      "question_id": "FAQ-005",
+      "primary_rule_id": "RULE-003",
+      "related_plan_id": "PLAN-003",
+      "requires_plan_confirmation": true
+    }
+  },
+  
+  "notes": [
+    "All mandatory fields MUST be present for every ingested chunk.",
+    "Placeholder chunks (plans, network) MUST have is_placeholder=true and safe_for_client_direct_use=false.",
+    "Retrieval weight hints are recommendations; actual implementation may adjust based on retrieval performance.",
+    "Cross-field validation rules are enforced at ingestion time to prevent safety violations.",
+    "When real plan/network data becomes available, old placeholder chunks should be marked as deprecated.",
+    "See INGESTION_POLICY.md for detailed usage guidance."
+  ]
+}

@@ -1,0 +1,8 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
+BEN-AD-001,REMEDY_02,REMEDY 02,Organ transplantation,Covered up to AED 100000 with 20 percent outpatient coinsurance,Curated from Remedy 02 extract.
+BEN-AD-002,REMEDY_02,REMEDY 02,Kidney dialysis,Covered up to AED 60000 with 20 percent outpatient coinsurance,Curated from Remedy 02 extract.
+BEN-AD-003,REMEDY_02,REMEDY 02,Mental health,Covered up to AED 800 with 30 percent coinsurance per visit,Curated from Remedy 02 extract.
+BEN-AD-004,REMEDY_02,REMEDY 02,Dental treatment,Covered up to AED 500 with 30 percent coinsurance per visit,Curated from Remedy 02 extract.
+BEN-AD-005,REMEDY_02,REMEDY 02,Optical benefits,Up to 25 percent discount at HN Basic Plus optical network,Curated from Remedy 02 extract.
+BEN-AD-006,REMEDY_02,REMEDY 02,Alternative medical treatment,Available only on reimbursement basis up to AED 1500 per person per year with 30 percent coinsurance,Curated from Remedy 02 extract.
+BEN-AD-007,REMEDY_02,REMEDY 02,Basic annual health check up,Available at referred clinics only with AED 150 deductible per health checkup,Curated from Remedy 02 extract.

@@ -1,0 +1,3 @@
+rule_id,topic,rule_text,applies_to,status
+REF-001,Specialist referral rule,For essential benefit style outpatient access specialist and consultant services require a GP referral through the DHA e-referral process or equivalent approved method.,General outpatient referral handling,Extracted
+REF-002,Specialist network access,Provider network access for selected hospitals remains subject to GP referral for specialist care in clinics and hospitals.,REMEDY_02 through REMEDY_06,Extracted

@@ -1,0 +1,33 @@
+Tabs:
+- README
+- PLAN_MASTER
+- AREA_OF_COVERAGE
+- NETWORK_MASTER
+- NETWORK_SPECIAL_PROVIDERS
+- GROUP_DECLARATION_RULES
+- INDIVIDUAL_DECLARATION_RULES
+- PRE_EXISTING_RULES
+- INPATIENT_BENEFITS
+- OUTPATIENT_BENEFITS
+- PREVENTIVE_VACCINES
+- ADDITIONAL_BENEFITS
+- TRAVEL_EMERGENCY_ASSIST
+- MATERNITY
+- ALIASES
+
+PLAN_MASTER columns:
+plan_id, plan_name, plan_family, annual_max_benefit, currency, tpa, area_of_cover_key, medical_network_name, op_access_summary, ip_access_summary, specialist_referral_rule, group_declaration_rule_key, individual_declaration_rule_key, pre_existing_rule_key, reimbursement_outside_network_key, reimbursement_outside_uae_key, copayment_summary, labs_radiology_summary, maternity_summary, alternative_medicine_summary, status, owner_notes
+
+All other tabs: columns to be defined as per business structure, flat and readable, with key linkage fields.
+
+Preserved data:
+- PLAN-0001 (REMEDY 02) summary fields migrated to PLAN_MASTER where possible.
+
+To do:
+- Populate all other tabs with detailed data in future phases.
+
+Assumptions:
+- Only summary fields for Remedy 02 are migrated now.
+- All other tabs are created empty for now.
+
+This revised workbook is still draft-only and not yet the runtime source of truth.

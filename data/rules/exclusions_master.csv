@@ -1,0 +1,4 @@
+rule_id,topic,rule_text,applies_to,status
+EXC-001,Non-disclosure of pre-existing condition,Undisclosed pre-existing conditions can lead to denial of related claims and may affect ongoing coverage.,General training use,Approved
+EXC-002,Common claim rejection triggers,Claims may be rejected for missing required approval non-covered services missing documentation or late submission depending on plan terms and case facts.,General training use,Approved
+EXC-003,Out-of-network direct billing,Out-of-network providers should not be treated as direct-billing providers unless eligibility is separately verified.,General network handling,Approved

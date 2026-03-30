@@ -1,0 +1,432 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sample Retrieval Policy Configuration",
+  "description": "Reference configuration for RAG retrieval logic - Technology-agnostic template",
+  "version": "1.0",
+  "date": "2026-03-19",
+  
+  "retrieval_policy": {
+    "use_cases": {
+      "customer_facing_chatbot": {
+        "description": "Public-facing customer service chatbot - STRICT FILTERING",
+        "user_audience": "All customers",
+        "filtering_strategy": "STRICT",
+        
+        "mandatory_filters": {
+          "is_placeholder": false,
+          "description": "MANDATORY: Exclude all placeholders (legal liability protection)"
+        },
+        
+        "optional_filters": {
+          "status": {
+            "exclude": ["Deprecated"],
+            "description": "Exclude deprecated content"
+          },
+          "safe_for_client_direct_use": {
+            "prefer": true,
+            "description": "Prefer chunks safe for direct customer use"
+          }
+        },
+        
+        "retrieval_weighting": {
+          "base_formula": "final_score = semantic_similarity × retrieval_weight_hint × status_multiplier × use_case_multiplier",
+          "use_case_multipliers": {
+            "is_placeholder_true": 0.5,
+            "description_placeholder": "Heavy downrank (should be filtered out anyway, but extra safety)",
+            "safe_for_client_direct_use_false": 0.8,
+            "description_safe": "Downrank chunks not safe for direct use",
+            "confidence_low_or_very_low": 0.7,
+            "description_confidence": "Downrank low confidence chunks",
+            "chunk_type_mapping": 0.8,
+            "description_mapping": "Downrank mapping (reference layer, not customer-friendly)"
+          }
+        },
+        
+        "top_k": 10,
+        "description_top_k": "Retrieve top-10 chunks for answer generation",
+        
+        "answer_safety": {
+          "required_disclaimers": {
+            "plan_specific": "Check your policy documents or contact customer service for plan-specific details",
+            "network_verification": "Verify provider network status before scheduling appointment",
+            "operational_process": "Contact customer service for specific instructions",
+            "policy_interpretation": "Policy interpretation may vary, consult your policy documents"
+          },
+          "fallback_behavior": {
+            "no_results": "I don't have information on that topic. Please contact customer service at [number]",
+            "placeholder_only": "For accurate information, please contact customer service at [number]",
+            "description": "If only placeholders retrieved (should not happen due to filtering), provide fallback"
+          },
+          "weakest_link_rule": "Overall answer confidence = MIN(confidence of all retrieved chunks)"
+        }
+      },
+      
+      "internal_knowledge_assistant": {
+        "description": "Internal employee knowledge assistant - MODERATE FILTERING",
+        "user_audience": "Internal employees (customer service, operations)",
+        "filtering_strategy": "MODERATE",
+        
+        "mandatory_filters": {},
+        "description_mandatory": "No mandatory filters - allow all content",
+        
+        "optional_filters": {
+          "status": {
+            "exclude": ["Deprecated"],
+            "description": "Optionally exclude deprecated (can show with labeling)"
+          }
+        },
+        
+        "retrieval_weighting": {
+          "base_formula": "final_score = semantic_similarity × retrieval_weight_hint × status_multiplier × use_case_multiplier",
+          "use_case_multipliers": {
+            "is_placeholder_true": 0.8,
+            "description_placeholder": "Downrank placeholders but allow (with warning labels)",
+            "safe_for_client_direct_use_false": 1.0,
+            "description_safe": "Internal users can handle unsafe-for-client content",
+            "confidence_low": 0.9,
+            "description_confidence": "Small penalty for low confidence (internal users can judge)",
+            "chunk_type_mapping": 1.0,
+            "description_mapping": "Mapping useful for internal users (show relationships)"
+          }
+        },
+        
+        "placeholder_labeling": {
+          "enabled": true,
+          "label": "⚠️ PLACEHOLDER - Not confirmed product data",
+          "description": "If chunk has is_placeholder=true, add warning label"
+        },
+        
+        "top_k": 20,
+        "description_top_k": "Retrieve top-20 chunks (more context for internal users)",
+        
+        "answer_safety": {
+          "required_disclaimers": {
+            "placeholder_present": "Note: This answer includes placeholder content (not confirmed product data)"
+          },
+          "fallback_behavior": {
+            "no_results": "No information found. Check data directory or escalate to knowledge team."
+          }
+        }
+      },
+      
+      "self_service_faq_portal": {
+        "description": "Self-service FAQ portal - VERY STRICT FILTERING",
+        "user_audience": "Customers browsing FAQ without human assistance",
+        "filtering_strategy": "VERY STRICT",
+        
+        "mandatory_filters": {
+          "chunk_type": "FAQ",
+          "status": "Approved",
+          "confidence": "High",
+          "description": "ONLY FAQ Approved with High confidence (no Rules, no Mapping, no Placeholders)"
+        },
+        
+        "rationale": "Self-service means no human to add disclaimers, so only highest-confidence content allowed",
+        
+        "retrieval_weighting": {
+          "base_formula": "final_score = semantic_similarity × retrieval_weight_hint × status_multiplier × use_case_multiplier",
+          "use_case_multipliers": {
+            "chunk_type_not_FAQ": 0.0,
+            "status_not_Approved": 0.0,
+            "confidence_not_High": 0.0,
+            "description": "Eliminate anything not FAQ Approved High confidence"
+          }
+        },
+        
+        "top_k": 5,
+        "description_top_k": "Retrieve top-5 FAQ Approved chunks only",
+        
+        "answer_safety": {
+          "required_disclaimers": {
+            "general": "For personalized assistance, contact customer service at [number]"
+          },
+          "fallback_behavior": {
+            "no_results": "This question requires personalized assistance. Please contact customer service at [number]"
+          }
+        }
+      },
+      
+      "developer_testing": {
+        "description": "Developer testing/QA environment - NO FILTERING",
+        "user_audience": "Developers and QA engineers",
+        "filtering_strategy": "NONE",
+        
+        "mandatory_filters": {},
+        "description_mandatory": "No filters - retrieve everything to validate ingestion and test placeholder handling",
+        
+        "retrieval_weighting": {
+          "base_formula": "final_score = semantic_similarity × retrieval_weight_hint",
+          "use_case_multipliers": {},
+          "description": "No use-case multipliers - test raw weights"
+        },
+        
+        "top_k": 50,
+        "description_top_k": "Retrieve top-50 chunks for comprehensive testing",
+        
+        "warning": "NEVER deploy 'no filtering' to customer-facing environment"
+      }
+    },
+    
+    "weight_calculation": {
+      "description": "Detailed weight calculation ensuring trust hierarchy",
+      "formula": "final_retrieval_score = semantic_similarity_score × retrieval_weight_hint × status_multiplier × use_case_multiplier",
+      
+      "component_ranges": {
+        "semantic_similarity_score": {
+          "range": "0.0 - 1.0",
+          "source": "Vector similarity from embedding model"
+        },
+        "retrieval_weight_hint": {
+          "range": "0.0 - 1.0",
+          "source": "Metadata field from METADATA_APPLICATION_SPEC.md"
+        },
+        "status_multiplier": {
+          "range": "0.0 - 1.0",
+          "source": "Penalty based on status field",
+          "values": {
+            "Approved": 1.0,
+            "Active": 1.0,
+            "Needs Review": 0.95,
+            "Pending Detail": 0.85,
+            "Deprecated": 0.0
+          }
+        },
+        "use_case_multiplier": {
+          "range": "0.0 - 1.0",
+          "source": "Penalty based on use case (see use_cases section above)"
+        }
+      },
+      
+      "example_calculations": {
+        "example_1": {
+          "scenario": "FAQ Approved for customer-facing query",
+          "semantic_similarity": 0.85,
+          "retrieval_weight_hint": 1.0,
+          "status_multiplier": 1.0,
+          "use_case_multiplier": 1.0,
+          "final_score": 0.85,
+          "description": "FAQ-001 'What is a deductible?' matches query well"
+        },
+        "example_2": {
+          "scenario": "Plan Placeholder for customer-facing query",
+          "semantic_similarity": 0.85,
+          "retrieval_weight_hint": 0.2,
+          "status_multiplier": 0.8,
+          "use_case_multiplier": 0.5,
+          "final_score": 0.068,
+          "description": "PLAN-003 'Basic Family Plan' placeholder heavily downranked (should be filtered out anyway)"
+        },
+        "comparison": {
+          "FAQ_score": 0.85,
+          "Placeholder_score": 0.068,
+          "ratio": "12.5x",
+          "conclusion": "FAQ dominates despite identical semantic match, trust hierarchy enforced"
+        }
+      }
+    },
+    
+    "chunk_type_preferences": {
+      "description": "Typical ranking preferences by chunk type",
+      "tier_1_primary": {
+        "chunk_types": ["FAQ Approved", "FAQ Needs Review", "FAQ Pending Detail", "Rules Active"],
+        "weight_range": "0.85 - 1.0",
+        "use": "Direct customer answers with high confidence"
+      },
+      "tier_2_supporting": {
+        "chunk_types": ["Rules Needs Review", "Mapping High/Medium/Low"],
+        "weight_range": "0.4 - 0.85",
+        "use": "Context enrichment, reasoning support, cross-reference"
+      },
+      "tier_3_placeholder": {
+        "chunk_types": ["Plans Placeholder", "Network Placeholder"],
+        "weight_range": "0.16 - 0.2",
+        "use": "Question routing, context awareness ONLY, NEVER direct customer answers"
+      }
+    },
+    
+    "placeholder_penalties": {
+      "description": "Additional penalties for placeholder chunks across all use cases",
+      "weight_cap": 0.3,
+      "description_cap": "Placeholder base weight capped at 0.3 max (even if metadata says higher)",
+      "use_case_penalties": {
+        "customer_facing": 0.5,
+        "internal": 0.8,
+        "self_service": 0.0,
+        "developer_testing": 1.0
+      },
+      "combined_effect": {
+        "customer_facing": "0.2 base × 0.8 status × 0.5 use_case = 0.08 effective",
+        "internal": "0.2 base × 0.8 status × 0.8 use_case = 0.128 effective",
+        "self_service": "0.2 base × 0.0 use_case = 0 (filtered out)",
+        "developer_testing": "0.2 base × 0.8 status × 1.0 use_case = 0.16 (no penalty)"
+      }
+    },
+    
+    "status_based_filtering": {
+      "description": "How to handle different status values",
+      "Approved": {
+        "action": "Allow",
+        "penalty": "None (multiplier 1.0)",
+        "customer_facing": "Yes"
+      },
+      "Active": {
+        "action": "Allow",
+        "penalty": "None (multiplier 1.0)",
+        "customer_facing": "Yes"
+      },
+      "Needs Review": {
+        "action": "Allow with caution",
+        "penalty": "Small (multiplier 0.95)",
+        "customer_facing": "Yes, but add caution disclaimer for compliance topics (e.g., RULE-008)",
+        "note": "Requires compliance review for certain rules"
+      },
+      "Pending Detail": {
+        "action": "Allow with disclaimer",
+        "penalty": "Moderate (multiplier 0.85)",
+        "customer_facing": "Yes, but add operational disclaimer (e.g., FAQ-011 refill prescriptions)",
+        "note": "Operational details incomplete, defer specifics to customer service"
+      },
+      "Deprecated": {
+        "action": "Exclude",
+        "penalty": "Complete (multiplier 0.0)",
+        "customer_facing": "No (filtered out)",
+        "note": "Superseded by newer content"
+      }
+    },
+    
+    "mapping_handling": {
+      "description": "Special handling for Mapping chunks",
+      "retrieval": "Allow in retrieval (useful for finding related FAQ/Rules)",
+      "display": "NEVER display mapping text directly to customers",
+      "use": "Use mapping to identify related chunks, then retrieve and display those",
+      "weight": "0.4 - 0.6 (lower than FAQ/Rules, higher than placeholders)",
+      "customer_facing": "Retrieve for context, but exclude from answer text"
+    }
+  },
+  
+  "validation_scenarios": {
+    "description": "Test scenarios to validate retrieval policy implementation",
+    "scenario_1": {
+      "query": "What is a deductible?",
+      "expected_top_1": "FAQ-001 (Approved)",
+      "expected_top_5": "FAQ-001, RULE-001, MAP-001, ...",
+      "placeholder_in_results": "No (none relevant)",
+      "disclaimer_required": "No (general insurance concept)"
+    },
+    "scenario_2": {
+      "query": "Does my Basic Family Plan cover dental?",
+      "expected_top_1": "FAQ-005 (general dental coverage)",
+      "expected_behavior": "PLAN-003 placeholder filtered out OR heavily downranked (position >20)",
+      "placeholder_in_results": "Should be filtered out (customer-facing)",
+      "disclaimer_required": "Yes (plan-specific confirmation)"
+    },
+    "scenario_3": {
+      "query": "Is Dubai Medical Center in-network?",
+      "expected_top_1": "FAQ-015 (network verification process)",
+      "expected_behavior": "PROV-001 placeholder filtered out OR heavily downranked",
+      "placeholder_in_results": "Should be filtered out (customer-facing)",
+      "disclaimer_required": "Yes (network verification)"
+    },
+    "scenario_4": {
+      "query": "How do I refill a prescription?",
+      "expected_top_1": "FAQ-011 (Pending Detail)",
+      "expected_behavior": "Operational guidance with disclaimer",
+      "placeholder_in_results": "No (none relevant)",
+      "disclaimer_required": "Yes (operational process)"
+    }
+  },
+  
+  "monitoring_and_tuning": {
+    "description": "Metrics to monitor and weight tuning guidance",
+    
+    "monitoring_metrics": {
+      "chunk_type_distribution": {
+        "metric": "% of each chunk type in top-10 results",
+        "target": "FAQ+Rules >70%",
+        "alert_threshold": "FAQ+Rules <60%",
+        "action_if_alert": "Review FAQ/Rules weights, consider increasing"
+      },
+      "placeholder_ranking": {
+        "metric": "Average position of placeholders when they appear",
+        "target": "Position >20 (ideally not in top-20 at all)",
+        "alert_threshold": "Any placeholder in top-10",
+        "action_if_alert": "Decrease placeholder weights, improve filtering"
+      },
+      "placeholder_leak_rate": {
+        "metric": "% of customer answers with placeholder in sources",
+        "target": "0%",
+        "alert_threshold": ">0%",
+        "action_if_alert": "CRITICAL - Investigate filtering failure immediately"
+      },
+      "answer_quality_by_source": {
+        "metric": "User satisfaction by dominant source type",
+        "target": "FAQ 60-70%, Rules 20-30%, Mapping 10%",
+        "alert_threshold": "Placeholders appear as answer source",
+        "action_if_alert": "Investigate filtering failure"
+      }
+    },
+    
+    "weight_tuning_process": {
+      "step_1": {
+        "action": "Collect baseline metrics",
+        "details": "Run 50-100 sample queries, record top-10 chunk types and scores"
+      },
+      "step_2": {
+        "action": "Identify issues",
+        "details": "Placeholders too high? FAQ not dominating? Rules never appearing?"
+      },
+      "step_3": {
+        "action": "Adjust incrementally",
+        "details": "Change weights by 10-20% at a time (e.g., placeholder 0.2 → 0.1 or FAQ 1.0 → 1.1)",
+        "caution": "Don't make large changes at once, measure impact iteratively"
+      },
+      "step_4": {
+        "action": "Validate",
+        "details": "Run validation scenarios, ensure placeholder leak rate 0%, ensure answer quality acceptable"
+      }
+    },
+    
+    "common_tuning_scenarios": {
+      "placeholders_in_top_10": {
+        "issue": "Placeholders appearing in top-10 despite low weights",
+        "solution": [
+          "Decrease placeholder weights (0.2 → 0.1)",
+          "Increase FAQ weights (1.0 → 1.1) if needed",
+          "Ensure pre-retrieval filtering excludes placeholders for customer-facing"
+        ]
+      },
+      "rules_not_enriching": {
+        "issue": "Rules never appearing alongside FAQ",
+        "solution": [
+          "Increase Rules weights (0.9 → 1.0)",
+          "Review Rules content for semantic relevance",
+          "Consider adding more Rules content"
+        ]
+      },
+      "mapping_noise": {
+        "issue": "Mapping text appearing in customer answers",
+        "solution": [
+          "Ensure mapping excluded from direct display (implementation issue, not weight issue)",
+          "Keep mapping weights 0.4-0.6 for cross-reference only"
+        ]
+      }
+    }
+  },
+  
+  "implementation_notes": {
+    "technology_agnostic": "This policy is technology-agnostic. Implementation teams implement filtering and weighting logic in their chosen RAG framework.",
+    "reference_specifications": [
+      "CHUNK_FILTERING_RULES.md - Detailed filtering rules by use case",
+      "RETRIEVAL_WEIGHTING_SPEC.md - Weight calculation and hierarchy enforcement",
+      "PLACEHOLDER_ENFORCEMENT_SPEC.md - Placeholder operational rules",
+      "ANSWER_SAFETY_BEHAVIOR.md - Answer generation safety behavior"
+    ],
+    "critical_requirements": [
+      "Customer-facing MUST filter is_placeholder=true (legal liability)",
+      "Weight formula MUST enforce trust hierarchy (FAQ > Rules > Mapping > Placeholders)",
+      "Disclaimers MUST be added for plan/network-specific questions",
+      "Traceability MUST be maintained (answer → chunks → source files)",
+      "Monitoring MUST detect placeholder leaks (0% leak rate target)"
+    ]
+  }
+}

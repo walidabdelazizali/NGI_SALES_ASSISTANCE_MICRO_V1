@@ -1,0 +1,5 @@
+rule_id,topic,rule_text,applies_to,status
+TRM-001,Maximum benefit per year,Maximum benefit per year is AED 150000.,REMEDY_02 through REMEDY_06,Extracted
+TRM-002,Area of coverage,Area of coverage includes UAE and the Indian Sub-continent and South East Asia excluding Hong Kong and Singapore for elective and emergency treatment while elective inpatient treatment outside UAE remains subject to prior approval.,REMEDY_02 through REMEDY_06,Extracted
+TRM-003,Group declaration form,Group declaration form applies to groups sized 21 to 50 lives.,REMEDY_02 through REMEDY_06,Extracted
+TRM-004,Individual health declaration form,Individual health declaration form applies to groups of 20 lives and below at inception and upon member addition.,REMEDY_02 through REMEDY_06,Extracted

@@ -1,0 +1,4 @@
+rule_id,topic,rule_text,applies_to,status
+RMB-001,Direct billing vs reimbursement,Direct billing is used at eligible network providers while reimbursement requires the member to pay first and submit a claim afterward.,General training use,Approved
+RMB-002,Reimbursement outside network,Emergency medical treatment within the UAE can be reimbursed outside network based on plan terms.,REMEDY_02 through REMEDY_06,Extracted
+RMB-003,Reimbursement outside UAE,Eligible claims outside the UAE within the covered territory are reimbursed at 100 percent based on UAE designated network UCR rates or actual incurred cost whichever is lower.,REMEDY_02 through REMEDY_06,Extracted
