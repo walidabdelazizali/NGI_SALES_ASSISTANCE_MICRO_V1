@@ -1,5 +1,17 @@
 benefit_id,plan_id,plan_name,benefit_name,coverage,notes
-BEN-OP-001,REMEDY_02,REMEDY 02,Examination and treatment by authorized general practitioners specialists and consultants,15 percent coinsurance per visit with no charge for follow-up visits within 7 days for the same treatment and doctor,Curated from Remedy 02 extract.
+BEN-OP-101,REMEDY_03,NGI Healthnet – Remedy 03,Examination and treatment by authorized general practitioners specialists and consultants,10 percent coinsurance per visit with no charge for follow-up visits within 7 days for the same treatment and doctor,Specialist subject to GP referral in clinics and hospitals. Curated from Remedy 03 extract.
+BEN-OP-102,REMEDY_03,NGI Healthnet – Remedy 03,Laboratory tests carried out in authorized facility,10 percent copay at time of payment,Curated from Remedy 03 extract.
+BEN-OP-103,REMEDY_03,NGI Healthnet – Remedy 03,Radiology diagnostic services carried out in authorized facility,10 percent copay at time of payment; elective MRI/CT/endoscopies require pre-approval,Curated from Remedy 03 extract.
+BEN-OP-104,REMEDY_03,NGI Healthnet – Remedy 03,Physiotherapy,Covered for maximum 12 sessions per year with 10 percent copay per session; pre-approval required,Curated from Remedy 03 extract.
+BEN-OP-105,REMEDY_03,NGI Healthnet – Remedy 03,MRI,10 percent copay at time of payment; elective MRI requires pre-approval,Curated from Remedy 03 extract. Treated as radiology diagnostic service for coverage.
+BEN-OP-106,REMEDY_03,NGI Healthnet – Remedy 03,CT scan,10 percent copay at time of payment; elective CT requires pre-approval,Curated from Remedy 03 extract. Treated as radiology diagnostic service for coverage.
+BEN-OP-107,REMEDY_03,NGI Healthnet – Remedy 03,Generic prescribed drugs,20 percent copay at time of payment; pre-approval required; max AED 5,000/year including copay; excess over annual limit not covered,Curated from Remedy 03 extract. Treated as pharmacy/medication for coverage.
+BEN-OP-108,REMEDY_03,NGI Healthnet – Remedy 03,Prescribed drugs,Covered up to AED 5,000 per year with 20 percent payable by member; pre-approval required; excess over annual limit not covered,Curated from Remedy 03 extract. Approved Remedy 03 logic.
+BEN-OP-001,REMEDY_02,REMEDY 02,Examination and treatment by authorized general practitioners specialists and consultants,15 percent coinsurance per visit with no charge for follow-up visits within 7 days for the same treatment and doctor,Specialist subject to GP referral in clinics and hospitals. Curated from Remedy 02 extract.
 BEN-OP-002,REMEDY_02,REMEDY 02,Laboratory tests carried out in authorized facility,15 percent copay at time of payment,Curated from Remedy 02 extract.
 BEN-OP-003,REMEDY_02,REMEDY 02,Radiology diagnostic services carried out in authorized facility,15 percent copay at time of payment,Curated from Remedy 02 extract.
 BEN-OP-004,REMEDY_02,REMEDY 02,Physiotherapy,Covered for maximum 12 sessions per year with 15 percent copay per session,Curated from Remedy 02 extract.
+BEN-OP-005,REMEDY_02,REMEDY 02,MRI,15 percent copay at time of payment,Curated from Remedy 02 extract. Treated as radiology diagnostic service for coverage.
+BEN-OP-006,REMEDY_02,REMEDY 02,CT scan,15 percent copay at time of payment,Curated from Remedy 02 extract. Treated as radiology diagnostic service for coverage.
+BEN-OP-007,REMEDY_02,REMEDY 02,Generic prescribed drugs,15 percent copay at time of payment,Curated from Remedy 02 extract. Treated as pharmacy/medication for coverage.
+BEN-OP-008,REMEDY_02,REMEDY 02,Prescribed drugs,Covered up to AED 3,000 per year with 30 percent payable by member; pre-approval required,Curated from Remedy 02 extract. Approved Remedy 02 logic.

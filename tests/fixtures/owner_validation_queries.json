@@ -8,7 +8,7 @@
   {"id": 7, "category": "plan_core", "query": "What are the declaration requirements for Remedy 02?", "expected_behavior": "answer", "expected_contains": "declaration", "notes": "Now supported"},
   {"id": 8, "category": "benefits", "query": "What inpatient benefits does Remedy 02 have?", "expected_behavior": "answer", "expected_contains": "inpatient", "notes": "Now supported"},
   {"id": 9, "category": "benefits", "query": "What outpatient coverage does Remedy 02 have?", "expected_behavior": "answer", "expected_contains": "outpatient", "notes": "Now supported"},
-  {"id": 10, "category": "benefits", "query": "Does Remedy 02 include dental?", "expected_behavior": "gap_check", "notes": "Not supported"},
+  {"id": 10, "category": "benefits", "query": "Does Remedy 02 include dental?", "expected_behavior": "answer", "expected_contains": "not covered", "notes": "Explicit answer now returned"},
   {"id": 11, "category": "benefits", "query": "Does Remedy 02 include optical?", "expected_behavior": "gap_check", "notes": "Not supported"},
   {"id": 12, "category": "benefits", "query": "What is the maternity waiting period for Remedy 02?", "expected_behavior": "answer", "expected_contains": "maternity", "notes": "Now supported"},
   {"id": 13, "category": "benefits", "query": "What are the exclusions for Remedy 02?", "expected_behavior": "gap_check", "notes": "Not supported"},

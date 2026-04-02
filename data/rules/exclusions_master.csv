@@ -1,4 +1,36 @@
+EXC-004,Dental prostheses excluded,Dental prostheses are not covered under Remedy 03.,REMEDY_03,Approved
+EXC-005,Orthodontics excluded,Orthodontic treatments are not covered under Remedy 03.,REMEDY_03,Approved
+EXC-006,Cosmetic services excluded,Cosmetic services are not covered under Remedy 03.,REMEDY_03,Approved
+EXC-007,Obesity treatment excluded,Obesity treatment is not covered under Remedy 03.,REMEDY_03,Approved
+EXC-008,Smoking cessation excluded,Smoking cessation is not covered under Remedy 03.,REMEDY_03,Approved
+EXC-009,Contraception excluded,Contraception is not covered under Remedy 03.,REMEDY_03,Approved
+EXC-010,Infertility / IVF / embryo transfer excluded,Infertility, IVF, and embryo transfer are not covered under Remedy 03.,REMEDY_03,Approved
+EXC-011,Elective vision correction excluded,Elective vision correction is not covered under Remedy 03.,REMEDY_03,Approved
+EXC-012,Inpatient mental health excluded unless emergency,Inpatient mental health is not covered under Remedy 03 unless in emergency situations.,REMEDY_03,Approved
+EXC-013,Hearing tests / prosthetic devices / hearing and vision aids excluded generally,Hearing tests, prosthetic devices, and hearing/vision aids are generally not covered under Remedy 03.,REMEDY_03,Approved
+EXC-014,Alternative medicine generally excluded,Alternative medicine is generally not covered under Remedy 03.,REMEDY_03,Approved
+EXC-015,Road traffic accident outside scope,Road traffic accident cases are outside the scope of Remedy 03.,REMEDY_03,Approved
+EXC-016,Work-related injuries outside scope,Work-related injuries are outside the scope of Remedy 03.,REMEDY_03,Approved
+EXC-017,Alcohol / drugs related cases outside scope,Alcohol and drug-related cases are outside the scope of Remedy 03.,REMEDY_03,Approved
+EXC-018,Self-inflicted injuries outside scope,Self-inflicted injuries are outside the scope of Remedy 03.,REMEDY_03,Approved
+EXC-019,HIV/AIDS related services outside scope,HIV/AIDS related services are outside the scope of Remedy 03.,REMEDY_03,Approved
 rule_id,topic,rule_text,applies_to,status
 EXC-001,Non-disclosure of pre-existing condition,Undisclosed pre-existing conditions can lead to denial of related claims and may affect ongoing coverage.,General training use,Approved
 EXC-002,Common claim rejection triggers,Claims may be rejected for missing required approval non-covered services missing documentation or late submission depending on plan terms and case facts.,General training use,Approved
 EXC-003,Out-of-network direct billing,Out-of-network providers should not be treated as direct-billing providers unless eligibility is separately verified.,General network handling,Approved
+EXC-004,Dental prostheses excluded,Dental prostheses are not covered under Remedy 02.,REMEDY_02,Approved
+EXC-005,Orthodontics excluded,Orthodontic treatments are not covered under Remedy 02.,REMEDY_02,Approved
+EXC-006,Cosmetic services excluded,Cosmetic services are not covered under Remedy 02.,REMEDY_02,Approved
+EXC-007,Obesity treatment excluded,Obesity treatment is not covered under Remedy 02.,REMEDY_02,Approved
+EXC-008,Smoking cessation excluded,Smoking cessation is not covered under Remedy 02.,REMEDY_02,Approved
+EXC-009,Contraception excluded,Contraception is not covered under Remedy 02.,REMEDY_02,Approved
+EXC-010,Infertility / IVF / embryo transfer excluded,Infertility, IVF, and embryo transfer are not covered under Remedy 02.,REMEDY_02,Approved
+EXC-011,Elective vision correction excluded,Elective vision correction is not covered under Remedy 02.,REMEDY_02,Approved
+EXC-012,Inpatient mental health excluded unless emergency,Inpatient mental health is not covered under Remedy 02 unless in emergency situations.,REMEDY_02,Approved
+EXC-013,Hearing tests / prosthetic devices / hearing and vision aids excluded generally,Hearing tests, prosthetic devices, and hearing/vision aids are generally not covered under Remedy 02.,REMEDY_02,Approved
+EXC-014,Alternative medicine generally excluded,Alternative medicine is generally not covered under Remedy 02.,REMEDY_02,Approved
+EXC-015,Road traffic accident outside scope,Road traffic accident cases are outside the scope of Remedy 02.,REMEDY_02,Approved
+EXC-016,Work-related injuries outside scope,Work-related injuries are outside the scope of Remedy 02.,REMEDY_02,Approved
+EXC-017,Alcohol / drugs related cases outside scope,Alcohol and drug-related cases are outside the scope of Remedy 02.,REMEDY_02,Approved
+EXC-018,Self-inflicted injuries outside scope,Self-inflicted injuries are outside the scope of Remedy 02.,REMEDY_02,Approved
+EXC-019,HIV/AIDS related services outside scope,HIV/AIDS related services are outside the scope of Remedy 02.,REMEDY_02,Approved

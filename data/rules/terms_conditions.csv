@@ -1,4 +1,10 @@
 rule_id,topic,rule_text,applies_to,status
+TC-REMEDY03-PEC,Pre-existing and chronic conditions,"Pre-existing and chronic conditions are excluded for the first 6 months of first scheme membership under Remedy 03; otherwise covered from enrolment. Undeclared pre-existing and chronic conditions are not covered.",REMEDY_03,Approved
+TC-REMEDY03-PEC-UND,Undeclared pre-existing and chronic conditions,"Any undeclared pre-existing and chronic conditions are not covered.",REMEDY_03,Approved
+TRM-003,Group declaration form,Group declaration form applies to groups sized 21 to 50 lives.,REMEDY_03,Extracted
+TRM-004,Individual health declaration form,Individual health declaration form applies to groups of 20 lives and below at inception and upon member addition.,REMEDY_03,Extracted
+TC-REMEDY02-PEC,Pre-existing and chronic conditions,"Pre-existing and chronic conditions are excluded for the first 6 months of first scheme membership under Remedy 02; otherwise covered from enrolment. Undeclared pre-existing and chronic conditions are not covered.",REMEDY_02,Approved
+TC-REMEDY02-PEC-UND,Undeclared pre-existing and chronic conditions,"Any undeclared pre-existing and chronic conditions are not covered.",REMEDY_02,Approved
 TRM-001,Maximum benefit per year,Maximum benefit per year is AED 150000.,REMEDY_02 through REMEDY_06,Extracted
 TRM-002,Area of coverage,Area of coverage includes UAE and the Indian Sub-continent and South East Asia excluding Hong Kong and Singapore for elective and emergency treatment while elective inpatient treatment outside UAE remains subject to prior approval.,REMEDY_02 through REMEDY_06,Extracted
 TRM-003,Group declaration form,Group declaration form applies to groups sized 21 to 50 lives.,REMEDY_02 through REMEDY_06,Extracted

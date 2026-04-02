@@ -1,5 +1,12 @@
+BEN-IP-101,REMEDY_03,NGI Healthnet – Remedy 03,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Elective IP outside UAE subject to prior approval. Curated from Remedy 03 extract.
+BEN-IP-102,REMEDY_03,NGI Healthnet – Remedy 03,Emergency treatment approval within 24 hours of admission,Covered,Curated from Remedy 03 extract.
+BEN-IP-103,REMEDY_03,NGI Healthnet – Remedy 03,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 03 extract.
+BEN-IP-104,REMEDY_03,NGI Healthnet – Remedy 03,Ambulance,Ground transportation services in the UAE for medical emergencies,Curated from Remedy 03 extract.
+BEN-IP-105,REMEDY_03,NGI Healthnet – Remedy 03,Intensive care unit,Covered,Curated from Remedy 03 extract.
+BEN-IP-106,REMEDY_03,NGI Healthnet – Remedy 03,Parent/guardian accommodation,Covered,Curated from Remedy 03 extract.
+BEN-IP-107,REMEDY_03,NGI Healthnet – Remedy 03,Adult accommodation with inpatient,Covered,Curated from Remedy 03 extract.
 benefit_id,plan_id,plan_name,benefit_name,coverage,notes
-BEN-IP-001,REMEDY_02,REMEDY 02,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Curated from Remedy 02 extract.
+BEN-IP-001,REMEDY_02,REMEDY 02,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Elective IP outside UAE subject to prior approval. Curated from Remedy 02 extract.
 BEN-IP-002,REMEDY_02,REMEDY 02,Emergency treatment approval within 24 hours of admission,Covered,Curated from Remedy 02 extract.
 BEN-IP-003,REMEDY_02,REMEDY 02,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 02 extract.
 BEN-IP-004,REMEDY_02,REMEDY 02,Ambulance,Ground transportation services in the UAE for medical emergencies,Curated from Remedy 02 extract.

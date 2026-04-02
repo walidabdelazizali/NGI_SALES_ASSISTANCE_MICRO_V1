@@ -1,4 +1,9 @@
 benefit_id,plan_id,plan_name,benefit_name,coverage,notes
+BEN-MAT-101,REMEDY_03,NGI Healthnet – Remedy 03,Waiting period,Nil,Curated from Remedy 03 extract.
+BEN-MAT-102,REMEDY_03,NGI Healthnet – Remedy 03,In-patient maternity services,10 percent copay with maximum AED 10,000 for normal delivery and medically necessary C-section including complications and medically necessary termination,Curated from Remedy 03 extract.
+BEN-MAT-103,REMEDY_03,NGI Healthnet – Remedy 03,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 03 extract.
+BEN-MAT-104,REMEDY_03,NGI Healthnet – Remedy 03,Prenatal services,Covered for up to 8 visits with 10 percent copay per visit; pre-approval required,Curated from Remedy 03 extract. Approved Remedy 03 logic.
 BEN-MAT-001,REMEDY_02,REMEDY 02,Waiting period,Nil,Curated from Remedy 02 extract.
-BEN-MAT-002,REMEDY_02,REMEDY 02,In-patient maternity services,10 percent copay with maximum AED 10000 for normal delivery and medically necessary C-section including complications and medically necessary termination,Curated from Remedy 02 extract.
+BEN-MAT-002,REMEDY_02,REMEDY 02,In-patient maternity services,10 percent copay with maximum AED 10000 for normal delivery and medically necessary C-section including complications and medically necessary termination,Deferred: commercial inclusion/add-on classification not finalized. Curated from Remedy 02 extract.
 BEN-MAT-003,REMEDY_02,REMEDY 02,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 02 extract.
+BEN-MAT-004,REMEDY_02,REMEDY 02,Prenatal services,Covered for up to 8 visits with 10 percent copay per visit; pre-approval required,Curated from Remedy 02 extract. Approved Remedy 02 logic.

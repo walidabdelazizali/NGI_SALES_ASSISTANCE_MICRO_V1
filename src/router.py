@@ -24,8 +24,8 @@ PLAN_HINTS = [
     "provider network",
     "remedy 02",
     "remedy 03",
-    "remedy 04",
-    "remedy 05",
+        # "remedy 04",  # Isolated for cleanup
+        # "remedy 05",  # Isolated for cleanup
     "remedy 06",
     "remedy_02",
     "remedy_03",
