@@ -27,11 +27,14 @@ def escalation_lookup(criteria: str, kb_path: Path) -> Optional[Dict]:
     for entry in matrix:
         if entry.get("status", "") != "active":
             continue
-        # Match by keyword
-        keywords = [k.lower() for k in entry.get("keywords", [])]
-        if any(word in keywords for word in criteria_lc.split()):
+        # 1. Match by case_name substring
+        if entry.get("case_name", "").lower() in criteria_lc or criteria_lc in entry.get("case_name", "").lower():
             return entry
-        # Fallback: criteria substring match
-        if entry.get("criteria", "").lower() in criteria_lc:
+        # 2. Match by criteria substring
+        if entry.get("criteria", "").lower() in criteria_lc or criteria_lc in entry.get("criteria", "").lower():
             return entry
+        # 3. Match by keyword substring
+        for kw in entry.get("keywords", []):
+            if kw.lower() in criteria_lc or criteria_lc in kw.lower():
+                return entry
     return None
