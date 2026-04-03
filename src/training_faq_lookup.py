@@ -23,7 +23,32 @@ def load_jsonl(path: Path) -> List[Dict]:
 
 def faq_lookup(query: str, kb_path: Path) -> Optional[Dict]:
     faqs = load_jsonl(kb_path)
-    query_lc = query.lower().strip()
+    def normalize(text):
+        return " ".join(text.lower().strip().split())
+    query_norm = normalize(query)
+    # 1. Exact normalized question match
+    for faq in faqs:
+        if faq.get("status", "") != "active":
+            continue
+        q_norm = normalize(faq.get("question", ""))
+        if query_norm == q_norm:
+            return faq
+    # 2. Strong phrase-priority for reimbursement
+    reimbursement_phrases = [
+        "remedy member claim reimbursement",
+        "claim reimbursement",
+        "reimbursement"
+    ]
+    if any(phrase in query_norm for phrase in reimbursement_phrases):
+        for phrase in reimbursement_phrases:
+            for faq in faqs:
+                if faq.get("status", "") != "active":
+                    continue
+                q_norm = normalize(faq.get("question", ""))
+                keywords = [normalize(k) for k in faq.get("keywords", [])]
+                if phrase in q_norm or any(phrase in k for k in keywords):
+                    return faq
+    # 3. Fallback to previous scoring logic
     best = None
     best_score = -1
     for faq in faqs:
@@ -31,24 +56,21 @@ def faq_lookup(query: str, kb_path: Path) -> Optional[Dict]:
             continue
         q = faq.get("question", "").lower().strip()
         keywords = [k.lower() for k in faq.get("keywords", [])]
-        # 1. Exact question match
-        if query_lc == q:
-            score = 100
-        # 2. Query is full substring in question
-        elif query_lc in q:
+        # Query is full substring in question
+        if query_norm in normalize(q):
             score = 80
-        # 3. All query tokens in question
-        elif all(word in q for word in query_lc.split()):
+        # All query tokens in question
+        elif all(word in q for word in query_norm.split()):
             score = 60
-        # 4. All query tokens in keywords
-        elif all(word in keywords for word in query_lc.split()):
+        # All query tokens in keywords
+        elif all(word in keywords for word in query_norm.split()):
             score = 50
-        # 5. Any keyword overlap
-        elif any(word in keywords for word in query_lc.split()):
-            score = 30 + sum(1 for word in query_lc.split() if word in keywords)
-        # 6. Any token overlap in question
+        # Any keyword overlap
+        elif any(word in keywords for word in query_norm.split()):
+            score = 30 + sum(1 for word in query_norm.split() if word in keywords)
+        # Any token overlap in question
         else:
-            score = sum(1 for word in query_lc.split() if word in q)
+            score = sum(1 for word in query_norm.split() if word in q)
         if score > best_score:
             best = faq
             best_score = score
