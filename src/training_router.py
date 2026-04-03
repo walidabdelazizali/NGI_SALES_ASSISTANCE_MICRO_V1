@@ -34,7 +34,15 @@ def _prefer_exact(query, candidates, field):
 
 def route_training_query(query: str) -> dict:
     q = query.lower().strip()
-    # 1. Glossary intent (always check glossary first for these)
+    # 1. FAQ exact normalized match short-circuit (before any intent or scoring logic)
+    from training_faq_lookup import load_jsonl as load_faq_jsonl
+    faqs = load_faq_jsonl(FAQ_PATH)
+    norm_q = q
+    for f in faqs:
+        if f.get("status", "") == "active" and f.get("question", "").lower().strip() == norm_q:
+            return {"type": "faq", "result": f}
+
+    # 2. Glossary intent (always check glossary first for these)
     glossary_phrases = ["what is ", "define ", "meaning of ", "explain term"]
     if _phrase_in_query(glossary_phrases, q):
         glossary = glossary_lookup(query, GLOSSARY_PATH)
@@ -42,7 +50,7 @@ def route_training_query(query: str) -> dict:
             return {"type": "glossary", "result": glossary}
         else:
             return {"type": None, "result": None}
-    # 2. Escalation intent
+    # 3. Escalation intent
     escalation_phrases = ["escalate", "special approval", "who should handle", "exception case"]
     if _phrase_in_query(escalation_phrases, q):
         escalation = escalation_lookup(query, ESCALATION_PATH)
@@ -50,7 +58,7 @@ def route_training_query(query: str) -> dict:
             return {"type": "escalation", "result": escalation}
         else:
             return {"type": None, "result": None}
-    # 3. Rules intent
+    # 4. Rules intent
     rules_phrases = ["why rejected", "why declined", "not covered", "can it be approved", "is it covered", "why was", "why is"]
     if _phrase_in_query(rules_phrases, q):
         rule = rules_lookup(query, RULES_PATH)
@@ -58,17 +66,32 @@ def route_training_query(query: str) -> dict:
             return {"type": "rule", "result": rule}
         else:
             return {"type": None, "result": None}
-    # 4. FAQ fallback, then rules fallback
+
+    # 5. FAQ scoring fallback
     faq = faq_lookup(query, FAQ_PATH)
     if faq:
         return {"type": "faq", "result": faq}
+
+    # 6. Rule exact normalized match
+    from training_rules_lookup import load_jsonl as load_rule_jsonl
+    rules = load_rule_jsonl(RULES_PATH)
+    for r in rules:
+        if r.get("status", "") == "active" and r.get("rule_name", "").lower().strip() == norm_q:
+            return {"type": "rule", "result": r}
+
+    # 7. Rule scoring fallback
     rule = rules_lookup(query, RULES_PATH)
     if rule:
         return {"type": "rule", "result": rule}
+
+    # 8. Glossary fallback
     glossary = glossary_lookup(query, GLOSSARY_PATH)
     if glossary:
         return {"type": "glossary", "result": glossary}
+
+    # 9. Escalation fallback
     escalation = escalation_lookup(query, ESCALATION_PATH)
     if escalation:
         return {"type": "escalation", "result": escalation}
+
     return {"type": None, "result": None}

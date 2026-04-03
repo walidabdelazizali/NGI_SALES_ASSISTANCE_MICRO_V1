@@ -42,3 +42,9 @@ def test_unknown_ambiguous():
     result = route_training_query("What is the meaning of life?")
     assert result["type"] is None
     assert result["result"] is None
+
+def test_provider_submitted_pending_case():
+    result = route_training_query("If the provider says they submitted everything, why is the case still pending?")
+    assert result["type"] == "faq"
+    assert result["result"]["id"] == "FAQ-021"
+    assert "pending" in result["result"]["question"].lower() or "pending" in result["result"]["answer"].lower()
