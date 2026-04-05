@@ -121,10 +121,6 @@ def dispatch_query(query: str) -> dict[str, str]:
             benefit_row = lookup_benefit(plan, intent)
             if benefit_row:
                 return {"status": "found", "route": "benefit_lookup", "plan": plan, "intent": intent, "benefit": benefit_row}
-            else:
-                return {"status": "not_found", "route": "benefit_lookup", "plan": plan, "intent": intent}
-        else:
-            return {"status": "not_found", "route": "benefit_lookup"}
     if route == "network_lookup":
         result = lookup_network(query)
         if result.get("status") == "found":
