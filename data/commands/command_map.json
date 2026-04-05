@@ -1,0 +1,146 @@
+{
+  "/wa_followup_quote": {
+    "intent": "client_reply",
+    "channel": "whatsapp",
+    "use_case": "follow_up_after_quote",
+    "query_hint": "write a WhatsApp follow-up after sending the proposal"
+  },
+  "/wa_missing_docs": {
+    "intent": "client_reply",
+    "channel": "whatsapp",
+    "use_case": "request_missing_documents",
+    "query_hint": "request missing documents via WhatsApp"
+  },
+  "/wa_request_census": {
+    "intent": "client_reply",
+    "channel": "whatsapp",
+    "use_case": "request_census",
+    "query_hint": "ask for census file on WhatsApp"
+  },
+  "/wa_request_claims": {
+    "intent": "client_reply",
+    "channel": "whatsapp",
+    "use_case": "request_claims",
+    "query_hint": "request claims data via WhatsApp"
+  },
+  "/wa_price_objection": {
+    "intent": "client_reply",
+    "channel": "whatsapp",
+    "use_case": "price_objection",
+    "query_hint": "handle price objection on WhatsApp"
+  },
+  "/wa_explain_network": {
+    "intent": "client_reply",
+    "channel": "whatsapp",
+    "use_case": "explain_network",
+    "query_hint": "explain network coverage on WhatsApp"
+  },
+  "/wa_explain_direct_billing": {
+    "intent": "client_reply",
+    "channel": "whatsapp",
+    "use_case": "explain_direct_billing",
+    "query_hint": "explain direct billing on WhatsApp"
+  },
+  "/email_request_claims": {
+    "intent": "client_reply",
+    "channel": "email",
+    "use_case": "request_claims",
+    "query_hint": "request claims data by email"
+  },
+  "/email_request_trade_license": {
+    "intent": "client_reply",
+    "channel": "email",
+    "use_case": "request_trade_license",
+    "query_hint": "request trade license by email"
+  },
+  "/email_request_census": {
+    "intent": "client_reply",
+    "channel": "email",
+    "use_case": "request_census",
+    "query_hint": "ask for census file by email"
+  },
+  "/email_followup_quote": {
+    "intent": "client_reply",
+    "channel": "email",
+    "use_case": "follow_up_after_quote",
+    "query_hint": "follow up after sending quote by email"
+  },
+  "/email_internal_review_followup": {
+    "intent": "client_reply",
+    "channel": "email",
+    "use_case": "internal_review_followup",
+    "query_hint": "follow up after HR internal review by email"
+  },
+  "/email_explain_reimbursement": {
+    "intent": "client_reply",
+    "channel": "email",
+    "use_case": "explain_reimbursement",
+    "query_hint": "explain reimbursement by email"
+  },
+  "/linkedin_intro": {
+    "intent": "client_reply",
+    "channel": "linkedin",
+    "use_case": "intro",
+    "query_hint": "LinkedIn intro message"
+  },
+  "/linkedin_intro_hr": {
+    "intent": "client_reply",
+    "channel": "linkedin",
+    "use_case": "intro_hr",
+    "query_hint": "LinkedIn intro to HR"
+  },
+  "/linkedin_followup": {
+    "intent": "client_reply",
+    "channel": "linkedin",
+    "use_case": "followup",
+    "query_hint": "LinkedIn follow-up message"
+  },
+  "/linkedin_soft_pitch": {
+    "intent": "sales_pitch",
+    "channel": "linkedin",
+    "use_case": "soft_pitch",
+    "query_hint": "LinkedIn soft sales pitch"
+  },
+  "/linkedin_reengage": {
+    "intent": "client_reply",
+    "channel": "linkedin",
+    "use_case": "reengage",
+    "query_hint": "LinkedIn re-engagement message"
+  },
+  "/reply_price_objection": {
+    "intent": "client_reply",
+    "channel": "general",
+    "use_case": "price_objection",
+    "query_hint": "handle price objection"
+  },
+  "/reply_network_objection": {
+    "intent": "client_reply",
+    "channel": "general",
+    "use_case": "network_objection",
+    "query_hint": "handle network objection"
+  },
+  "/reply_current_provider": {
+    "intent": "client_reply",
+    "channel": "general",
+    "use_case": "current_provider_objection",
+    "query_hint": "handle current provider objection"
+  },
+  "/explain_preexisting": {
+    "intent": "benefit",
+    "channel": "general",
+    "use_case": "explain_preexisting",
+    "query_hint": "explain pre-existing condition"
+  },
+  "/explain_approval": {
+    "intent": "approval",
+    "channel": "general",
+    "use_case": "explain_approval",
+    "query_hint": "explain approval process"
+  },
+  "/explain_direct_billing": {
+    "intent": "benefit",
+    "channel": "general",
+    "use_case": "explain_direct_billing",
+    "query_hint": "explain direct billing"
+  }
+}
