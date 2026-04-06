@@ -92,7 +92,7 @@ def lookup_network(query: str) -> dict[str, str]:
                 "route": "network_lookup",
                 "provider": row.get("provider_name"),
                 "network": row.get("network_name"),
-                "answer": build_answer(row),
+                "answer": build_answer(row, direct_billing_intent=direct_billing_intent),
             }
 
     # Try city-aware match: if query contains city or emirate
@@ -105,7 +105,7 @@ def lookup_network(query: str) -> dict[str, str]:
                 "route": "network_lookup",
                 "provider": row.get("provider_name"),
                 "network": row.get("network_name"),
-                "answer": build_answer(row),
+                "answer": build_answer(row, direct_billing_intent=direct_billing_intent),
             }
         if emirate and emirate in normalized_query:
             return {
@@ -113,7 +113,7 @@ def lookup_network(query: str) -> dict[str, str]:
                 "route": "network_lookup",
                 "provider": row.get("provider_name"),
                 "network": row.get("network_name"),
-                "answer": build_answer(row),
+                "answer": build_answer(row, direct_billing_intent=direct_billing_intent),
             }
 
     return {"status": "not_found"}

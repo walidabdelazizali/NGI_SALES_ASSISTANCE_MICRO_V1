@@ -8,6 +8,7 @@ if str(SRC_DIR) not in sys.path:
 from training_qa_lookup import lookup_training_qa
 from plan_lookup import lookup_plan
 from network_lookup import lookup_network
+from faq_lookup import lookup_faq
 
 DATA_DIR = Path(__file__).resolve().parent.parent / 'data'
 TRAINING_QA_CSV = DATA_DIR / 'training_questions_master.csv'
@@ -39,6 +40,11 @@ def main():
             answer = lookup_training_qa(question, TRAINING_QA_CSV)
             if answer:
                 print(answer)
+                continue
+            # FAQ fuzzy fallback
+            faq_result = lookup_faq(question)
+            if faq_result.get('status') == 'found':
+                print(faq_result['answer'])
                 continue
         print("No answer found.")
 

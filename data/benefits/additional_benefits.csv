@@ -1,3 +1,4 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
 BEN-AD-101,REMEDY_03,NGI Healthnet – Remedy 03,Organ transplantation,Covered up to AED 100,000 with 20 percent outpatient coinsurance,Curated from Remedy 03 extract.
 BEN-AD-102,REMEDY_03,NGI Healthnet – Remedy 03,Kidney dialysis,Covered up to AED 60,000 with 20 percent outpatient coinsurance,Curated from Remedy 03 extract.
 BEN-AD-103,REMEDY_03,NGI Healthnet – Remedy 03,Mental health,Covered up to AED 800 with 30 percent coinsurance per visit,Curated from Remedy 03 extract.

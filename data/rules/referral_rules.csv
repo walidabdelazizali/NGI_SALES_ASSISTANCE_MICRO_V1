@@ -1,3 +1,4 @@
 rule_id,topic,rule_text,applies_to,status
 REF-002,Specialist referral and consultation,For Remedy 03: GP referral is required for specialist consultation, specialist care, and access to clinics and hospitals. The DHA e-referral process or equivalent approved method applies. No referral is needed for emergency cases.,REMEDY_03,Extracted
 REF-001,Specialist referral rule,For essential benefit style outpatient access specialist and consultant services require a GP referral through the DHA e-referral process or equivalent approved method.,General outpatient referral handling,Extracted
+REF-003,Specialist referral and consultation,For Remedy 02: GP referral is required for specialist consultation and specialist care. The DHA e-referral process or equivalent approved method applies. No referral is needed for emergency cases.,REMEDY_02,Extracted

@@ -1,3 +1,4 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
 BEN-PR-101,REMEDY_03,NGI Healthnet – Remedy 03,Essential vaccinations and inoculations,Covered up to AED 100 for newborn and child vaccinations as stipulated by DHA and MOH guidance,Curated from Remedy 03 extract.
 BEN-PR-102,REMEDY_03,NGI Healthnet – Remedy 03,Preventive services vaccines and immunizations,Covered,Curated from Remedy 03 extract.
 BEN-PR-103,REMEDY_03,NGI Healthnet – Remedy 03,Adult pneumococcal conjugate vaccine,Covered,Eligibility: Dubai Visa members only. Curated from Remedy 03 extract.

@@ -62,6 +62,9 @@ NETWORK_HINTS = [
     "ajman specialty",
     "international modern",
     "al saha",
+    "أستر",
+    "القصيص",
+    "الشبكة",
 ]
 
 RULE_HINTS = [
@@ -99,6 +102,8 @@ def dispatch_query(query: str) -> dict[str, str]:
     # 1. Structured lookups (priority)
     if route == "plan_lookup":
         result = lookup_plan(query)
+        if result is None:
+            result = {"status": "not_found"}
         if result.get("status") == "found":
             return result
     if route == "benefit_lookup":
@@ -121,6 +126,13 @@ def dispatch_query(query: str) -> dict[str, str]:
             benefit_row = lookup_benefit(plan, intent)
             if benefit_row:
                 return {"status": "found", "route": "benefit_lookup", "plan": plan, "intent": intent, "benefit": benefit_row}
+        # Fallback: if benefit_lookup failed and query mentions a plan, try plan_lookup
+        if plan_match:
+            result = lookup_plan(query)
+            if result is None:
+                result = {"status": "not_found"}
+            if result.get("status") == "found":
+                return result
     if route == "network_lookup":
         result = lookup_network(query)
         if result.get("status") == "found":

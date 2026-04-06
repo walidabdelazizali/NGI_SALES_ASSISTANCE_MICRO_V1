@@ -9,11 +9,16 @@ DATA_FILE = Path(__file__).resolve().parents[1] / "data" / "faq" / "training_que
 
 
 def _normalize(value: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", value.lower())).strip()
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9\u0621-\u064A]+", " ", value.lower())).strip()
 
+def _strip_article(token: str) -> str:
+    """Strip Arabic definite article prefix."""
+    if token.startswith('\u0627\u0644') and len(token) > 3:
+        return token[2:]
+    return token
 
 def _token_set(value: str) -> set[str]:
-    return {token for token in _normalize(value).split() if token}
+    return {_strip_article(token) for token in _normalize(value).split() if token}
 
 
 def _load_rows() -> list[dict[str, str]]:

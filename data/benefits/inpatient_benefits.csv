@@ -1,3 +1,4 @@
+benefit_id,plan_id,plan_name,benefit_name,coverage,notes
 BEN-IP-101,REMEDY_03,NGI Healthnet – Remedy 03,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Elective IP outside UAE subject to prior approval. Curated from Remedy 03 extract.
 BEN-IP-102,REMEDY_03,NGI Healthnet – Remedy 03,Emergency treatment approval within 24 hours of admission,Covered,Curated from Remedy 03 extract.
 BEN-IP-103,REMEDY_03,NGI Healthnet – Remedy 03,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 03 extract.

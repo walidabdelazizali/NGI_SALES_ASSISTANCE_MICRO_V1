@@ -8,7 +8,7 @@ ENRICHED_FIELD_MAP = [
     (['inpatient', 'ip'], 'inpatient_coverage', 'Inpatient Coverage'),
     (['emergency'], 'emergency_coverage', 'Emergency Coverage'),
     (['pharmacy', 'medicines', 'medication', 'drug'], 'pharmacy_coverage', 'Pharmacy Coverage'),
-    (['telemedicine', 'telemed'], 'telemedicine', 'Telemedicine'),
+    (['telemedicine', 'telemed', 'online consultation', 'online doctor', 'video consultation', 'remote consultation', 'doctor online', 'تلي ميديسن', 'التلي ميديسن', 'طب عن بعد'], 'telemedicine', 'Telemedicine'),
     (['wellness'], 'wellness_benefits', 'Wellness Benefits'),
 ]
 
@@ -130,8 +130,8 @@ def lookup_plan(query: str) -> dict:
     # 1. Explicit benefit mapping
     benefit_map = [
         (['physiotherapy', 'علاج طبيعي', 'العلاج الطبيعي'], 'Physiotherapy', 'outpatient_benefits', 'Physiotherapy'),
-        (['dental', 'أسنان', 'تغطية أسنان'], 'Dental', 'additional_benefits', 'Dental treatment'),
-        (['mri', 'magnetic resonance', 'تصوير بالرنين'], 'MRI', 'outpatient_benefits', 'MRI'),
+        (['dental', 'أسنان', 'تغطية أسنان', 'الاسنان', 'الأسنان'], 'Dental', 'additional_benefits', 'Dental treatment'),
+        (['mri', 'magnetic resonance', 'تصوير بالرنين', 'الرنين المغناطيسي', 'رنين مغناطيسي'], 'MRI', 'outpatient_benefits', 'MRI'),
         (['ct scan', 'computed tomography', 'سي تي', 'تصوير مقطعي'], 'CT scan', 'outpatient_benefits', 'CT scan'),
         (['endoscopy', 'منظار', 'تنظير'], 'Endoscopy', 'outpatient_benefits', 'Endoscopy'),
         (['laboratory', 'lab test', 'تحاليل', 'اختبار معملي'], 'Laboratory tests', 'outpatient_benefits', 'Laboratory tests carried out in authorized facility'),
@@ -322,7 +322,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -337,7 +337,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -791,7 +791,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -806,7 +806,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -1126,7 +1126,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -1141,7 +1141,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -1461,7 +1461,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -1476,7 +1476,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -1796,7 +1796,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -1811,7 +1811,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -2131,7 +2131,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -2146,7 +2146,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -2466,7 +2466,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -2481,7 +2481,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -2801,7 +2801,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -2816,7 +2816,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -3136,7 +3136,7 @@ def lookup_plan(query: str) -> dict:
     if any(phrase in normalized_query for phrase in maternity_phrases):
         val = row.get('maternity_note')
         if val:
-            plan_short = "Remedy 02"
+            plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
             return {
                 "status": "found",
                 "route": "plan_lookup",
@@ -3151,7 +3151,7 @@ def lookup_plan(query: str) -> dict:
             val = row.get(col)
             if val is not None:
                 # Owner-friendly phrasing
-                plan_short = "Remedy 02"
+                plan_short = row.get("plan_id", "REMEDY_02").replace("REMEDY_", "Remedy ")
                 if col == "deductible":
                     return {
                         "status": "found",
@@ -3452,3 +3452,12 @@ def lookup_plan(query: str) -> dict:
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
                     _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
+                if variant in allowed_variants:
+                    matched_row = row
+                else:
+                    return {"status": "not_found", "answer": "Plan not supported yet"}
+                break
+        if matched_row:
+            break
+
+    return {"status": "not_found"}
