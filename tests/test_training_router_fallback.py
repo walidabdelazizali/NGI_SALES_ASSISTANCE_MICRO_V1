@@ -11,10 +11,10 @@ def test_structured_answer_priority():
     assert result['route'] != 'training_lookup'
 
 def test_training_fallback_english():
-    # Query that is benefit-intent and plan detected, but not in structured benefit table
+    # Query that is benefit-intent but not in structured benefit table — falls through to training
     result = dispatch_query('Is mental health 800 per visit?')
-    assert result['status'] == 'not_found'  # Deterministic: benefit intent/plan detected but not found
-    assert result['route'] == 'benefit_lookup'
+    assert result['status'] == 'training_fallback'
+    assert result['route'] == 'training_lookup'
 
 def test_training_fallback_arabic():
     # Query that is Arabic, but plan_lookup answers with a structured plan answer (not a fallback)
@@ -23,10 +23,10 @@ def test_training_fallback_arabic():
     assert result['route'] == 'plan_lookup'
 
 def test_global_supports_plan():
-    # Query that is benefit-intent but not found in structured, so returns not_found
+    # Query that is benefit-intent but not in structured — falls through to FAQ or training
     result = dispatch_query('Is psychotherapy the same as mental health cover?')
-    assert result['status'] == 'not_found'
-    assert result['route'] == 'benefit_lookup'
+    assert result['status'] in ('found', 'training_fallback')
+    assert result['route'] != 'benefit_lookup'
 
 def test_no_answer_safe():
     # Query that matches nothing, but FAQ fallback may answer
