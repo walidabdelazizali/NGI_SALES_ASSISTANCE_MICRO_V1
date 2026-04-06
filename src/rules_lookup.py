@@ -55,6 +55,24 @@ def lookup_rules(query: str) -> dict[str, str]:
     # If it's a generic approval query, route to approvals_rules
     if is_approval_query:
         rows = list(_load_rows())
+        # 0. Prefer specific approval rule matching query tokens (e.g. MRI pre-approval for a specific plan)
+        best_specific = None
+        best_specific_score = 2
+        for row in rows:
+            if row["section"] == "approvals_rules":
+                haystack = " ".join([row.get("topic", ""), row.get("rule_text", ""), row.get("applies_to", "")])
+                score = len(query_tokens & _token_set(haystack))
+                if score > best_specific_score:
+                    best_specific_score = score
+                    best_specific = row
+        if best_specific:
+            return {
+                "status": "found",
+                "route": "rules_lookup",
+                "rule_id": best_specific["rule_id"],
+                "matched_topic": best_specific["topic"],
+                "answer": f"{best_specific['topic']} [{best_specific['section']}]\n{best_specific['rule_text']}"
+            }
         # 1. Prefer a general approval rule (topic contains 'approval', applies_to General training use)
         for row in rows:
             if row["section"] == "approvals_rules" and "approval" in row.get("topic", "").lower() and row.get("applies_to", "").strip().lower() == "general training use":

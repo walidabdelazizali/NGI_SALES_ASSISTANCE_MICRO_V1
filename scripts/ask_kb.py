@@ -33,6 +33,21 @@ def robust_normalize(text):
     text = re.sub(r'\s+', ' ', text)
     return text
 
+def clean_output(text):
+    """Remove internal/non-client-facing notes and fix formatting."""
+    if not isinstance(text, str):
+        return text
+    # Remove internal curation notes
+    text = re.sub(r'\s*Curated from Remedy \d{2,} extract\.?', '', text)
+    # Remove internal classification notes
+    text = re.sub(r'\s*Treated as [^.]+\bfor coverage\.?', '', text)
+    # Fix broken currency formatting: "AED 3. 000" -> "AED 3,000"
+    text = re.sub(r'AED\s+(\d{1,3})\. (\d{3})', r'AED \1,\2', text)
+    # Clean trailing/double whitespace and trailing periods
+    text = re.sub(r'\s{2,}', ' ', text).strip()
+    text = re.sub(r'\.\s*\.', '.', text)
+    return text
+
 PLAN_ATTRS = [
     'annual limit', 'annual_max', 'limit', 'area of coverage', 'coverage', 'network', 'copay', 'copayment', 'maternity', 'reimbursement', 'plan', 'benefit',
     'declaration', 'declaration requirements', 'pre-existing conditions', 'existing conditions',
@@ -103,7 +118,7 @@ def main():
     if 'non-urgent inpatient' in qn or 'non urgent inpatient' in qn or 'غير طارئة' in qn:
         plan_result = lookup_plan(question)
         if plan_result and plan_result.get('status') == 'found':
-            print(f"[PLAN] {plan_result['answer']}")
+            print(f"[PLAN] {clean_output(plan_result['answer'])}")
             return
 
     benefit_patterns = [
@@ -116,7 +131,13 @@ def main():
         (['radiology', 'تشخيص بالأشعة', 'تصوير شعاعي'], {"02": "Does Remedy 02 include radiology?", "03": "Does Remedy 03 include radiology?"}),
         (['generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة', 'prescribed drugs'], {"02": "Does Remedy 02 include prescribed drugs?", "03": "What is the prescribed drugs cover for Remedy 03?"})
     ]
+    # Skip benefit routing if query has approval intent (let rule_patterns handle it)
+    approval_intent_terms = ['require approval', 'approval required', 'approval for', 'need approval', 'pre-approval', 'preapproval', 'require pre approval', 'موافقة مسبقة']
+    has_approval_intent = any(term in qn for term in approval_intent_terms)
+
     for terms, routed_qs in benefit_patterns:
+        if has_approval_intent:
+            break
         if any(term in qn for term in terms):
             # Determine explicit plan
             plan = None
@@ -131,14 +152,14 @@ def main():
             if routed_q:
                 benefit_result = lookup_plan(routed_q)
                 if benefit_result and benefit_result.get('status') == 'found':
-                    print(f"[PLAN] {benefit_result['answer']}")
+                    print(f"[PLAN] {clean_output(benefit_result['answer'])}")
                     return
 
     # 2. Explicit maternity intent split
     if 'waiting period' in qn or 'فترة الانتظار' in qn:
         mat_result = lookup_plan("What is the maternity waiting period for Remedy 02?")
         if mat_result and mat_result.get('status') == 'found':
-            print(f"[PLAN] {mat_result['answer']}")
+            print(f"[PLAN] {clean_output(mat_result['answer'])}")
             return
     if 'prenatal' in qn or 'ما قبل الولادة' in qn:
         if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
@@ -146,7 +167,7 @@ def main():
         else:
             mat_result = lookup_plan("Does Remedy 02 include prenatal services?")
         if mat_result and mat_result.get('status') == 'found':
-            print(f"[PLAN] {mat_result['answer']}")
+            print(f"[PLAN] {clean_output(mat_result['answer'])}")
             return
     if 'newborn' in qn or 'حديثي الولادة' in qn:
         if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
@@ -154,7 +175,7 @@ def main():
         else:
             mat_result = lookup_plan("Does Remedy 02 include newborn cover?")
         if mat_result and mat_result.get('status') == 'found':
-            print(f"[PLAN] {mat_result['answer']}")
+            print(f"[PLAN] {clean_output(mat_result['answer'])}")
             return
 
     # 3. Telemedicine distinction
@@ -172,7 +193,7 @@ def main():
         else:
             telemed_result = lookup_plan("Does Remedy 02 include telemedicine?")
         if telemed_result and telemed_result.get('status') == 'found':
-            print(f"[PLAN] {telemed_result['answer']} (Note: Local telemedicine is not covered, but telemedicine is available under ISA Assist while traveling.)")
+            print(f"[PLAN] {clean_output(telemed_result['answer'])} (Note: Local telemedicine is not covered, but telemedicine is available under ISA Assist while traveling.)")
             return
 
     # 4. GP referral, pre-existing, chronic, approval-required rules
@@ -189,9 +210,12 @@ def main():
                 routed_q = routed_q.replace('Remedy XX', 'Remedy 03')
             else:
                 routed_q = routed_q.replace('Remedy XX', 'Remedy 02')
+            # Narrow: if approval + MRI, pass MRI context to rules lookup
+            if 'mri' in qn and 'approval' in qn:
+                routed_q = routed_q.replace('Is approval required', 'Is MRI pre-approval required')
             rule_result = lookup_rules(routed_q)
             if rule_result and rule_result.get('status') == 'found':
-                print(f"[RULE] {rule_result['answer']}")
+                print(f"[RULE] {clean_output(rule_result['answer'])}")
                 return
 
     # MINI PHASE 3C: maternity-only no-plan fallback
@@ -205,7 +229,7 @@ def main():
     ):
         maternity_result = lookup_plan("Does Remedy 02 include maternity?")
         if maternity_result and maternity_result.get('status') == 'found':
-            print(f"[PLAN] {maternity_result['answer']}")
+            print(f"[PLAN] {clean_output(maternity_result['answer'])}")
             return
 
     # MINI PHASE 3B: telemedicine-only no-plan fallback
@@ -232,7 +256,7 @@ def main():
         else:
             telemed_result = lookup_plan("Does Remedy 02 include telemedicine?")
             if telemed_result and telemed_result.get('status') == 'found':
-                print(f"[PLAN] {telemed_result['answer']}")
+                print(f"[PLAN] {clean_output(telemed_result['answer'])}")
                 return
 
     # MINI PHASE 3A: physiotherapy-only no-plan fallback
@@ -247,7 +271,7 @@ def main():
         # Route to explicit Remedy 02 physiotherapy answer (fallback only if no plan mentioned)
         physio_result = lookup_plan("Does Remedy 02 cover physiotherapy?")
         if physio_result and physio_result.get('status') == 'found':
-            print(f"[PLAN] {physio_result['answer']}")
+            print(f"[PLAN] {clean_output(physio_result['answer'])}")
             return
 
 
@@ -263,7 +287,7 @@ def main():
             print("Please specify the plan name for copayment details (e.g., 'What is the copay for Remedy 02?').")
             return
         if plan_result and plan_result.get('status') == 'found':
-            print(f"[PLAN] {plan_result['answer']}")
+            print(f"[PLAN] {clean_output(plan_result['answer'])}")
             return
 
     # 2. Network lookup
@@ -276,7 +300,7 @@ def main():
     # 3. FAQ/training fallback
     answer = lookup_training_qa(question, TRAINING_QA_CSV)
     if answer:
-        print(f"[FAQ] {answer}")
+        print(f"[FAQ] {clean_output(answer)}")
         return
 
     print("No answer found.")

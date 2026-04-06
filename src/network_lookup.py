@@ -52,7 +52,7 @@ def lookup_network(query: str) -> dict[str, str]:
                 answer = f"Direct billing is available for {provider}."
             else:
                 answer = f"Direct billing is NOT available for {provider}."
-            answer = f"[NETWORK] {answer}\nPlan: {network}.\nLocation: {city}, {emirate}."
+            answer = f"{answer}\nPlan: {network}.\nLocation: {city}, {emirate}."
             return answer
         # Required canonical output contract for generic network
         answer = f"{provider} is in network."
