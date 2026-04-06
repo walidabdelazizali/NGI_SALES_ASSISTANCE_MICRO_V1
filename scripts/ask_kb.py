@@ -43,6 +43,15 @@ def clean_output(text):
     text = re.sub(r'\s*Treated as [^.]+\bfor coverage\.?', '', text)
     # Fix broken currency formatting: "AED 3. 000" -> "AED 3,000"
     text = re.sub(r'AED\s+(\d{1,3})\. (\d{3})', r'AED \1,\2', text)
+    # Add commas to bare AED amounts (e.g. AED 150000 -> AED 150,000)
+    def _fmt_aed(m):
+        return 'AED ' + f'{int(m.group(1)):,}'
+    text = re.sub(r'AED\s+(\d{4,})', _fmt_aed, text)
+    # Normalize plan names to client-facing form
+    text = re.sub(r'NGI Healthnet\s*[\u2013\u2014–—-]\s*Remedy\s*(\d{2})', r'Remedy \1', text)
+    text = re.sub(r'REMEDY\s+(\d{2})', r'Remedy \1', text)
+    # Display: "percent" -> "%"
+    text = re.sub(r'(\d+)\s+percent\b', r'\1%', text)
     # Clean trailing/double whitespace and trailing periods
     text = re.sub(r'\s{2,}', ' ', text).strip()
     text = re.sub(r'\.\s*\.', '.', text)
@@ -196,7 +205,7 @@ def main():
         else:
             telemed_result = lookup_plan("Does Remedy 02 include telemedicine?")
         if telemed_result and telemed_result.get('status') == 'found':
-            print(f"[PLAN] {clean_output(telemed_result['answer'])} (Note: Local telemedicine is not covered, but telemedicine is available under ISA Assist while traveling.)")
+            print(f"[PLAN] {clean_output(telemed_result['answer'])} (Telemedicine is available under ISA Assist while traveling.)")
             return
 
     # 4. GP referral, pre-existing, chronic, approval-required rules
@@ -298,7 +307,7 @@ def main():
     if is_network_query(question):
         net_result = lookup_network(question)
         if net_result and net_result.get('status') == 'found':
-            print(f"[NETWORK] {net_result['answer']}")
+            print(f"[NETWORK] {clean_output(net_result['answer'])}")
             return
 
     # 3. FAQ/training fallback

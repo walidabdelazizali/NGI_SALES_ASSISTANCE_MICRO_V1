@@ -71,7 +71,7 @@ def lookup_rules(query: str) -> dict[str, str]:
                 "route": "rules_lookup",
                 "rule_id": best_specific["rule_id"],
                 "matched_topic": best_specific["topic"],
-                "answer": f"{best_specific['topic']} [{best_specific['section']}]\n{best_specific['rule_text']}"
+                "answer": f"{best_specific['topic']}\n{best_specific['rule_text']}"
             }
         # 1. Prefer a general approval rule (topic contains 'approval', applies_to General training use)
         for row in rows:
@@ -81,7 +81,7 @@ def lookup_rules(query: str) -> dict[str, str]:
                     "route": "rules_lookup",
                     "rule_id": row["rule_id"],
                     "matched_topic": row["topic"],
-                    "answer": f"{row['topic']} [{row['section']}]\n{row['rule_text']}"
+                    "answer": f"{row['topic']}\n{row['rule_text']}"
                 }
         # 2. Fallback: any approvals_rules row with topic containing 'approval'
         for row in rows:
@@ -91,7 +91,7 @@ def lookup_rules(query: str) -> dict[str, str]:
                     "route": "rules_lookup",
                     "rule_id": row["rule_id"],
                     "matched_topic": row["topic"],
-                    "answer": f"{row['topic']} [{row['section']}]\n{row['rule_text']}"
+                    "answer": f"{row['topic']}\n{row['rule_text']}"
                 }
         # 3. Fallback: any approvals_rules row
         for row in rows:
@@ -101,7 +101,7 @@ def lookup_rules(query: str) -> dict[str, str]:
                     "route": "rules_lookup",
                     "rule_id": row["rule_id"],
                     "matched_topic": row["topic"],
-                    "answer": f"{row['topic']} [{row['section']}]\n{row['rule_text']}"
+                    "answer": f"{row['topic']}\n{row['rule_text']}"
                 }
         # If no approval rule found, return not_found
         return {
@@ -123,7 +123,7 @@ def lookup_rules(query: str) -> dict[str, str]:
                 "route": "rules_lookup",
                 "rule_id": found_row["rule_id"],
                 "matched_topic": found_row["topic"],
-                "answer": f"{found_row['topic']} [{found_row['section']}]\n{found_row['rule_text']}"
+                "answer": f"{found_row['topic']}\n{found_row['rule_text']}"
             }
 
     best_row: dict[str, str] | None = None
@@ -169,7 +169,7 @@ def lookup_rules(query: str) -> dict[str, str]:
             "rule_id": best_row["rule_id"],
             "matched_topic": best_row["topic"],
             "answer": (
-                f"{best_row['topic']} [{best_row['section']}]\n"
+                f"{best_row['topic']}\n"
                 f"{best_row['rule_text']}"
             ),
         }

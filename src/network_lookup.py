@@ -47,17 +47,22 @@ def lookup_network(query: str) -> dict[str, str]:
         city = row.get('city')
         emirate = row.get('emirate')
         direct_billing = row.get('direct_billing_possible', '').strip().lower()
+        # Deduplicate city/emirate when identical
+        if city and emirate and city.strip().lower() == emirate.strip().lower():
+            location = city
+        else:
+            location = f"{city}, {emirate}"
         if direct_billing_intent:
             if direct_billing == 'yes':
                 answer = f"Direct billing is available for {provider}."
             else:
                 answer = f"Direct billing is NOT available for {provider}."
-            answer = f"{answer}\nPlan: {network}.\nLocation: {city}, {emirate}."
+            answer = f"{answer}\nPlan: {network}.\nLocation: {location}."
             return answer
         # Required canonical output contract for generic network
         answer = f"{provider} is in network."
         answer += f"\nPlan: {network}."
-        answer += f"\nLocation: {city}, {emirate}."
+        answer += f"\nLocation: {location}."
         return answer
 
     # Direct billing intent detection (must take precedence)
