@@ -3,3 +3,4 @@ rule_id,topic,rule_text,applies_to,status
 APR-001,Approval requirement,Certain procedures and treatments require approval before service so coverage and medical necessity can be confirmed.,General training use,Approved
 APR-002,Emergency approval,No prior approval is needed for genuine emergency treatment but prompt post-admission notification is still required.,General training use,Approved
 APR-003,Room and board approval,Room and board under Remedy 02 requires prior approval from the insurance company.,REMEDY_02,Extracted
+APR-004,MRI pre-approval,Elective MRI under Remedy 03 requires pre-approval from the insurance company.,REMEDY_03,Extracted

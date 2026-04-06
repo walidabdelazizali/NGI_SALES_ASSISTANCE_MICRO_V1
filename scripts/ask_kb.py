@@ -81,7 +81,7 @@ def main():
     plan_regex_guard = r"remedy[\s\-_]?(\d{2,})"
     if any(term in question.lower() for term in telemed_terms_guard):
         plan_match_guard = re.search(plan_regex_guard, question.lower())
-        if plan_match_guard and plan_match_guard.group(1) != "02":
+        if plan_match_guard and plan_match_guard.group(1) not in ("02", "03"):
             print("No answer found.")
             return
 
@@ -108,8 +108,8 @@ def main():
 
     benefit_patterns = [
         (['physiotherapy', 'علاج طبيعي', 'العلاج الطبيعي'], {"02": "Does Remedy 02 include physiotherapy?", "03": "Does Remedy 03 include physiotherapy?"}),
-        (['dental', 'أسنان', 'تغطية أسنان', 'dental coverage', 'dental benefit', 'dental included', 'dental covered', 'هل فيها أسنان', 'هل الخطة فيها تغطية أسنان', 'هل dental موجودة'], {"02": "Does Remedy 02 include dental?"}),
-        (['mri', 'magnetic resonance', 'تصوير بالرنين'], {"02": "Does Remedy 02 include MRI?", "03": "Does Remedy 03 include MRI?"}),
+        (['dental', 'أسنان', 'تغطية أسنان', 'الأسنان', 'الاسنان', 'dental coverage', 'dental benefit', 'dental included', 'dental covered', 'هل فيها أسنان', 'هل الخطة فيها تغطية أسنان', 'هل dental موجودة'], {"02": "Does Remedy 02 include dental?", "03": "Does Remedy 03 include dental?"}),
+        (['mri', 'magnetic resonance', 'تصوير بالرنين', 'الرنين المغناطيسي', 'رنين مغناطيسي'], {"02": "Does Remedy 02 include MRI?", "03": "Does Remedy 03 include MRI?"}),
         (['ct scan', 'computed tomography', 'سي تي', 'تصوير مقطعي'], {"02": "Does Remedy 02 include CT scan?", "03": "Does Remedy 03 include CT scan?"}),
         (['endoscopy', 'منظار', 'تنظير'], {"02": "Does Remedy 02 include endoscopy?", "03": "Does Remedy 03 include endoscopy?"}),
         (['laboratory', 'lab test', 'تحاليل', 'اختبار معملي'], {"02": "Does Remedy 02 include laboratory tests?", "03": "Does Remedy 03 include laboratory tests?"}),
@@ -159,21 +159,25 @@ def main():
 
     # 3. Telemedicine distinction
     telemed_terms = [
-        'telemedicine', 'تيلي ميديسن', 'تيليمديسن', 'استشارة عن بعد'
+        'telemedicine', 'تيلي ميديسن', 'تيليمديسن', 'التلي ميديسن', 'استشارة عن بعد'
     ]
     if any(term in qn for term in telemed_terms):
         # Distinguish local vs. ISA Assist
         if 'isa assist' in qn or 'travel' in qn or 'سفر' in qn:
             print("[PLAN] Telemedicine is available under ISA Assist / travel assistance for Remedy 02 while traveling outside country of residence.")
             return
-        telemed_result = lookup_plan("Does Remedy 02 include telemedicine?")
+        # Detect which Remedy plan
+        if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
+            telemed_result = lookup_plan("Does Remedy 03 include telemedicine?")
+        else:
+            telemed_result = lookup_plan("Does Remedy 02 include telemedicine?")
         if telemed_result and telemed_result.get('status') == 'found':
             print(f"[PLAN] {telemed_result['answer']} (Note: Local telemedicine is not covered, but telemedicine is available under ISA Assist while traveling.)")
             return
 
     # 4. GP referral, pre-existing, chronic, approval-required rules
     rule_patterns = [
-        (['gp referral', 'specialist referral', 'إحالة طبيب عام', 'إحالة أخصائي'], "Do I need GP referral for specialist consultation in Remedy XX?"),
+        (['gp referral', 'specialist referral', 'referral', 'تحويل', 'المختص', 'طبيب مختص', 'الطبيب المختص', 'إحالة طبيب عام', 'إحالة أخصائي'], "Do I need GP referral for specialist consultation in Remedy XX?"),
         (['pre-existing', 'pre existing', 'chronic', 'existing condition', 'حالة مزمنة', 'حالات مزمنة', 'حالة سابقة', 'preexisting'], "What are the pre-existing condition rules for Remedy XX?"),
         (['approval required', 'approval', 'موافقة', 'موافقة مسبقة'], "Is approval required for Remedy XX?")
     ]
@@ -218,7 +222,7 @@ def main():
         plan_match = plan_match_raw or plan_match_norm
         if plan_match:
             plan_num = plan_match.group(1)
-            if plan_num != "02":
+            if plan_num not in ("02", "03"):
                 # Minimal guard: block fallback if explicit unsupported plan and plan lookup did not resolve
                 plan_result = lookup_plan(question)
                 if not (plan_result and plan_result.get('status') == 'found'):
