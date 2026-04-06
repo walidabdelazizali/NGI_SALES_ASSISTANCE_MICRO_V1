@@ -95,6 +95,34 @@ def lookup_network(query: str) -> dict[str, str]:
                 "answer": build_answer(row, direct_billing_intent=direct_billing_intent),
             }
 
+    # Try reverse partial match: if a significant query token matches start of provider name
+    query_words = [w for w in normalized_query.split() if len(w) >= 4 and w.isascii()]
+    for row in providers:
+        pname = _normalize(row.get("provider_name", ""))
+        for qw in query_words:
+            if pname.startswith(qw):
+                return {
+                    "status": "found",
+                    "route": "network_lookup",
+                    "provider": row.get("provider_name"),
+                    "network": row.get("network_name"),
+                    "answer": build_answer(row, direct_billing_intent=direct_billing_intent),
+                }
+
+    # Try reverse partial match: if a significant query token matches start of provider name
+    query_words = [w for w in normalized_query.split() if len(w) >= 4 and w.isascii()]
+    for row in providers:
+        pname = _normalize(row.get("provider_name", ""))
+        for qw in query_words:
+            if pname.startswith(qw):
+                return {
+                    "status": "found",
+                    "route": "network_lookup",
+                    "provider": row.get("provider_name"),
+                    "network": row.get("network_name"),
+                    "answer": build_answer(row, direct_billing_intent=direct_billing_intent),
+                }
+
     # Try city-aware match: if query contains city or emirate
     for row in providers:
         city = _normalize(row.get('city', ''))

@@ -75,6 +75,9 @@ def is_network_query(q):
     # Route direct billing questions to network lookup
     if 'direct billing' in qn or 'direct' in qn or 'مباشر' in qn:
         return True
+    # Arabic in-network / out-of-network phrasing
+    if 'داخل الشبكة' in qn or 'خارج الشبكة' in qn:
+        return True
     # Heuristic: if question asks about a provider in a network/plan (Arabic/English)
     if any(robust_normalize(term) in qn for term in NETWORK_TERMS) and (('network' in qn or 'plan' in qn or 'شبكة' in qn or 'خطة' in qn)):
         return True
@@ -124,7 +127,7 @@ def main():
     benefit_patterns = [
         (['physiotherapy', 'علاج طبيعي', 'العلاج الطبيعي'], {"02": "Does Remedy 02 include physiotherapy?", "03": "Does Remedy 03 include physiotherapy?"}),
         (['dental', 'أسنان', 'تغطية أسنان', 'الأسنان', 'الاسنان', 'dental coverage', 'dental benefit', 'dental included', 'dental covered', 'هل فيها أسنان', 'هل الخطة فيها تغطية أسنان', 'هل dental موجودة'], {"02": "Does Remedy 02 include dental?", "03": "Does Remedy 03 include dental?"}),
-        (['mri', 'magnetic resonance', 'تصوير بالرنين', 'الرنين المغناطيسي', 'رنين مغناطيسي'], {"02": "Does Remedy 02 include MRI?", "03": "Does Remedy 03 include MRI?"}),
+        (['mri', 'magnetic resonance', 'تصوير بالرنين', 'الرنين المغناطيسي', 'رنين مغناطيسي', 'الرنين', 'رنين'], {"02": "Does Remedy 02 include MRI?", "03": "Does Remedy 03 include MRI?"}),
         (['ct scan', 'computed tomography', 'سي تي', 'تصوير مقطعي'], {"02": "Does Remedy 02 include CT scan?", "03": "Does Remedy 03 include CT scan?"}),
         (['endoscopy', 'منظار', 'تنظير'], {"02": "Does Remedy 02 include endoscopy?", "03": "Does Remedy 03 include endoscopy?"}),
         (['laboratory', 'lab test', 'تحاليل', 'اختبار معملي'], {"02": "Does Remedy 02 include laboratory tests?", "03": "Does Remedy 03 include laboratory tests?"}),
@@ -132,13 +135,13 @@ def main():
         (['generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة', 'prescribed drugs'], {"02": "Does Remedy 02 include prescribed drugs?", "03": "What is the prescribed drugs cover for Remedy 03?"})
     ]
     # Skip benefit routing if query has approval intent (let rule_patterns handle it)
-    approval_intent_terms = ['require approval', 'approval required', 'approval for', 'need approval', 'pre-approval', 'preapproval', 'require pre approval', 'موافقة مسبقة']
-    has_approval_intent = any(term in qn for term in approval_intent_terms)
+    approval_intent_terms = ['require approval', 'approval required', 'approval for', 'need approval', 'pre-approval', 'preapproval', 'require pre approval', 'موافقة مسبقة', 'محتاج موافقة', 'محتاج approval', 'يحتاج موافقة']
+    has_approval_intent = any(robust_normalize(term) in qn for term in approval_intent_terms)
 
     for terms, routed_qs in benefit_patterns:
         if has_approval_intent:
             break
-        if any(term in qn for term in terms):
+        if any(robust_normalize(term) in qn for term in terms):
             # Determine explicit plan
             plan = None
             if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
@@ -182,7 +185,7 @@ def main():
     telemed_terms = [
         'telemedicine', 'تيلي ميديسن', 'تيليمديسن', 'التلي ميديسن', 'استشارة عن بعد'
     ]
-    if any(term in qn for term in telemed_terms):
+    if any(robust_normalize(term) in qn for term in telemed_terms):
         # Distinguish local vs. ISA Assist
         if 'isa assist' in qn or 'travel' in qn or 'سفر' in qn:
             print("[PLAN] Telemedicine is available under ISA Assist / travel assistance for Remedy 02 while traveling outside country of residence.")
@@ -203,7 +206,7 @@ def main():
         (['approval required', 'approval', 'موافقة', 'موافقة مسبقة'], "Is approval required for Remedy XX?")
     ]
     for terms, routed_q in rule_patterns:
-        if any(term in qn for term in terms):
+        if any(robust_normalize(term) in qn for term in terms):
             from rules_lookup import lookup_rules
             # Patch: route to Remedy 03 if query mentions Remedy 03, else Remedy 02
             if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
@@ -211,7 +214,8 @@ def main():
             else:
                 routed_q = routed_q.replace('Remedy XX', 'Remedy 02')
             # Narrow: if approval + MRI, pass MRI context to rules lookup
-            if 'mri' in qn and 'approval' in qn:
+            mri_ar_terms = ['mri', 'الرنين', 'رنين']
+            if any(t in qn for t in mri_ar_terms) and any(robust_normalize(t) in qn for t in ['approval', 'موافقة']):
                 routed_q = routed_q.replace('Is approval required', 'Is MRI pre-approval required')
             rule_result = lookup_rules(routed_q)
             if rule_result and rule_result.get('status') == 'found':
@@ -224,8 +228,8 @@ def main():
         'maternity', 'حمل', 'ماتيرنيتي', 'ولادة', 'maternity coverage', 'maternity benefit', 'maternity included', 'maternity covered', 'هل فيها حمل', 'هل الخطة فيها ولادة', 'هل maternity موجودة'
     ]
     if (
-        any(term in qn for term in maternity_terms)
-        and not any(term in qn for term in plan_terms)
+        any(robust_normalize(term) in qn for term in maternity_terms)
+        and not any(robust_normalize(term) in qn for term in plan_terms)
     ):
         maternity_result = lookup_plan("Does Remedy 02 include maternity?")
         if maternity_result and maternity_result.get('status') == 'found':
@@ -237,7 +241,7 @@ def main():
     telemed_terms = [
         'telemedicine', 'تيلي ميديسن', 'تيليمديسن', 'استشارة عن بعد'
     ]
-    if any(term in qn for term in telemed_terms):
+    if any(robust_normalize(term) in qn for term in telemed_terms):
         import re
         # Check both raw and normalized query for explicit plan mention
         plan_regex = r"remedy[\s\-_]?(\d{2,})"
@@ -265,8 +269,8 @@ def main():
         'physiotherapy', 'علاج طبيعي', 'العلاج الطبيعي'
     ]
     if (
-        any(term in qn for term in physio_terms)
-        and not any(term in qn for term in plan_terms)
+        any(robust_normalize(term) in qn for term in physio_terms)
+        and not any(robust_normalize(term) in qn for term in plan_terms)
     ):
         # Route to explicit Remedy 02 physiotherapy answer (fallback only if no plan mentioned)
         physio_result = lookup_plan("Does Remedy 02 cover physiotherapy?")
