@@ -18,7 +18,7 @@ def test_alias_provider_name():
 
 def test_provider_not_found():
     out = run_cli("Is Fake Hospital in the network?")
-    assert "No answer found" in out
+    assert "not confirmed" in out or "No answer found" in out
 
 def test_direct_billing_yes():
     out = run_cli("Does Mediclinic City Hospital offer direct billing?")

@@ -143,6 +143,9 @@ def lookup_plan(query: str) -> dict:
         (['prescribed drugs', 'generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة'], 'Prescribed drugs', 'outpatient_benefits', 'Prescribed drugs'),
         (['optical', 'نظارات', 'بصريات'], 'Optical', 'additional_benefits', 'Optical benefits'),  # Optical = discount-only (25%), not insured coverage
         (['shingrix', 'shingrix vaccine', 'شينجريكس'], 'Shingrix vaccine', 'preventive_benefits', 'Shingrix vaccine'),  # R06 only; R02-R05 have no Shingrix row
+        (['influenza', 'influenza vaccine', 'flu vaccine', 'flu shot', 'لقاح الانفلونزا', 'تطعيم الانفلونزا'], 'Influenza vaccine', 'preventive_benefits', 'Influenza vaccine'),
+        (['pneumococcal', 'pneumococcal vaccine', 'لقاح المكورات'], 'Pneumococcal vaccine', 'preventive_benefits', 'pneumococcal conjugate vaccine'),
+        (['vaccine', 'vaccination', 'immunization', 'تطعيم', 'لقاح', 'تطعيمات'], 'Preventive vaccines', 'preventive_benefits', 'Preventive services vaccines and immunizations'),
     ]
     import csv
     for terms, label, benefit_file, benefit_name in benefit_map:
@@ -225,6 +228,15 @@ def lookup_plan(query: str) -> dict:
                         "matched_plan": "REMEDY 02",
                         "answer": "Dental is not covered under Remedy 02."
                     }
+                # Hotfix: "Not listed" fallback for preventive benefits when plan is valid but specific benefit missing
+                if benefit_file == 'preventive_benefits' and explicit_plan and not found:
+                    plan_short = explicit_plan.replace('REMEDY_', 'Remedy ')
+                    return {
+                        "status": "found",
+                        "route": "plan_lookup",
+                        "plan_id": explicit_plan,
+                        "answer": f"{label} is not listed under {plan_short}."
+                    }
         # --- PATCH: Non-urgent inpatient approval for Remedy 03 ---
         if ('non-urgent inpatient' in normalized_query or 'non urgent inpatient' in normalized_query or 'غير طارئة' in normalized_query):
             if matched_row and matched_row.get('plan_id') == 'REMEDY_04':
@@ -272,93 +284,45 @@ def lookup_plan(query: str) -> dict:
                         "answer": f"Maternity waiting period for {brow.get('plan_name')}: {brow['coverage']}. {brow.get('notes','').strip()}"
                     }
     if any(term in normalized_query for term in ['prenatal', 'pre-natal', 'antenatal', 'ما قبل الولادة']):
+        # Prenatal handler — filter by target_plan so the requested plan's row wins (same pattern as WP fix).
+        target_plan = matched_row.get('plan_id') if matched_row else None
         benefit_path = Path(__file__).resolve().parents[1] / 'data' / 'benefits' / 'maternity_benefits.csv'
         with open(benefit_path, encoding='utf-8', newline='') as f:
             reader = csv.DictReader(f)
             for brow in reader:
-                # PATCH: Remedy 06 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_06' and brow['plan_id'] == 'REMEDY_06' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_06",
-                        "answer": f"[PLAN] Prenatal services for Remedy 06: {brow['coverage']}."
-                    }
-                # PATCH: Remedy 05 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_05' and brow['plan_id'] == 'REMEDY_05' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_05",
-                        "answer": f"[PLAN] Prenatal services for Remedy 05: {brow['coverage']}."
-                    }
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_04' and brow['plan_id'] == 'REMEDY_04' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Prenatal services for Remedy 04: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
-                # PATCH: Remedy 03 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_03' and brow['plan_id'] == 'REMEDY_03' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Prenatal services for Remedy 03: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
-                if brow['plan_id'] == 'REMEDY_02' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Prenatal services for Remedy 02: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
+                if brow['plan_id'] not in ['REMEDY_02', 'REMEDY_03', 'REMEDY_04', 'REMEDY_05', 'REMEDY_06']:
+                    continue
+                if 'prenatal' not in brow['benefit_name'].lower():
+                    continue
+                if target_plan and brow['plan_id'] != target_plan:
+                    continue
+                return {
+                    "status": "found",
+                    "route": "plan_lookup",
+                    "plan_id": brow.get("plan_id"),
+                    "matched_plan": brow.get("plan_name"),
+                    "answer": f"Prenatal services for {brow.get('plan_name')}: {brow['coverage']}. {brow.get('notes','').strip()}"
+                }
     if 'newborn' in normalized_query or 'حديثي الولادة' in normalized_query:
+        # Newborn handler — filter by target_plan so the requested plan's row wins (same pattern as WP fix).
+        target_plan = matched_row.get('plan_id') if matched_row else None
         benefit_path = Path(__file__).resolve().parents[1] / 'data' / 'benefits' / 'maternity_benefits.csv'
         with open(benefit_path, encoding='utf-8', newline='') as f:
             reader = csv.DictReader(f)
             for brow in reader:
-                # PATCH: Remedy 06 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_06' and brow['plan_id'] == 'REMEDY_06' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_06",
-                        "answer": f"[PLAN] Newborn cover for Remedy 06: {brow['coverage']}."
-                    }
-                # PATCH: Remedy 05 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_05' and brow['plan_id'] == 'REMEDY_05' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_05",
-                        "answer": f"[PLAN] Newborn cover for Remedy 05: {brow['coverage']}."
-                    }
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_04' and brow['plan_id'] == 'REMEDY_04' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Newborn cover for Remedy 04: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
-                # PATCH: Remedy 03 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_03' and brow['plan_id'] == 'REMEDY_03' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Newborn cover for Remedy 03: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
-                if brow['plan_id'] == 'REMEDY_02' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Newborn cover for Remedy 02: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
+                if brow['plan_id'] not in ['REMEDY_02', 'REMEDY_03', 'REMEDY_04', 'REMEDY_05', 'REMEDY_06']:
+                    continue
+                if 'newborn' not in brow['benefit_name'].lower():
+                    continue
+                if target_plan and brow['plan_id'] != target_plan:
+                    continue
+                return {
+                    "status": "found",
+                    "route": "plan_lookup",
+                    "plan_id": brow.get("plan_id"),
+                    "matched_plan": brow.get("plan_name"),
+                    "answer": f"Newborn cover for {brow.get('plan_name')}: {brow['coverage']}. {brow.get('notes','').strip()}"
+                }
 
     normalized_query = _normalize(query)
     rows = _load_rows()

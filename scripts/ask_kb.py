@@ -95,6 +95,18 @@ def is_network_query(q):
         return True
     return False
 
+# Hotfix Issue 6: unlimited qualifier — prepend denial when query claims "unlimited" but answer has a cap
+def _apply_unlimited_check(qn, answer_text):
+    """If the query asks about 'unlimited' and the answer contains a cap indicator, prepend denial."""
+    unlimited_terms = ['unlimited', 'غير محدود', 'بدون حد', 'open limit', 'no limit', 'بلا حد']
+    if not any(t in qn for t in unlimited_terms):
+        return answer_text
+    cap_indicators = ['aed', 'per year', 'per incident', 'up to', 'limited to', 'maximum', 'cap', 'limit']
+    ans_lower = answer_text.lower()
+    if any(ind in ans_lower for ind in cap_indicators):
+        return f"No, it is not unlimited. {answer_text}"
+    return answer_text
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Ask a question against the insurance knowledge base.")
@@ -144,6 +156,9 @@ def main():
         (['generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة', 'prescribed drugs'], {"02": "Does Remedy 02 include prescribed drugs?", "03": "What is the prescribed drugs cover for Remedy 03?", "04": "What is the prescribed drugs cover for Remedy 04?", "05": "What is the prescribed drugs cover for Remedy 05?", "06": "What is the prescribed drugs cover for Remedy 06?"}),
         (['optical', 'نظارات', 'بصريات', 'optical benefit', 'optical coverage'], {"02": "Does Remedy 02 include optical?", "03": "Does Remedy 03 include optical?", "04": "Does Remedy 04 include optical?", "05": "Does Remedy 05 include optical?", "06": "Does Remedy 06 include optical?"}),  # Optical = discount-only (25%)
         (['shingrix', 'shingrix vaccine', 'شينجريكس'], {"02": "Does Remedy 02 include Shingrix vaccine?", "03": "Does Remedy 03 include Shingrix vaccine?", "04": "Does Remedy 04 include Shingrix vaccine?", "05": "Does Remedy 05 include Shingrix vaccine?", "06": "Does Remedy 06 include Shingrix vaccine?"}),  # Shingrix: R06 only
+        (['influenza', 'influenza vaccine', 'flu vaccine', 'flu shot', 'لقاح الانفلونزا', 'تطعيم الانفلونزا'], {"02": "Does Remedy 02 include influenza vaccine?", "03": "Does Remedy 03 include influenza vaccine?", "04": "Does Remedy 04 include influenza vaccine?", "05": "Does Remedy 05 include influenza vaccine?", "06": "Does Remedy 06 include influenza vaccine?"}),
+        (['pneumococcal', 'pneumococcal vaccine', 'لقاح المكورات'], {"02": "Does Remedy 02 include pneumococcal vaccine?", "03": "Does Remedy 03 include pneumococcal vaccine?", "04": "Does Remedy 04 include pneumococcal vaccine?", "05": "Does Remedy 05 include pneumococcal vaccine?", "06": "Does Remedy 06 include pneumococcal vaccine?"}),
+        (['vaccine', 'vaccination', 'immunization', 'تطعيم', 'لقاح', 'تطعيمات'], {"02": "Does Remedy 02 include vaccines?", "03": "Does Remedy 03 include vaccines?", "04": "Does Remedy 04 include vaccines?", "05": "Does Remedy 05 include vaccines?", "06": "Does Remedy 06 include vaccines?"}),
     ]
     # Skip benefit routing if query has approval intent (let rule_patterns handle it)
     approval_intent_terms = ['require approval', 'approval required', 'approval for', 'need approval', 'pre-approval', 'preapproval', 'require pre approval', 'موافقة مسبقة', 'محتاج موافقة', 'محتاج approval', 'يحتاج موافقة']
@@ -172,11 +187,12 @@ def main():
             if routed_q:
                 benefit_result = lookup_plan(routed_q)
                 if benefit_result and benefit_result.get('status') == 'found':
-                    print(f"[PLAN] {clean_output(benefit_result['answer'])}")
+                    print(f"[PLAN] {_apply_unlimited_check(qn, clean_output(benefit_result['answer']))}")
                     return
 
     # 2. Explicit maternity intent split
-    if 'waiting period' in qn or 'فترة الانتظار' in qn:
+    # Hotfix: expand Arabic WP variants — "فترة انتظار" (no الـ), "مدة انتظار", "انتظار الحمل"
+    if 'waiting period' in qn or 'فترة الانتظار' in qn or 'فترة انتظار' in qn or 'مدة انتظار' in qn or 'انتظار الحمل' in qn:
         if 'remedy 06' in qn or 'remedy06' in qn or 'ريمدي 06' in qn or 'ريميدي 06' in qn:
             mat_result = lookup_plan("What is the maternity waiting period for Remedy 06?")
         elif 'remedy 05' in qn or 'remedy05' in qn or 'ريمدي 05' in qn or 'ريميدي 05' in qn:
@@ -245,8 +261,9 @@ def main():
             return
 
     # 4. GP referral, pre-existing, chronic, approval-required rules
+    # Hotfix: added Arabic direct-access terms and bare 'specialist' for referral routing
     rule_patterns = [
-        (['gp referral', 'specialist referral', 'referral', 'تحويل', 'المختص', 'طبيب مختص', 'الطبيب المختص', 'إحالة طبيب عام', 'إحالة أخصائي'], "Do I need GP referral for specialist consultation in Remedy XX?"),
+        (['gp referral', 'specialist referral', 'referral', 'تحويل', 'المختص', 'طبيب مختص', 'الطبيب المختص', 'إحالة طبيب عام', 'إحالة أخصائي', 'دخول مباشر', 'specialist', 'دكتور متخصص', 'طبيب متخصص', 'محتاج تحويل', 'محتاجة تحويل', 'لازم gp'], "Do I need GP referral for specialist consultation in Remedy XX?"),
         (['pre-existing', 'pre existing', 'chronic', 'existing condition', 'حالة مزمنة', 'حالات مزمنة', 'حالة سابقة', 'preexisting'], "What are the pre-existing condition rules for Remedy XX?"),
         (['approval required', 'approval', 'موافقة', 'موافقة مسبقة'], "Is approval required for Remedy XX?")
     ]
@@ -330,6 +347,30 @@ def main():
             return
 
 
+    # Hotfix: provider-specific network routing — try network_lookup BEFORE plan_lookup
+    # when query asks about a specific provider in a plan's network.
+    import re as _re
+    _provider_in_network = _re.search(r'is\s+(.+?)\s+in\s+(?:the\s+)?network', qn)
+    if not _provider_in_network:
+        _provider_in_network = _re.search(r'هل\s+(.+?)\s+(?:ضمن|في)\s+(?:شبكة|الشبكة)', qn)
+    if _provider_in_network and is_network_query(question):
+        _requested_provider = _provider_in_network.group(1).strip()
+        net_result = lookup_network(question)
+        # Only accept the result if the matched provider name overlaps with the requested name
+        # (avoids city-only false positives like "Abu Dhabi" → random Abu Dhabi provider)
+        _matched_provider = (net_result or {}).get('provider', '')
+        _req_words = set(robust_normalize(_requested_provider).split()) - {'the', 'a', 'al', 'hospital', 'clinic', 'center', 'centre'}
+        _match_words = set(robust_normalize(_matched_provider).split()) - {'the', 'a', 'al', 'hospital', 'clinic', 'center', 'centre'}
+        _provider_confirmed = bool(_req_words & _match_words) if _req_words and _match_words else False
+        if net_result and net_result.get('status') == 'found' and _provider_confirmed:
+            print(f"[NETWORK] {clean_output(net_result['answer'])}")
+            return
+        # Provider not found or false match → return clear negative verdict
+        _plan_match = _re.search(r'remedy[\s\-_]?(\d{2,})', qn)
+        _plan_label = f"Remedy {_plan_match.group(1)}" if _plan_match else "this plan"
+        print(f"[NETWORK] {_requested_provider.title()} is not confirmed in the provider network for {_plan_label}. Please verify directly with NGI or the provider.")
+        return
+
     # 1. Plan lookup
     if is_plan_query(question):
         plan_result = lookup_plan(question)
@@ -342,7 +383,7 @@ def main():
             print("Please specify the plan name for copayment details (e.g., 'What is the copay for Remedy 02?').")
             return
         if plan_result and plan_result.get('status') == 'found':
-            print(f"[PLAN] {clean_output(plan_result['answer'])}")
+            print(f"[PLAN] {_apply_unlimited_check(qn, clean_output(plan_result['answer']))}")
             return
 
     # 2. Network lookup
