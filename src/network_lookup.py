@@ -66,7 +66,10 @@ def lookup_network(query: str) -> dict[str, str]:
         return answer
 
     # Direct billing intent detection (must take precedence)
-    direct_billing_intent = any(x in normalized_query for x in ["direct billing", "direct", "مباشر"])
+    direct_billing_intent = any(x in normalized_query for x in [
+        "direct billing", "direct bill", "direct",
+        "مباشر", "ديركت بيلنج", "ديرکت بيلنج",
+    ])
 
     # Try alias match (robust: substring match)
     for alias, provider_name in aliases.items():

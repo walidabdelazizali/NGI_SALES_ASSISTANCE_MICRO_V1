@@ -347,25 +347,75 @@ def main():
             return
 
 
-    # Hotfix: provider-specific network routing — try network_lookup BEFORE plan_lookup
-    # when query asks about a specific provider in a plan's network.
+    # Provider-specific network routing — intercept BEFORE plan_lookup when query
+    # mentions a known provider (or alias) AND has network/direct-billing intent.
+    # This prevents generic plan network descriptions from answering provider-specific questions.
     import re as _re
-    _provider_in_network = _re.search(r'is\s+(.+?)\s+in\s+(?:the\s+)?network', qn)
-    if not _provider_in_network:
-        _provider_in_network = _re.search(r'هل\s+(.+?)\s+(?:ضمن|في)\s+(?:شبكة|الشبكة)', qn)
-    if _provider_in_network and is_network_query(question):
-        _requested_provider = _provider_in_network.group(1).strip()
+    from network_lookup import _load_providers as _lp, _load_aliases as _la, robust_normalize as _rnorm
+
+    # Build lookup tables (small CSV — 11 providers, 18 aliases)
+    _all_providers = _lp()
+    _all_aliases = _la()
+    _provider_names = [_rnorm(r.get('provider_name', '')) for r in _all_providers]
+
+    # Detect if a known provider name or alias appears in the query
+    _detected_provider_display = None
+    for _alias_norm, _canonical in _all_aliases.items():
+        if _alias_norm and _alias_norm in qn:
+            _detected_provider_display = _canonical
+            break
+    if not _detected_provider_display:
+        for _row in _all_providers:
+            if _rnorm(_row.get('provider_name', '')) in qn:
+                _detected_provider_display = _row.get('provider_name', '')
+                break
+    # Reverse partial: query contains a significant prefix of a provider name (e.g. "Aster Hospital")
+    if not _detected_provider_display:
+        for _row in _all_providers:
+            _pn = _rnorm(_row.get('provider_name', ''))
+            _pn_words = _pn.split()
+            # Check if at least 2 leading words of the provider name appear consecutively in the query
+            if len(_pn_words) >= 2:
+                _prefix = ' '.join(_pn_words[:2])
+                if _prefix in qn:
+                    _detected_provider_display = _row.get('provider_name', '')
+                    break
+
+    # Network / direct-billing intent phrases (broader than just "in the network")
+    _network_intent_phrases = [
+        'in the network', 'in network', 'part of the network', 'part of network',
+        'covered under', 'covered by', 'on the network', 'within the network',
+        'direct billing', 'offer direct', 'direct bill',
+        # Arabic
+        'ضمن الشبكة', 'ضمن شبكة', 'في الشبكة', 'في شبكة', 'داخل الشبكة', 'داخل شبكة',
+        'خارج الشبكة', 'ديركت بيلنج', 'ديرکت بيلنج', 'مباشر',
+    ]
+    _has_network_intent = any(p in qn for p in _network_intent_phrases)
+
+    if _detected_provider_display and (_has_network_intent or is_network_query(question)):
         net_result = lookup_network(question)
-        # Only accept the result if the matched provider name overlaps with the requested name
-        # (avoids city-only false positives like "Abu Dhabi" → random Abu Dhabi provider)
         _matched_provider = (net_result or {}).get('provider', '')
-        _req_words = set(robust_normalize(_requested_provider).split()) - {'the', 'a', 'al', 'hospital', 'clinic', 'center', 'centre'}
-        _match_words = set(robust_normalize(_matched_provider).split()) - {'the', 'a', 'al', 'hospital', 'clinic', 'center', 'centre'}
+        _stop = {'the', 'a', 'al', 'hospital', 'clinic', 'center', 'centre'}
+        _req_words = set(_rnorm(_detected_provider_display).split()) - _stop
+        _match_words = set(_rnorm(_matched_provider).split()) - _stop
         _provider_confirmed = bool(_req_words & _match_words) if _req_words and _match_words else False
         if net_result and net_result.get('status') == 'found' and _provider_confirmed:
             print(f"[NETWORK] {clean_output(net_result['answer'])}")
             return
-        # Provider not found or false match → return clear negative verdict
+        # Provider not found or false match → safe negative verdict
+        _plan_match = _re.search(r'remedy[\s\-_]?(\d{2,})', qn)
+        _plan_label = f"Remedy {_plan_match.group(1)}" if _plan_match else "this plan"
+        print(f"[NETWORK] {_detected_provider_display} is not confirmed in the provider network for {_plan_label}. Please verify directly with NGI or the provider.")
+        return
+
+    # Fallback: unknown provider name extracted via regex (not in our data)
+    _provider_in_network = _re.search(r'is\s+(.+?)\s+in\s+(?:the\s+)?(?:network|provider)', qn)
+    if not _provider_in_network:
+        _provider_in_network = _re.search(r'(?:does|can|is)\s+(.+?)\s+(?:offer|provide|have|accept)\s+(?:direct\s+billing|direct\s+bill)', qn)
+    if not _provider_in_network:
+        _provider_in_network = _re.search(r'هل\s+(.+?)\s+(?:ضمن|في|داخل)\s+(?:شبكة|الشبكة)', qn)
+    if _provider_in_network and (_has_network_intent or is_network_query(question)):
+        _requested_provider = _provider_in_network.group(1).strip()
         _plan_match = _re.search(r'remedy[\s\-_]?(\d{2,})', qn)
         _plan_label = f"Remedy {_plan_match.group(1)}" if _plan_match else "this plan"
         print(f"[NETWORK] {_requested_provider.title()} is not confirmed in the provider network for {_plan_label}. Please verify directly with NGI or the provider.")
