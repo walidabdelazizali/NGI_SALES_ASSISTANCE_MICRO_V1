@@ -108,7 +108,7 @@ def main():
     plan_regex_guard = r"remedy[\s\-_]?(\d{2,})"
     if any(term in question.lower() for term in telemed_terms_guard):
         plan_match_guard = re.search(plan_regex_guard, question.lower())
-        if plan_match_guard and plan_match_guard.group(1) not in ("02", "03"):
+        if plan_match_guard and plan_match_guard.group(1) not in ("02", "03", "04", "05", "06"):
             print("No answer found.")
             return
 
@@ -134,14 +134,16 @@ def main():
             return
 
     benefit_patterns = [
-        (['physiotherapy', 'علاج طبيعي', 'العلاج الطبيعي'], {"02": "Does Remedy 02 include physiotherapy?", "03": "Does Remedy 03 include physiotherapy?"}),
-        (['dental', 'أسنان', 'تغطية أسنان', 'الأسنان', 'الاسنان', 'dental coverage', 'dental benefit', 'dental included', 'dental covered', 'هل فيها أسنان', 'هل الخطة فيها تغطية أسنان', 'هل dental موجودة'], {"02": "Does Remedy 02 include dental?", "03": "Does Remedy 03 include dental?"}),
-        (['mri', 'magnetic resonance', 'تصوير بالرنين', 'الرنين المغناطيسي', 'رنين مغناطيسي', 'الرنين', 'رنين'], {"02": "Does Remedy 02 include MRI?", "03": "Does Remedy 03 include MRI?"}),
-        (['ct scan', 'computed tomography', 'سي تي', 'تصوير مقطعي'], {"02": "Does Remedy 02 include CT scan?", "03": "Does Remedy 03 include CT scan?"}),
-        (['endoscopy', 'منظار', 'تنظير'], {"02": "Does Remedy 02 include endoscopy?", "03": "Does Remedy 03 include endoscopy?"}),
-        (['laboratory', 'lab test', 'تحاليل', 'اختبار معملي'], {"02": "Does Remedy 02 include laboratory tests?", "03": "Does Remedy 03 include laboratory tests?"}),
-        (['radiology', 'تشخيص بالأشعة', 'تصوير شعاعي'], {"02": "Does Remedy 02 include radiology?", "03": "Does Remedy 03 include radiology?"}),
-        (['generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة', 'prescribed drugs'], {"02": "Does Remedy 02 include prescribed drugs?", "03": "What is the prescribed drugs cover for Remedy 03?"})
+        (['physiotherapy', 'علاج طبيعي', 'العلاج الطبيعي'], {"02": "Does Remedy 02 include physiotherapy?", "03": "Does Remedy 03 include physiotherapy?", "04": "Does Remedy 04 include physiotherapy?", "05": "Does Remedy 05 include physiotherapy?", "06": "Does Remedy 06 include physiotherapy?"}),
+        (['dental', 'أسنان', 'تغطية أسنان', 'الأسنان', 'الاسنان', 'dental coverage', 'dental benefit', 'dental included', 'dental covered', 'هل فيها أسنان', 'هل الخطة فيها تغطية أسنان', 'هل dental موجودة'], {"02": "Does Remedy 02 include dental?", "03": "Does Remedy 03 include dental?", "04": "Does Remedy 04 include dental?", "05": "Does Remedy 05 include dental?", "06": "Does Remedy 06 include dental?"}),
+        (['mri', 'magnetic resonance', 'تصوير بالرنين', 'الرنين المغناطيسي', 'رنين مغناطيسي', 'الرنين', 'رنين'], {"02": "Does Remedy 02 include MRI?", "03": "Does Remedy 03 include MRI?", "04": "Does Remedy 04 include MRI?", "05": "Does Remedy 05 include MRI?", "06": "Does Remedy 06 include MRI?"}),
+        (['ct scan', 'computed tomography', 'سي تي', 'تصوير مقطعي'], {"02": "Does Remedy 02 include CT scan?", "03": "Does Remedy 03 include CT scan?", "04": "Does Remedy 04 include CT scan?", "05": "Does Remedy 05 include CT scan?", "06": "Does Remedy 06 include CT scan?"}),
+        (['endoscopy', 'منظار', 'تنظير'], {"02": "Does Remedy 02 include endoscopy?", "03": "Does Remedy 03 include endoscopy?", "04": "Does Remedy 04 include endoscopy?", "05": "Does Remedy 05 include endoscopy?", "06": "Does Remedy 06 include endoscopy?"}),
+        (['laboratory', 'lab test', 'تحاليل', 'اختبار معملي'], {"02": "Does Remedy 02 include laboratory tests?", "03": "Does Remedy 03 include laboratory tests?", "04": "Does Remedy 04 include laboratory tests?", "05": "Does Remedy 05 include laboratory tests?", "06": "Does Remedy 06 include laboratory tests?"}),
+        (['radiology', 'تشخيص بالأشعة', 'تصوير شعاعي'], {"02": "Does Remedy 02 include radiology?", "03": "Does Remedy 03 include radiology?", "04": "Does Remedy 04 include radiology?", "05": "Does Remedy 05 include radiology?", "06": "Does Remedy 06 include radiology?"}),
+        (['generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة', 'prescribed drugs'], {"02": "Does Remedy 02 include prescribed drugs?", "03": "What is the prescribed drugs cover for Remedy 03?", "04": "What is the prescribed drugs cover for Remedy 04?", "05": "What is the prescribed drugs cover for Remedy 05?", "06": "What is the prescribed drugs cover for Remedy 06?"}),
+        (['optical', 'نظارات', 'بصريات', 'optical benefit', 'optical coverage'], {"02": "Does Remedy 02 include optical?", "03": "Does Remedy 03 include optical?", "04": "Does Remedy 04 include optical?", "05": "Does Remedy 05 include optical?", "06": "Does Remedy 06 include optical?"}),  # Optical = discount-only (25%)
+        (['shingrix', 'shingrix vaccine', 'شينجريكس'], {"02": "Does Remedy 02 include Shingrix vaccine?", "03": "Does Remedy 03 include Shingrix vaccine?", "04": "Does Remedy 04 include Shingrix vaccine?", "05": "Does Remedy 05 include Shingrix vaccine?", "06": "Does Remedy 06 include Shingrix vaccine?"}),  # Shingrix: R06 only
     ]
     # Skip benefit routing if query has approval intent (let rule_patterns handle it)
     approval_intent_terms = ['require approval', 'approval required', 'approval for', 'need approval', 'pre-approval', 'preapproval', 'require pre approval', 'موافقة مسبقة', 'محتاج موافقة', 'محتاج approval', 'يحتاج موافقة']
@@ -153,7 +155,13 @@ def main():
         if any(robust_normalize(term) in qn for term in terms):
             # Determine explicit plan
             plan = None
-            if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
+            if 'remedy 06' in qn or 'remedy06' in qn or 'ريمدي 06' in qn or 'ريميدي 06' in qn:
+                plan = "06"
+            elif 'remedy 05' in qn or 'remedy05' in qn or 'ريمدي 05' in qn or 'ريميدي 05' in qn:
+                plan = "05"
+            elif 'remedy 04' in qn or 'remedy04' in qn or 'ريمدي 04' in qn or 'ريميدي 04' in qn:
+                plan = "04"
+            elif 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
                 plan = "03"
             elif 'remedy 02' in qn or 'remedy02' in qn or 'ريمدي 02' in qn or 'ريميدي 02' in qn or '02' in qn:
                 plan = "02"
@@ -169,12 +177,27 @@ def main():
 
     # 2. Explicit maternity intent split
     if 'waiting period' in qn or 'فترة الانتظار' in qn:
-        mat_result = lookup_plan("What is the maternity waiting period for Remedy 02?")
+        if 'remedy 06' in qn or 'remedy06' in qn or 'ريمدي 06' in qn or 'ريميدي 06' in qn:
+            mat_result = lookup_plan("What is the maternity waiting period for Remedy 06?")
+        elif 'remedy 05' in qn or 'remedy05' in qn or 'ريمدي 05' in qn or 'ريميدي 05' in qn:
+            mat_result = lookup_plan("What is the maternity waiting period for Remedy 05?")
+        elif 'remedy 04' in qn or 'remedy04' in qn or 'ريمدي 04' in qn or 'ريميدي 04' in qn:
+            mat_result = lookup_plan("What is the maternity waiting period for Remedy 04?")
+        elif 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
+            mat_result = lookup_plan("What is the maternity waiting period for Remedy 03?")
+        else:
+            mat_result = lookup_plan("What is the maternity waiting period for Remedy 02?")
         if mat_result and mat_result.get('status') == 'found':
             print(f"[PLAN] {clean_output(mat_result['answer'])}")
             return
     if 'prenatal' in qn or 'ما قبل الولادة' in qn:
-        if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
+        if 'remedy 06' in qn or 'remedy06' in qn or 'ريمدي 06' in qn or 'ريميدي 06' in qn:
+            mat_result = lookup_plan("Does Remedy 06 include prenatal services?")
+        elif 'remedy 05' in qn or 'remedy05' in qn or 'ريمدي 05' in qn or 'ريميدي 05' in qn:
+            mat_result = lookup_plan("Does Remedy 05 include prenatal services?")
+        elif 'remedy 04' in qn or 'remedy04' in qn or 'ريمدي 04' in qn or 'ريميدي 04' in qn:
+            mat_result = lookup_plan("Does Remedy 04 include prenatal services?")
+        elif 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
             mat_result = lookup_plan("Does Remedy 03 include prenatal services?")
         else:
             mat_result = lookup_plan("Does Remedy 02 include prenatal services?")
@@ -182,7 +205,13 @@ def main():
             print(f"[PLAN] {clean_output(mat_result['answer'])}")
             return
     if 'newborn' in qn or 'حديثي الولادة' in qn:
-        if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
+        if 'remedy 06' in qn or 'remedy06' in qn or 'ريمدي 06' in qn or 'ريميدي 06' in qn:
+            mat_result = lookup_plan("Does Remedy 06 include newborn cover?")
+        elif 'remedy 05' in qn or 'remedy05' in qn or 'ريمدي 05' in qn or 'ريميدي 05' in qn:
+            mat_result = lookup_plan("Does Remedy 05 include newborn cover?")
+        elif 'remedy 04' in qn or 'remedy04' in qn or 'ريمدي 04' in qn or 'ريميدي 04' in qn:
+            mat_result = lookup_plan("Does Remedy 04 include newborn cover?")
+        elif 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
             mat_result = lookup_plan("Does Remedy 03 include newborn cover?")
         else:
             mat_result = lookup_plan("Does Remedy 02 include newborn cover?")
@@ -190,7 +219,8 @@ def main():
             print(f"[PLAN] {clean_output(mat_result['answer'])}")
             return
 
-    # 3. Telemedicine distinction
+    # 3. Telemedicine distinction — ISA Assist / travel only for all supported plans.
+    # Telemedicine is NOT a standalone OP benefit; it's bundled under ISA Assist.
     telemed_terms = [
         'telemedicine', 'تيلي ميديسن', 'تيليمديسن', 'التلي ميديسن', 'استشارة عن بعد'
     ]
@@ -200,7 +230,13 @@ def main():
             print("[PLAN] Telemedicine is available under ISA Assist / travel assistance for Remedy 02 while traveling outside country of residence.")
             return
         # Detect which Remedy plan
-        if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
+        if 'remedy 06' in qn or 'remedy06' in qn or 'ريمدي 06' in qn or 'ريميدي 06' in qn:
+            telemed_result = lookup_plan("Does Remedy 06 include telemedicine?")
+        elif 'remedy 05' in qn or 'remedy05' in qn or 'ريمدي 05' in qn or 'ريميدي 05' in qn:
+            telemed_result = lookup_plan("Does Remedy 05 include telemedicine?")
+        elif 'remedy 04' in qn or 'remedy04' in qn or 'ريمدي 04' in qn or 'ريميدي 04' in qn:
+            telemed_result = lookup_plan("Does Remedy 04 include telemedicine?")
+        elif 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
             telemed_result = lookup_plan("Does Remedy 03 include telemedicine?")
         else:
             telemed_result = lookup_plan("Does Remedy 02 include telemedicine?")
@@ -217,8 +253,14 @@ def main():
     for terms, routed_q in rule_patterns:
         if any(robust_normalize(term) in qn for term in terms):
             from rules_lookup import lookup_rules
-            # Patch: route to Remedy 03 if query mentions Remedy 03, else Remedy 02
-            if 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
+            # Patch: route to Remedy 04 if query mentions Remedy 04, Remedy 03 if mentions 03, else Remedy 02
+            if 'remedy 06' in qn or 'remedy06' in qn or 'ريمدي 06' in qn or 'ريميدي 06' in qn:
+                routed_q = routed_q.replace('Remedy XX', 'Remedy 06')
+            elif 'remedy 05' in qn or 'remedy05' in qn or 'ريمدي 05' in qn or 'ريميدي 05' in qn:
+                routed_q = routed_q.replace('Remedy XX', 'Remedy 05')
+            elif 'remedy 04' in qn or 'remedy04' in qn or 'ريمدي 04' in qn or 'ريميدي 04' in qn:
+                routed_q = routed_q.replace('Remedy XX', 'Remedy 04')
+            elif 'remedy 03' in qn or 'remedy03' in qn or 'ريمدي 03' in qn or 'ريميدي 03' in qn or '03' in qn:
                 routed_q = routed_q.replace('Remedy XX', 'Remedy 03')
             else:
                 routed_q = routed_q.replace('Remedy XX', 'Remedy 02')
@@ -259,7 +301,7 @@ def main():
         plan_match = plan_match_raw or plan_match_norm
         if plan_match:
             plan_num = plan_match.group(1)
-            if plan_num not in ("02", "03"):
+            if plan_num not in ("02", "03", "04", "05", "06"):
                 # Minimal guard: block fallback if explicit unsupported plan and plan lookup did not resolve
                 plan_result = lookup_plan(question)
                 if not (plan_result and plan_result.get('status') == 'found'):

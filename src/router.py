@@ -26,8 +26,8 @@ PLAN_HINTS = [
     "provider network",
     "remedy 02",
     "remedy 03",
-        # "remedy 04",  # Isolated for cleanup
-        # "remedy 05",  # Isolated for cleanup
+    "remedy 04",
+    "remedy 05",
     "remedy 06",
     "remedy_02",
     "remedy_03",
@@ -98,6 +98,7 @@ def route_question(query: str) -> str:
 
 
 def dispatch_query(query: str) -> dict[str, str]:
+    """Central dispatcher. Supported scope: Remedy 02-06. Plan gate is in plan_lookup.py."""
     route = route_question(query)
     # 1. Structured lookups (priority)
     if route == "plan_lookup":
@@ -109,7 +110,8 @@ def dispatch_query(query: str) -> dict[str, str]:
     if route == "benefit_lookup":
         # Extract plan and intent from query (simple heuristic)
         import re
-        plan_match = re.search(r"remedy[\s\-_]?(0[23])", query, re.IGNORECASE)
+        # Only match supported plans 02-06. Update regex when adding new plans.
+        plan_match = re.search(r"remedy[\s\-_]?(0[23456])", query, re.IGNORECASE)
         plan = plan_match.group(0).replace(" ", "_").replace("-", "_").upper() if plan_match else None
         # Try to extract intent by matching known benefit keywords
         from benefit_lookup import BENEFIT_KEYWORDS

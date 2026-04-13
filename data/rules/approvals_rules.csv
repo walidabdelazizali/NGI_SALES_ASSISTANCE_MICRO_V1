@@ -4,4 +4,34 @@ APR-002,Emergency approval,No prior approval is needed for genuine emergency tre
 APR-003,Room and board approval,Room and board under Remedy 02 requires prior approval from the insurance company.,REMEDY_02,Extracted
 APR-004,Room and board approval,Room and board under Remedy 03 requires prior approval from the insurance company.,REMEDY_03,Extracted
 APR-005,MRI pre-approval,Elective MRI under Remedy 02 requires pre-approval from the insurance company.,REMEDY_02,Approved
-APR-006,MRI pre-approval,Elective MRI under Remedy 03 requires pre-approval from the insurance company.,REMEDY_03,Approvedval from the insurance company.,REMEDY_03,Extracted
+APR-006,MRI pre-approval,Elective MRI under Remedy 03 requires pre-approval from the insurance company.,REMEDY_03,Approved
+APR-R03-007,Physiotherapy pre-approval,Physiotherapy under Remedy 03 requires pre-approval from the insurance company.,REMEDY_03,Extracted
+APR-R03-008,Prescribed drugs pre-approval,Prescribed drugs exceeding certain thresholds under Remedy 03 require pre-approval.,REMEDY_03,Extracted
+APR-R03-009,Elective CT and endoscopy pre-approval,Elective CT scan and endoscopy under Remedy 03 require pre-approval from the insurance company.,REMEDY_03,Extracted
+APR-R03-010,Prenatal outpatient pre-approval,Prenatal outpatient services under Remedy 03 require pre-approval from the insurance company.,REMEDY_03,Extracted
+APR-R03-011,Non-urgent inpatient pre-approval,Non-urgent inpatient admission under Remedy 03 requires pre-approval from the insurance company.,REMEDY_03,Extracted
+APR-R03-012,Elective IP outside UAE pre-approval,Elective inpatient treatment outside the UAE under Remedy 03 is subject to prior approval.,REMEDY_03,Extracted
+APR-R04-004,Room and board approval,Room and board under Remedy 04 requires prior approval from the insurance company.,REMEDY_04,Extracted
+APR-R04-006,MRI pre-approval,Elective MRI under Remedy 04 requires pre-approval from the insurance company.,REMEDY_04,Approved
+APR-R04-007,Physiotherapy pre-approval,Physiotherapy under Remedy 04 requires pre-approval from the insurance company.,REMEDY_04,Extracted
+APR-R04-008,Prescribed drugs pre-approval,Prescribed drugs exceeding certain thresholds under Remedy 04 require pre-approval.,REMEDY_04,Extracted
+APR-R04-009,Elective CT and endoscopy pre-approval,Elective CT scan and endoscopy under Remedy 04 require pre-approval from the insurance company.,REMEDY_04,Extracted
+APR-R04-010,Prenatal outpatient pre-approval,Prenatal outpatient services under Remedy 04 require pre-approval from the insurance company.,REMEDY_04,Extracted
+APR-R04-011,Non-urgent inpatient pre-approval,Non-urgent inpatient admission under Remedy 04 requires pre-approval from the insurance company.,REMEDY_04,Extracted
+APR-R04-012,Elective IP outside UAE pre-approval,Elective inpatient treatment outside the UAE under Remedy 04 is subject to prior approval.,REMEDY_04,Extracted
+APR-R05-004,Room and board approval,Room and board under Remedy 05 requires prior approval from the insurance company.,REMEDY_05,Extracted
+APR-R05-006,MRI pre-approval,Elective MRI under Remedy 05 requires pre-approval from the insurance company.,REMEDY_05,Approved
+APR-R05-007,Physiotherapy pre-approval,Physiotherapy under Remedy 05 requires pre-approval from the insurance company.,REMEDY_05,Extracted
+APR-R05-008,Prescribed drugs pre-approval,Prescribed drugs exceeding certain thresholds under Remedy 05 require pre-approval.,REMEDY_05,Extracted
+APR-R05-009,Elective CT and endoscopy pre-approval,Elective CT scan and endoscopy under Remedy 05 require pre-approval from the insurance company.,REMEDY_05,Extracted
+APR-R05-010,Prenatal outpatient pre-approval,Prenatal outpatient services under Remedy 05 require pre-approval from the insurance company.,REMEDY_05,Extracted
+APR-R05-011,Non-urgent inpatient pre-approval,Non-urgent inpatient admission under Remedy 05 requires pre-approval from the insurance company.,REMEDY_05,Extracted
+APR-R05-012,Elective IP outside UAE pre-approval,Elective inpatient treatment outside the UAE under Remedy 05 is subject to prior approval.,REMEDY_05,Extracted
+APR-R06-004,Room and board approval,Room and board under Remedy 06 requires prior approval from the insurance company.,REMEDY_06,Extracted
+APR-R06-006,MRI pre-approval,Elective MRI under Remedy 06 requires pre-approval from the insurance company.,REMEDY_06,Approved
+APR-R06-007,Physiotherapy pre-approval,Physiotherapy under Remedy 06 requires pre-approval from the insurance company.,REMEDY_06,Extracted
+APR-R06-008,Prescribed drugs pre-approval,Prescribed drugs exceeding certain thresholds under Remedy 06 require pre-approval.,REMEDY_06,Extracted
+APR-R06-009,Elective CT and endoscopy pre-approval,Elective CT scan and endoscopy under Remedy 06 require pre-approval from the insurance company.,REMEDY_06,Extracted
+APR-R06-010,Prenatal outpatient pre-approval,Prenatal outpatient services under Remedy 06 require pre-approval from the insurance company.,REMEDY_06,Extracted
+APR-R06-011,Non-urgent inpatient pre-approval,Non-urgent inpatient admission under Remedy 06 requires pre-approval from the insurance company.,REMEDY_06,Extracted
+APR-R06-012,Elective IP outside UAE pre-approval,Elective inpatient treatment outside the UAE under Remedy 06 is subject to prior approval.,REMEDY_06,Extracted

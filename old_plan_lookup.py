@@ -82,12 +82,11 @@ def lookup_plan(query: str) -> dict:
     query_tokens = set(normalized_query.split())
     matched_row = None
 
-    # PLAN GATE: only Remedy 02-06 are supported. Any other plan number is rejected early.
-    # When adding a new Remedy, add its number to this list AND to all allowed_variants blocks below.
+    # Detect explicit unsupported Remedy plan mention (allow 02 and 03 only)
     import re
     plan_regex = r"remedy[\s\-_]?(\d{2,})"
     plan_match = re.search(plan_regex, query.lower())
-    if plan_match and plan_match.group(1) not in ["02", "03", "04", "05", "06"]:
+    if plan_match and plan_match.group(1) not in ["02", "03"]:
         # Explicit unsupported Remedy plan: block any fallback
         return {"status": "not_found", "answer": "Plan not supported yet"}
 
@@ -97,10 +96,7 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         allowed_variants = (
             _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-            _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-            _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-            _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-            _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+            _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
         )
         # If the query contains an allowed variant (e.g., 'remedy 03'), match the corresponding row
         for allowed in allowed_variants:
@@ -140,9 +136,7 @@ def lookup_plan(query: str) -> dict:
         (['endoscopy', 'منظار', 'تنظير'], 'Endoscopy', 'outpatient_benefits', 'Endoscopy'),
         (['laboratory', 'lab test', 'تحاليل', 'اختبار معملي'], 'Laboratory tests', 'outpatient_benefits', 'Laboratory tests carried out in authorized facility'),
         (['radiology', 'تشخيص بالأشعة', 'تصوير شعاعي'], 'Radiology', 'outpatient_benefits', 'Radiology diagnostic services carried out in authorized facility'),
-        (['prescribed drugs', 'generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة'], 'Prescribed drugs', 'outpatient_benefits', 'Prescribed drugs'),
-        (['optical', 'نظارات', 'بصريات'], 'Optical', 'additional_benefits', 'Optical benefits'),  # Optical = discount-only (25%), not insured coverage
-        (['shingrix', 'shingrix vaccine', 'شينجريكس'], 'Shingrix vaccine', 'preventive_benefits', 'Shingrix vaccine'),  # R06 only; R02-R05 have no Shingrix row
+        (['prescribed drugs', 'generic prescribed drugs', 'generic drugs', 'أدوية جنيسة', 'أدوية موصوفة'], 'Prescribed drugs', 'outpatient_benefits', 'Prescribed drugs')
     ]
     import csv
     for terms, label, benefit_file, benefit_name in benefit_map:
@@ -156,15 +150,7 @@ def lookup_plan(query: str) -> dict:
             with open(benefit_path, encoding='utf-8', newline='') as f:
                 reader = list(csv.DictReader(f))
                 explicit_plan = None
-                # PLAN DETECTION for benefit lookup: highest plan checked first to avoid shadowing.
-                # R05/R06 have Direct Access to Specialist (no GP referral).
-                if 'remedy 06' in normalized_query or 'ريمدي 06' in normalized_query or 'remedy_06' in normalized_query:
-                    explicit_plan = 'REMEDY_06'
-                elif 'remedy 05' in normalized_query or 'ريمدي 05' in normalized_query or 'remedy_05' in normalized_query:
-                    explicit_plan = 'REMEDY_05'
-                elif 'remedy 04' in normalized_query or 'ريمدي 04' in normalized_query or 'remedy_04' in normalized_query:
-                    explicit_plan = 'REMEDY_04'
-                elif 'remedy 02' in normalized_query or 'ريمدي 02' in normalized_query or 'remedy_02' in normalized_query:
+                if 'remedy 02' in normalized_query or 'ريمدي 02' in normalized_query or 'remedy_02' in normalized_query:
                     explicit_plan = 'REMEDY_02'
                 elif 'remedy 03' in normalized_query or 'ريمدي 03' in normalized_query or 'remedy_03' in normalized_query:
                     explicit_plan = 'REMEDY_03'
@@ -227,14 +213,6 @@ def lookup_plan(query: str) -> dict:
                     }
         # --- PATCH: Non-urgent inpatient approval for Remedy 03 ---
         if ('non-urgent inpatient' in normalized_query or 'non urgent inpatient' in normalized_query or 'غير طارئة' in normalized_query):
-            if matched_row and matched_row.get('plan_id') == 'REMEDY_04':
-                return {
-                    "status": "found",
-                    "route": "plan_lookup",
-                    "plan_id": "REMEDY_04",
-                    "matched_plan": "NGI Healthnet – Remedy 04",
-                    "answer": "Non-urgent inpatient treatment for Remedy 04: Pre-approval required. 20% copay applies, with AED 500 per incident cap and AED 1,000 per year cap."
-                }
             if matched_row and matched_row.get('plan_id') == 'REMEDY_03':
                 # Explicit Remedy 03 answer (no fallback)
                 return {
@@ -254,16 +232,12 @@ def lookup_plan(query: str) -> dict:
             }
     # 2. Maternity intent split
     if 'waiting period' in normalized_query or 'فترة الانتظار' in normalized_query:
-        # BUG FIX (stabilized): filter by target_plan so the requested plan's row wins.
-        # Without this, the first CSV row (often R03) was returned regardless of query.
-        target_plan = matched_row.get('plan_id') if matched_row else None
+        # Maternity waiting period
         benefit_path = Path(__file__).resolve().parents[1] / 'data' / 'benefits' / 'maternity_benefits.csv'
         with open(benefit_path, encoding='utf-8', newline='') as f:
             reader = csv.DictReader(f)
             for brow in reader:
-                if brow['plan_id'] in ['REMEDY_02', 'REMEDY_03', 'REMEDY_04', 'REMEDY_05', 'REMEDY_06'] and 'waiting period' in brow['benefit_name'].lower():
-                    if target_plan and brow['plan_id'] != target_plan:
-                        continue
+                if brow['plan_id'] in ['REMEDY_02', 'REMEDY_03'] and 'waiting period' in brow['benefit_name'].lower():
                     return {
                         "status": "found",
                         "route": "plan_lookup",
@@ -276,28 +250,6 @@ def lookup_plan(query: str) -> dict:
         with open(benefit_path, encoding='utf-8', newline='') as f:
             reader = csv.DictReader(f)
             for brow in reader:
-                # PATCH: Remedy 06 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_06' and brow['plan_id'] == 'REMEDY_06' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_06",
-                        "answer": f"[PLAN] Prenatal services for Remedy 06: {brow['coverage']}."
-                    }
-                # PATCH: Remedy 05 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_05' and brow['plan_id'] == 'REMEDY_05' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_05",
-                        "answer": f"[PLAN] Prenatal services for Remedy 05: {brow['coverage']}."
-                    }
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_04' and brow['plan_id'] == 'REMEDY_04' and 'prenatal' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Prenatal services for Remedy 04: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
                 # PATCH: Remedy 03 specialization
                 if matched_row and matched_row.get('plan_id') == 'REMEDY_03' and brow['plan_id'] == 'REMEDY_03' and 'prenatal' in brow['benefit_name'].lower():
                     return {
@@ -320,28 +272,6 @@ def lookup_plan(query: str) -> dict:
         with open(benefit_path, encoding='utf-8', newline='') as f:
             reader = csv.DictReader(f)
             for brow in reader:
-                # PATCH: Remedy 06 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_06' and brow['plan_id'] == 'REMEDY_06' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_06",
-                        "answer": f"[PLAN] Newborn cover for Remedy 06: {brow['coverage']}."
-                    }
-                # PATCH: Remedy 05 specialization
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_05' and brow['plan_id'] == 'REMEDY_05' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "plan_id": "REMEDY_05",
-                        "answer": f"[PLAN] Newborn cover for Remedy 05: {brow['coverage']}."
-                    }
-                if matched_row and matched_row.get('plan_id') == 'REMEDY_04' and brow['plan_id'] == 'REMEDY_04' and 'newborn' in brow['benefit_name'].lower():
-                    return {
-                        "status": "found",
-                        "route": "plan_lookup",
-                        "plan_id": brow.get("plan_id"),
-                        "matched_plan": brow.get("plan_name"),
-                        "answer": f"Newborn cover for Remedy 04: {brow['coverage']}. {brow.get('notes','').strip()}"
-                    }
                 # PATCH: Remedy 03 specialization
                 if matched_row and matched_row.get('plan_id') == 'REMEDY_03' and brow['plan_id'] == 'REMEDY_03' and 'newborn' in brow['benefit_name'].lower():
                     return {
@@ -368,13 +298,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -840,13 +767,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -1178,13 +1102,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -1516,13 +1437,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -1854,13 +1772,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -2192,13 +2107,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -2530,13 +2442,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -2868,13 +2777,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -3206,13 +3112,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row
@@ -3544,13 +3447,10 @@ def lookup_plan(query: str) -> dict:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
             if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
-                # Allow Remedy 02, Remedy 03, and Remedy 04
+                # Allow Remedy 02 and Remedy 03 (plan_id or plan_name must match Remedy 02 or 03)
                 allowed_variants = (
                     _plan_name_variants("Remedy 02") | _plan_name_variants("REMEDY_02") |
-                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03") |
-                    _plan_name_variants("Remedy 04") | _plan_name_variants("REMEDY_04") |
-                    _plan_name_variants("Remedy 05") | _plan_name_variants("REMEDY_05") |
-                    _plan_name_variants("Remedy 06") | _plan_name_variants("REMEDY_06")
+                    _plan_name_variants("Remedy 03") | _plan_name_variants("REMEDY_03")
                 )
                 if variant in allowed_variants:
                     matched_row = row

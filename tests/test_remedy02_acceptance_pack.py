@@ -74,6 +74,6 @@ def test_remedy02_does_not_leak_to_03():
     assert "150000" not in norm or "remedy 02" not in norm, f"Remedy 02 data leaked for Remedy 03 query: {output}"
 
 def test_remedy02_unsupported_plan():
-    output = run_ask_kb("What is the annual limit for Remedy 04?")
+    output = run_ask_kb("What is the annual limit for Remedy 07?")
     norm = normalize(output)
     assert "not supported" in norm or "no answer found" in norm, f"Unsupported plan did not return correct negative: {output}"
