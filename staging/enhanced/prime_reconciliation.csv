@@ -1,0 +1,9 @@
+internal_plan_code,workbook_display_name,source_file,workbook_network,comparison_network,workbook_annual_limit,comparison_annual_limit,status,confidence,review_notes
+HN_CLASSIC_2R,Classic Plan-2R,MR.HUSSEIN 1R@.xlsx,HN Standard Plus,Standard Plus,"AED 250,000",250K,confirmed,high,TOB workbook content + master comparison available
+HN_CLASSIC_2,Classic Plan-2,MR.HUSSEIN CLASSIC 1@.xlsx,HN Standard Plus (Additional 10% Co-pay applicable on all OP Services excluding Pharmacy at NMC Royal Hosp. Sharjah),Standard Plus,"AED 250,000",250K,confirmed,high,TOB workbook content + master comparison available
+HN_CLASSIC_3,Classic Plan-3,MR.HUSSEIN CLASSIC 2@.xlsx,HN Standard,Standard,"AED 250,000",250K,confirmed,high,TOB workbook content + master comparison available
+HN_CLASSIC_4,Classic Plan-4,MR.HUSSEIN CLASSIC 3@.xlsx,HN Basic Plus,Basic Plus,"AED 150,000",150K,confirmed,high,TOB workbook content + master comparison available
+HN_CLASSIC_1R,Classic Plan-1R,MR.HUSSEIN CLASSIC 4@.xlsx,HN Advantage,Advantage,"AED 300,000",300K,confirmed,high,TOB workbook content + master comparison available
+HN_PRIME_2,Prime Plan-2,MR.HUSSEIN prime 1@.xlsx,HN Premier,Standard Plus,"AED 500,000",500K,pending_mapping,medium,Network mismatch: workbook='HN Premier' vs master='Standard Plus'
+HN_PRIME_1,,,,Advantage Plus,,500K,pending_source,none,No TOB workbook found. Do NOT fabricate.
+HN_CLASSIC_1,,,,Advantage,,300K,pending_source,none,No TOB workbook found. Do NOT fabricate.

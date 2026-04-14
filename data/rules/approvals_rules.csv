@@ -35,3 +35,13 @@ APR-R06-009,Elective CT and endoscopy pre-approval,Elective CT scan and endoscop
 APR-R06-010,Prenatal outpatient pre-approval,Prenatal outpatient services under Remedy 06 require pre-approval from the insurance company.,REMEDY_06,Extracted
 APR-R06-011,Non-urgent inpatient pre-approval,Non-urgent inpatient admission under Remedy 06 requires pre-approval from the insurance company.,REMEDY_06,Extracted
 APR-R06-012,Elective IP outside UAE pre-approval,Elective inpatient treatment outside the UAE under Remedy 06 is subject to prior approval.,REMEDY_06,Extracted
+APR-HN-0013,Non-urgent inpatient pre-approval,Pre-approval is required for non-urgent inpatient admissions.,HN_CLASSIC_1R,Extracted
+APR-HN-0014,Elective MRI/CT/Endoscopy pre-approval,"Pre-approval is required for elective MRI, CT scans, and endoscopies.",HN_CLASSIC_1R,Extracted
+APR-HN-0015,Non-urgent inpatient pre-approval,Pre-approval is required for non-urgent inpatient admissions.,HN_CLASSIC_2,Extracted
+APR-HN-0016,Elective MRI/CT/Endoscopy pre-approval,"Pre-approval is required for elective MRI, CT scans, and endoscopies.",HN_CLASSIC_2,Extracted
+APR-HN-0017,Non-urgent inpatient pre-approval,Pre-approval is required for non-urgent inpatient admissions.,HN_CLASSIC_2R,Extracted
+APR-HN-0018,Elective MRI/CT/Endoscopy pre-approval,"Pre-approval is required for elective MRI, CT scans, and endoscopies.",HN_CLASSIC_2R,Extracted
+APR-HN-0019,Non-urgent inpatient pre-approval,Pre-approval is required for non-urgent inpatient admissions.,HN_CLASSIC_3,Extracted
+APR-HN-0020,Elective MRI/CT/Endoscopy pre-approval,"Pre-approval is required for elective MRI, CT scans, and endoscopies.",HN_CLASSIC_3,Extracted
+APR-HN-0021,Non-urgent inpatient pre-approval,Pre-approval is required for non-urgent inpatient admissions.,HN_CLASSIC_4,Extracted
+APR-HN-0022,Elective MRI/CT/Endoscopy pre-approval,"Pre-approval is required for elective MRI, CT scans, and endoscopies.",HN_CLASSIC_4,Extracted

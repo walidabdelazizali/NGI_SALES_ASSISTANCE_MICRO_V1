@@ -82,3 +82,658 @@ EXC-R06-016,Work-related injuries outside scope,Work-related injuries are outsid
 EXC-R06-017,Alcohol / drugs related cases outside scope,Alcohol and drug-related cases are outside the scope of Remedy 06.,REMEDY_06,Approved
 EXC-R06-018,Self-inflicted injuries outside scope,Self-inflicted injuries are outside the scope of Remedy 06.,REMEDY_06,Approved
 EXC-R06-019,HIV/AIDS related services outside scope,HIV/AIDS related services are outside the scope of Remedy 06.,REMEDY_06,Approved
+EXC-0020,Exclusion: 1-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0021,Exclusion: 2-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0022,Exclusion: 3-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0023,Exclusion: 4-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0024,Exclusion: 5-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0025,Exclusion: 6-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0026,Exclusion: 7-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0027,Exclusion: 8-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0028,Exclusion: 9-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0029,Exclusion: 10-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0030,Exclusion: 11-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0031,Exclusion: 12-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0032,Exclusion: 13-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0033,Exclusion: 14-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0034,Exclusion: 15-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0035,Exclusion: 16-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0036,Exclusion: 17-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0037,Exclusion: 18-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0038,Exclusion: 19-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0039,Exclusion: 20-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0040,Exclusion: 21-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0041,Exclusion: 22-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0042,Exclusion: 23-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0043,Exclusion: 24-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0044,Exclusion: 25-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0045,Exclusion: 26-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0046,Exclusion: 27-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0047,Exclusion: 28-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0048,Exclusion: 29-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0049,Exclusion: 30-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0050,Exclusion: 31-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0051,Exclusion: 32-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0052,Exclusion: 33-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0053,Exclusion: 34-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0054,Exclusion: 35-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0055,Exclusion: 36-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0056,Exclusion: 37-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0057,Exclusion: 38-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0058,Exclusion: 39-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0059,Exclusion: 40-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0060,Exclusion: 41-,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0061,Exclusion: Healthcare services outside the scope of health insurance (In Emergency cases as,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0062,Exclusion: 1 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0063,Exclusion: 2 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0064,Exclusion: 3 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0065,Exclusion: 4 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0066,Exclusion: 5 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0067,Exclusion: 6 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0068,Exclusion: 7 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0069,Exclusion: 8 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0070,Exclusion: 9 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0071,Exclusion: 10 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0072,Exclusion: 11 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0073,Exclusion: 12 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0074,Exclusion: 13 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0075,Exclusion: Standard Policy Exclusions (Valid for Abu Dhabi members only),Excluded,HN_CLASSIC_2R,Extracted
+EXC-0076,Exclusion: 1 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0077,Exclusion: 2 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0078,Exclusion: 3 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0079,Exclusion: 4 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0080,Exclusion: 5 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0081,Exclusion: 6 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0082,Exclusion: 7 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0083,Exclusion: 8 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0084,Exclusion: 9 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0085,Exclusion: 10 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0086,Exclusion: 11 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0087,Exclusion: 12 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0088,Exclusion: 13 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0089,Exclusion: 14 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0090,Exclusion: 15 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0091,Exclusion: 16 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0092,Exclusion: 17 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0093,Exclusion: 18 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0094,Exclusion: 19 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0095,Exclusion: 20 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0096,Exclusion: 21 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0097,Exclusion: 22 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0098,Exclusion: 23 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0099,Exclusion: 24 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0100,Exclusion: 25 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0101,Exclusion: 26 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0102,Exclusion: 27 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0103,Exclusion: 28 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0104,Exclusion: 29 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0105,Exclusion: 30 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0106,Exclusion: 31 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0107,Exclusion: 32 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0108,Exclusion: 33 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0109,Exclusion: 34 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0110,Exclusion: 35 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0111,Exclusion: 36 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0112,Exclusion: 37 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0113,Exclusion: 38 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0114,Exclusion: 39 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0115,Exclusion: 40 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0116,Exclusion: 41 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0117,Exclusion: 42 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0118,Exclusion: 43 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0119,Exclusion: 1 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0120,Exclusion: 2 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0121,Exclusion: 3 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0122,Exclusion: 4 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0123,Exclusion: 5 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0124,Exclusion: 6 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0125,Exclusion: 7 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0126,Exclusion: 8 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0127,Exclusion: 9 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0128,Exclusion: 10 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0129,Exclusion: 11 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0130,Exclusion: 12 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0131,Exclusion: 13 -,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0132,Exclusion: 1,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0133,Exclusion: 2,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0134,Exclusion: 3,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0135,Exclusion: 4,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0136,Exclusion: 5,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0137,Exclusion: 6,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0138,Exclusion: 7,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0139,Exclusion: 8,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0140,Exclusion: 9,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0141,Exclusion: 10,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0142,Exclusion: 11,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0143,Exclusion: 12,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0144,Exclusion: 13,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0145,Exclusion: 14,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0146,Exclusion: 15,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0147,Exclusion: 16,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0148,Exclusion: 17,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0149,Exclusion: 18,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0150,Exclusion: 19,Excluded,HN_CLASSIC_2R,Extracted
+EXC-0151,Exclusion: 1-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0152,Exclusion: 2-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0153,Exclusion: 3-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0154,Exclusion: 4-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0155,Exclusion: 5-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0156,Exclusion: 6-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0157,Exclusion: 7-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0158,Exclusion: 8-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0159,Exclusion: 9-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0160,Exclusion: 10-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0161,Exclusion: 11-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0162,Exclusion: 12-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0163,Exclusion: 13-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0164,Exclusion: 14-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0165,Exclusion: 15-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0166,Exclusion: 16-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0167,Exclusion: 17-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0168,Exclusion: 18-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0169,Exclusion: 19-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0170,Exclusion: 20-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0171,Exclusion: 21-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0172,Exclusion: 22-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0173,Exclusion: 23-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0174,Exclusion: 24-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0175,Exclusion: 25-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0176,Exclusion: 26-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0177,Exclusion: 27-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0178,Exclusion: 28-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0179,Exclusion: 29-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0180,Exclusion: 30-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0181,Exclusion: 31-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0182,Exclusion: 32-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0183,Exclusion: 33-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0184,Exclusion: 34-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0185,Exclusion: 35-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0186,Exclusion: 36-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0187,Exclusion: 37-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0188,Exclusion: 38-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0189,Exclusion: 39-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0190,Exclusion: 40-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0191,Exclusion: 41-,Excluded,HN_CLASSIC_2,Extracted
+EXC-0192,Exclusion: Healthcare services outside the scope of health insurance (In Emergency cases as,Excluded,HN_CLASSIC_2,Extracted
+EXC-0193,Exclusion: 1 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0194,Exclusion: 2 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0195,Exclusion: 3 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0196,Exclusion: 4 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0197,Exclusion: 5 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0198,Exclusion: 6 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0199,Exclusion: 7 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0200,Exclusion: 8 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0201,Exclusion: 9 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0202,Exclusion: 10 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0203,Exclusion: 11 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0204,Exclusion: 12 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0205,Exclusion: 13 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0206,Exclusion: Standard Policy Exclusions (Valid for Abu Dhabi members only),Excluded,HN_CLASSIC_2,Extracted
+EXC-0207,Exclusion: 1 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0208,Exclusion: 2 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0209,Exclusion: 3 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0210,Exclusion: 4 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0211,Exclusion: 5 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0212,Exclusion: 6 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0213,Exclusion: 7 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0214,Exclusion: 8 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0215,Exclusion: 9 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0216,Exclusion: 10 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0217,Exclusion: 11 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0218,Exclusion: 12 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0219,Exclusion: 13 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0220,Exclusion: 14 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0221,Exclusion: 15 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0222,Exclusion: 16 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0223,Exclusion: 17 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0224,Exclusion: 18 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0225,Exclusion: 19 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0226,Exclusion: 20 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0227,Exclusion: 21 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0228,Exclusion: 22 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0229,Exclusion: 23 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0230,Exclusion: 24 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0231,Exclusion: 25 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0232,Exclusion: 26 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0233,Exclusion: 27 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0234,Exclusion: 28 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0235,Exclusion: 29 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0236,Exclusion: 30 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0237,Exclusion: 31 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0238,Exclusion: 32 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0239,Exclusion: 33 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0240,Exclusion: 34 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0241,Exclusion: 35 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0242,Exclusion: 36 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0243,Exclusion: 37 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0244,Exclusion: 38 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0245,Exclusion: 39 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0246,Exclusion: 40 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0247,Exclusion: 41 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0248,Exclusion: 42 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0249,Exclusion: 43 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0250,Exclusion: 1 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0251,Exclusion: 2 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0252,Exclusion: 3 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0253,Exclusion: 4 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0254,Exclusion: 5 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0255,Exclusion: 6 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0256,Exclusion: 7 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0257,Exclusion: 8 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0258,Exclusion: 9 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0259,Exclusion: 10 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0260,Exclusion: 11 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0261,Exclusion: 12 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0262,Exclusion: 13 -,Excluded,HN_CLASSIC_2,Extracted
+EXC-0263,Exclusion: 1,Excluded,HN_CLASSIC_2,Extracted
+EXC-0264,Exclusion: 2,Excluded,HN_CLASSIC_2,Extracted
+EXC-0265,Exclusion: 3,Excluded,HN_CLASSIC_2,Extracted
+EXC-0266,Exclusion: 4,Excluded,HN_CLASSIC_2,Extracted
+EXC-0267,Exclusion: 5,Excluded,HN_CLASSIC_2,Extracted
+EXC-0268,Exclusion: 6,Excluded,HN_CLASSIC_2,Extracted
+EXC-0269,Exclusion: 7,Excluded,HN_CLASSIC_2,Extracted
+EXC-0270,Exclusion: 8,Excluded,HN_CLASSIC_2,Extracted
+EXC-0271,Exclusion: 9,Excluded,HN_CLASSIC_2,Extracted
+EXC-0272,Exclusion: 10,Excluded,HN_CLASSIC_2,Extracted
+EXC-0273,Exclusion: 11,Excluded,HN_CLASSIC_2,Extracted
+EXC-0274,Exclusion: 12,Excluded,HN_CLASSIC_2,Extracted
+EXC-0275,Exclusion: 13,Excluded,HN_CLASSIC_2,Extracted
+EXC-0276,Exclusion: 14,Excluded,HN_CLASSIC_2,Extracted
+EXC-0277,Exclusion: 15,Excluded,HN_CLASSIC_2,Extracted
+EXC-0278,Exclusion: 16,Excluded,HN_CLASSIC_2,Extracted
+EXC-0279,Exclusion: 17,Excluded,HN_CLASSIC_2,Extracted
+EXC-0280,Exclusion: 18,Excluded,HN_CLASSIC_2,Extracted
+EXC-0281,Exclusion: 19,Excluded,HN_CLASSIC_2,Extracted
+EXC-0282,Exclusion: 1-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0283,Exclusion: 2-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0284,Exclusion: 3-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0285,Exclusion: 4-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0286,Exclusion: 5-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0287,Exclusion: 6-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0288,Exclusion: 7-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0289,Exclusion: 8-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0290,Exclusion: 9-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0291,Exclusion: 10-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0292,Exclusion: 11-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0293,Exclusion: 12-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0294,Exclusion: 13-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0295,Exclusion: 14-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0296,Exclusion: 15-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0297,Exclusion: 16-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0298,Exclusion: 17-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0299,Exclusion: 18-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0300,Exclusion: 19-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0301,Exclusion: 20-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0302,Exclusion: 21-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0303,Exclusion: 22-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0304,Exclusion: 23-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0305,Exclusion: 24-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0306,Exclusion: 25-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0307,Exclusion: 26-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0308,Exclusion: 27-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0309,Exclusion: 28-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0310,Exclusion: 29-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0311,Exclusion: 30-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0312,Exclusion: 31-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0313,Exclusion: 32-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0314,Exclusion: 33-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0315,Exclusion: 34-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0316,Exclusion: 35-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0317,Exclusion: 36-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0318,Exclusion: 37-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0319,Exclusion: 38-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0320,Exclusion: 39-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0321,Exclusion: 40-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0322,Exclusion: 41-,Excluded,HN_CLASSIC_3,Extracted
+EXC-0323,Exclusion: Healthcare services outside the scope of health insurance (In Emergency cases as,Excluded,HN_CLASSIC_3,Extracted
+EXC-0324,Exclusion: 1 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0325,Exclusion: 2 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0326,Exclusion: 3 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0327,Exclusion: 4 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0328,Exclusion: 5 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0329,Exclusion: 6 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0330,Exclusion: 7 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0331,Exclusion: 8 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0332,Exclusion: 9 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0333,Exclusion: 10 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0334,Exclusion: 11 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0335,Exclusion: 12 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0336,Exclusion: 13 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0337,Exclusion: Standard Policy Exclusions (Valid for Abu Dhabi members only),Excluded,HN_CLASSIC_3,Extracted
+EXC-0338,Exclusion: 1 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0339,Exclusion: 2 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0340,Exclusion: 3 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0341,Exclusion: 4 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0342,Exclusion: 5 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0343,Exclusion: 6 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0344,Exclusion: 7 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0345,Exclusion: 8 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0346,Exclusion: 9 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0347,Exclusion: 10 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0348,Exclusion: 11 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0349,Exclusion: 12 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0350,Exclusion: 13 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0351,Exclusion: 14 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0352,Exclusion: 15 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0353,Exclusion: 16 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0354,Exclusion: 17 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0355,Exclusion: 18 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0356,Exclusion: 19 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0357,Exclusion: 20 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0358,Exclusion: 21 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0359,Exclusion: 22 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0360,Exclusion: 23 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0361,Exclusion: 24 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0362,Exclusion: 25 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0363,Exclusion: 26 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0364,Exclusion: 27 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0365,Exclusion: 28 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0366,Exclusion: 29 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0367,Exclusion: 30 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0368,Exclusion: 31 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0369,Exclusion: 32 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0370,Exclusion: 33 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0371,Exclusion: 34 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0372,Exclusion: 35 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0373,Exclusion: 36 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0374,Exclusion: 37 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0375,Exclusion: 38 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0376,Exclusion: 39 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0377,Exclusion: 40 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0378,Exclusion: 41 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0379,Exclusion: 42 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0380,Exclusion: 43 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0381,Exclusion: 1 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0382,Exclusion: 2 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0383,Exclusion: 3 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0384,Exclusion: 4 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0385,Exclusion: 5 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0386,Exclusion: 6 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0387,Exclusion: 7 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0388,Exclusion: 8 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0389,Exclusion: 9 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0390,Exclusion: 10 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0391,Exclusion: 11 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0392,Exclusion: 12 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0393,Exclusion: 13 -,Excluded,HN_CLASSIC_3,Extracted
+EXC-0394,Exclusion: 1,Excluded,HN_CLASSIC_3,Extracted
+EXC-0395,Exclusion: 2,Excluded,HN_CLASSIC_3,Extracted
+EXC-0396,Exclusion: 3,Excluded,HN_CLASSIC_3,Extracted
+EXC-0397,Exclusion: 4,Excluded,HN_CLASSIC_3,Extracted
+EXC-0398,Exclusion: 5,Excluded,HN_CLASSIC_3,Extracted
+EXC-0399,Exclusion: 6,Excluded,HN_CLASSIC_3,Extracted
+EXC-0400,Exclusion: 7,Excluded,HN_CLASSIC_3,Extracted
+EXC-0401,Exclusion: 8,Excluded,HN_CLASSIC_3,Extracted
+EXC-0402,Exclusion: 9,Excluded,HN_CLASSIC_3,Extracted
+EXC-0403,Exclusion: 10,Excluded,HN_CLASSIC_3,Extracted
+EXC-0404,Exclusion: 11,Excluded,HN_CLASSIC_3,Extracted
+EXC-0405,Exclusion: 12,Excluded,HN_CLASSIC_3,Extracted
+EXC-0406,Exclusion: 13,Excluded,HN_CLASSIC_3,Extracted
+EXC-0407,Exclusion: 14,Excluded,HN_CLASSIC_3,Extracted
+EXC-0408,Exclusion: 15,Excluded,HN_CLASSIC_3,Extracted
+EXC-0409,Exclusion: 16,Excluded,HN_CLASSIC_3,Extracted
+EXC-0410,Exclusion: 17,Excluded,HN_CLASSIC_3,Extracted
+EXC-0411,Exclusion: 18,Excluded,HN_CLASSIC_3,Extracted
+EXC-0412,Exclusion: 19,Excluded,HN_CLASSIC_3,Extracted
+EXC-0413,Exclusion: 1-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0414,Exclusion: 2-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0415,Exclusion: 3-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0416,Exclusion: 4-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0417,Exclusion: 5-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0418,Exclusion: 6-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0419,Exclusion: 7-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0420,Exclusion: 8-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0421,Exclusion: 9-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0422,Exclusion: 10-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0423,Exclusion: 11-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0424,Exclusion: 12-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0425,Exclusion: 13-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0426,Exclusion: 14-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0427,Exclusion: 15-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0428,Exclusion: 16-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0429,Exclusion: 17-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0430,Exclusion: 18-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0431,Exclusion: 19-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0432,Exclusion: 20-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0433,Exclusion: 21-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0434,Exclusion: 22-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0435,Exclusion: 23-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0436,Exclusion: 24-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0437,Exclusion: 25-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0438,Exclusion: 26-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0439,Exclusion: 27-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0440,Exclusion: 28-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0441,Exclusion: 29-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0442,Exclusion: 30-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0443,Exclusion: 31-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0444,Exclusion: 32-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0445,Exclusion: 33-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0446,Exclusion: 34-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0447,Exclusion: 35-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0448,Exclusion: 36-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0449,Exclusion: 37-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0450,Exclusion: 38-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0451,Exclusion: 39-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0452,Exclusion: 40-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0453,Exclusion: 41-,Excluded,HN_CLASSIC_4,Extracted
+EXC-0454,Exclusion: Healthcare services outside the scope of health insurance (In Emergency cases as,Excluded,HN_CLASSIC_4,Extracted
+EXC-0455,Exclusion: 1 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0456,Exclusion: 2 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0457,Exclusion: 3 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0458,Exclusion: 4 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0459,Exclusion: 5 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0460,Exclusion: 6 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0461,Exclusion: 7 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0462,Exclusion: 8 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0463,Exclusion: 9 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0464,Exclusion: 10 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0465,Exclusion: 11 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0466,Exclusion: 12 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0467,Exclusion: 13 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0468,Exclusion: Standard Policy Exclusions (Valid for Abu Dhabi members only),Excluded,HN_CLASSIC_4,Extracted
+EXC-0469,Exclusion: 1 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0470,Exclusion: 2 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0471,Exclusion: 3 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0472,Exclusion: 4 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0473,Exclusion: 5 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0474,Exclusion: 6 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0475,Exclusion: 7 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0476,Exclusion: 8 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0477,Exclusion: 9 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0478,Exclusion: 10 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0479,Exclusion: 11 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0480,Exclusion: 12 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0481,Exclusion: 13 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0482,Exclusion: 14 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0483,Exclusion: 15 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0484,Exclusion: 16 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0485,Exclusion: 17 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0486,Exclusion: 18 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0487,Exclusion: 19 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0488,Exclusion: 20 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0489,Exclusion: 21 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0490,Exclusion: 22 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0491,Exclusion: 23 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0492,Exclusion: 24 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0493,Exclusion: 25 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0494,Exclusion: 26 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0495,Exclusion: 27 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0496,Exclusion: 28 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0497,Exclusion: 29 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0498,Exclusion: 30 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0499,Exclusion: 31 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0500,Exclusion: 32 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0501,Exclusion: 33 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0502,Exclusion: 34 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0503,Exclusion: 35 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0504,Exclusion: 36 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0505,Exclusion: 37 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0506,Exclusion: 38 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0507,Exclusion: 39 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0508,Exclusion: 40 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0509,Exclusion: 41 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0510,Exclusion: 42 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0511,Exclusion: 43 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0512,Exclusion: 1 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0513,Exclusion: 2 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0514,Exclusion: 3 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0515,Exclusion: 4 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0516,Exclusion: 5 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0517,Exclusion: 6 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0518,Exclusion: 7 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0519,Exclusion: 8 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0520,Exclusion: 9 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0521,Exclusion: 10 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0522,Exclusion: 11 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0523,Exclusion: 12 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0524,Exclusion: 13 -,Excluded,HN_CLASSIC_4,Extracted
+EXC-0525,Exclusion: 1,Excluded,HN_CLASSIC_4,Extracted
+EXC-0526,Exclusion: 2,Excluded,HN_CLASSIC_4,Extracted
+EXC-0527,Exclusion: 3,Excluded,HN_CLASSIC_4,Extracted
+EXC-0528,Exclusion: 4,Excluded,HN_CLASSIC_4,Extracted
+EXC-0529,Exclusion: 5,Excluded,HN_CLASSIC_4,Extracted
+EXC-0530,Exclusion: 6,Excluded,HN_CLASSIC_4,Extracted
+EXC-0531,Exclusion: 7,Excluded,HN_CLASSIC_4,Extracted
+EXC-0532,Exclusion: 8,Excluded,HN_CLASSIC_4,Extracted
+EXC-0533,Exclusion: 9,Excluded,HN_CLASSIC_4,Extracted
+EXC-0534,Exclusion: 10,Excluded,HN_CLASSIC_4,Extracted
+EXC-0535,Exclusion: 11,Excluded,HN_CLASSIC_4,Extracted
+EXC-0536,Exclusion: 12,Excluded,HN_CLASSIC_4,Extracted
+EXC-0537,Exclusion: 13,Excluded,HN_CLASSIC_4,Extracted
+EXC-0538,Exclusion: 14,Excluded,HN_CLASSIC_4,Extracted
+EXC-0539,Exclusion: 15,Excluded,HN_CLASSIC_4,Extracted
+EXC-0540,Exclusion: 16,Excluded,HN_CLASSIC_4,Extracted
+EXC-0541,Exclusion: 17,Excluded,HN_CLASSIC_4,Extracted
+EXC-0542,Exclusion: 18,Excluded,HN_CLASSIC_4,Extracted
+EXC-0543,Exclusion: 19,Excluded,HN_CLASSIC_4,Extracted
+EXC-0544,Exclusion: 1-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0545,Exclusion: 2-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0546,Exclusion: 3-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0547,Exclusion: 4-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0548,Exclusion: 5-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0549,Exclusion: 6-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0550,Exclusion: 7-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0551,Exclusion: 8-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0552,Exclusion: 9-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0553,Exclusion: 10-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0554,Exclusion: 11-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0555,Exclusion: 12-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0556,Exclusion: 13-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0557,Exclusion: 14-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0558,Exclusion: 15-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0559,Exclusion: 16-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0560,Exclusion: 17-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0561,Exclusion: 18-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0562,Exclusion: 19-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0563,Exclusion: 20-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0564,Exclusion: 21-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0565,Exclusion: 22-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0566,Exclusion: 23-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0567,Exclusion: 24-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0568,Exclusion: 25-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0569,Exclusion: 26-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0570,Exclusion: 27-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0571,Exclusion: 28-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0572,Exclusion: 29-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0573,Exclusion: 30-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0574,Exclusion: 31-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0575,Exclusion: 32-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0576,Exclusion: 33-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0577,Exclusion: 34-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0578,Exclusion: 35-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0579,Exclusion: 36-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0580,Exclusion: 37-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0581,Exclusion: 38-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0582,Exclusion: 39-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0583,Exclusion: 40-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0584,Exclusion: 41-,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0585,Exclusion: Healthcare services outside the scope of health insurance (In Emergency cases as,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0586,Exclusion: 1 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0587,Exclusion: 2 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0588,Exclusion: 3 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0589,Exclusion: 4 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0590,Exclusion: 5 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0591,Exclusion: 6 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0592,Exclusion: 7 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0593,Exclusion: 8 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0594,Exclusion: 9 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0595,Exclusion: 10 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0596,Exclusion: 11 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0597,Exclusion: 12 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0598,Exclusion: 13 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0599,Exclusion: Standard Policy Exclusions (Valid for Abu Dhabi members only),Excluded,HN_CLASSIC_1R,Extracted
+EXC-0600,Exclusion: 1 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0601,Exclusion: 2 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0602,Exclusion: 3 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0603,Exclusion: 4 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0604,Exclusion: 5 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0605,Exclusion: 6 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0606,Exclusion: 7 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0607,Exclusion: 8 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0608,Exclusion: 9 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0609,Exclusion: 10 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0610,Exclusion: 11 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0611,Exclusion: 12 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0612,Exclusion: 13 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0613,Exclusion: 14 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0614,Exclusion: 15 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0615,Exclusion: 16 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0616,Exclusion: 17 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0617,Exclusion: 18 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0618,Exclusion: 19 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0619,Exclusion: 20 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0620,Exclusion: 21 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0621,Exclusion: 22 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0622,Exclusion: 23 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0623,Exclusion: 24 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0624,Exclusion: 25 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0625,Exclusion: 26 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0626,Exclusion: 27 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0627,Exclusion: 28 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0628,Exclusion: 29 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0629,Exclusion: 30 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0630,Exclusion: 31 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0631,Exclusion: 32 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0632,Exclusion: 33 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0633,Exclusion: 34 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0634,Exclusion: 35 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0635,Exclusion: 36 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0636,Exclusion: 37 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0637,Exclusion: 38 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0638,Exclusion: 39 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0639,Exclusion: 40 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0640,Exclusion: 41 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0641,Exclusion: 42 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0642,Exclusion: 43 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0643,Exclusion: 1 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0644,Exclusion: 2 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0645,Exclusion: 3 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0646,Exclusion: 4 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0647,Exclusion: 5 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0648,Exclusion: 6 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0649,Exclusion: 7 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0650,Exclusion: 8 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0651,Exclusion: 9 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0652,Exclusion: 10 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0653,Exclusion: 11 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0654,Exclusion: 12 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0655,Exclusion: 13 -,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0656,Exclusion: 1,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0657,Exclusion: 2,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0658,Exclusion: 3,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0659,Exclusion: 4,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0660,Exclusion: 5,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0661,Exclusion: 6,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0662,Exclusion: 7,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0663,Exclusion: 8,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0664,Exclusion: 9,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0665,Exclusion: 10,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0666,Exclusion: 11,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0667,Exclusion: 12,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0668,Exclusion: 13,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0669,Exclusion: 14,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0670,Exclusion: 15,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0671,Exclusion: 16,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0672,Exclusion: 17,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0673,Exclusion: 18,Excluded,HN_CLASSIC_1R,Extracted
+EXC-0674,Exclusion: 19,Excluded,HN_CLASSIC_1R,Extracted

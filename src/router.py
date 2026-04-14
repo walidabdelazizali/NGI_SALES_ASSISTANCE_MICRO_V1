@@ -34,6 +34,14 @@ PLAN_HINTS = [
     "remedy_04",
     "remedy_05",
     "remedy_06",
+    "classic plan",
+    "classic 1r",
+    "classic 2r",
+    "classic 2",
+    "classic 3",
+    "classic 4",
+    "hn_classic",
+    "hn classic",
 ]
 
 BENEFIT_HINTS = [
@@ -110,9 +118,15 @@ def dispatch_query(query: str) -> dict[str, str]:
     if route == "benefit_lookup":
         # Extract plan and intent from query (simple heuristic)
         import re
-        # Only match supported plans 02-06. Update regex when adding new plans.
+        # Match supported plans: Remedy 02-06 and HN Classic plans.
         plan_match = re.search(r"remedy[\s\-_]?(0[23456])", query, re.IGNORECASE)
-        plan = plan_match.group(0).replace(" ", "_").replace("-", "_").upper() if plan_match else None
+        classic_match = re.search(r"(?:hn[_\s]?)?classic[_\s]?(1r|2r|1|2|3|4)\b", query, re.IGNORECASE)
+        if plan_match:
+            plan = plan_match.group(0).replace(" ", "_").replace("-", "_").upper()
+        elif classic_match:
+            plan = f"HN_CLASSIC_{classic_match.group(1).upper()}"
+        else:
+            plan = None
         # Try to extract intent by matching known benefit keywords
         from benefit_lookup import BENEFIT_KEYWORDS
         lowered = query.lower()

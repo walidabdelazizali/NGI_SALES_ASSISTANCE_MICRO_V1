@@ -1,0 +1,11 @@
+source_filename,source_path,source_type,detected_plan_code,confidence,notes,status
+MR.HUSSEIN 1R@.xlsx,data\source_excel\enhanced_tob\MR.HUSSEIN 1R@.xlsx,xlsx,HN_CLASSIC_2R,high,TOB plan name: Classic Plan-2R,usable
+MR.HUSSEIN CLASSIC 1@.xlsx,data\source_excel\enhanced_tob\MR.HUSSEIN CLASSIC 1@.xlsx,xlsx,HN_CLASSIC_2,high,TOB plan name: Classic Plan-2,usable
+MR.HUSSEIN CLASSIC 2@.xlsx,data\source_excel\enhanced_tob\MR.HUSSEIN CLASSIC 2@.xlsx,xlsx,HN_CLASSIC_3,high,TOB plan name: Classic Plan-3,usable
+MR.HUSSEIN CLASSIC 3@.xlsx,data\source_excel\enhanced_tob\MR.HUSSEIN CLASSIC 3@.xlsx,xlsx,HN_CLASSIC_4,high,TOB plan name: Classic Plan-4,usable
+MR.HUSSEIN CLASSIC 4@.xlsx,data\source_excel\enhanced_tob\MR.HUSSEIN CLASSIC 4@.xlsx,xlsx,HN_CLASSIC_1R,high,TOB plan name: Classic Plan-1R,usable
+MR.HUSSEIN prime 1@.xlsx,data\source_excel\enhanced_tob\MR.HUSSEIN prime 1@.xlsx,xlsx,HN_PRIME_2,high,TOB plan name: Prime Plan-2,usable
+NGI_Master_Plans-all plans compire.xlsx,data\source_excel\enhanced_tob\NGI_Master_Plans-all plans compire.xlsx,xlsx,ALL_PLANS_COMPARISON,high,Master comparison workbook with all plan codes,usable
+NGI_Master_Plans.xlsx,data\source_excel\enhanced_tob\NGI_Master_Plans.xlsx,xlsx,ALL_PLANS_COMPARISON,high,Master comparison workbook with all plan codes,usable
+NGI_Networks_Comparison.pdf,data\source_docs\enhanced_reference\NGI_Networks_Comparison.pdf,pdf,REFERENCE,medium,"PDF readable, 1 pages, 569 chars",usable
+NGI_Networks_Premium_Guide--1.pdf,data\source_docs\enhanced_reference\NGI_Networks_Premium_Guide--1.pdf,pdf,REFERENCE,medium,"PDF readable, 9 pages, 2575 chars",usable
