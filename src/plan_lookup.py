@@ -224,20 +224,22 @@ def lookup_plan(query: str) -> dict:
                         if label == 'Prescribed drugs' and not brow['benefit_name'].strip().lower().startswith('prescribed drugs'):
                             continue
                         # For MRI/CT scan, append pre-approval note
+                        _notes = brow.get('notes', '').strip()
+                        _notes_suffix = '' if _notes == brow['coverage'].strip() else f' {_notes}'
                         if label in ['MRI', 'CT scan']:
                             return {
                                 "status": "found",
                                 "route": "plan_lookup",
                                 "plan_id": brow.get("plan_id"),
                                 "matched_plan": brow.get("plan_name"),
-                                "answer": f"{label} for {brow.get('plan_name')}: {brow['coverage']}. Elective {label} requires pre-approval. {brow.get('notes','').strip()}"
+                                "answer": f"{label} for {brow.get('plan_name')}: {brow['coverage']}. Elective {label} requires pre-approval.{_notes_suffix}"
                             }
                         return {
                             "status": "found",
                             "route": "plan_lookup",
                             "plan_id": brow.get("plan_id"),
                             "matched_plan": brow.get("plan_name"),
-                            "answer": f"{label} for {brow.get('plan_name')}: {brow['coverage']}. {brow.get('notes','').strip()}"
+                            "answer": f"{label} for {brow.get('plan_name')}: {brow['coverage']}.{_notes_suffix}"
                         }
                         found = True
                 # Dental fallback: if not found and explicit_plan is supported, search broadly for any dental row
