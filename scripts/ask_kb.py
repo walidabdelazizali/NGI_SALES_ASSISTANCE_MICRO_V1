@@ -145,6 +145,27 @@ def main():
             print(f"[PLAN] {clean_output(plan_result['answer'])}")
             return
 
+    # Guard: if query explicitly names a Classic or Prime plan, bypass Remedy benefit shortcuts.
+    # Supported Classic plans → route through plan_lookup (which is Classic-aware).
+    # Excluded plans (Classic 1, all Prime) → block immediately.
+    import re as _re
+    _CONFIRMED_CLASSICS = {"HN_CLASSIC_1R", "HN_CLASSIC_2", "HN_CLASSIC_2R", "HN_CLASSIC_3", "HN_CLASSIC_4"}
+    _classic_match = _re.search(r'(?:hn[_\s]?)?classic[_\s]*(?:plan[_\s-]*)?(1r|2r|1|2|3|4)\b', qn)
+    _prime_match = _re.search(r'(?:hn[_\s]?)?prime[_\s]*(?:plan[_\s-]*)?(1|2)\b', qn)
+    if _classic_match:
+        _classic_code = f"HN_CLASSIC_{_classic_match.group(1).upper()}"
+        if _classic_code in _CONFIRMED_CLASSICS:
+            plan_result = lookup_plan(question)
+            if plan_result and plan_result.get('status') == 'found':
+                print(f"[PLAN] {_apply_unlimited_check(qn, clean_output(plan_result['answer']))}")
+                return
+        else:
+            print("No answer found.")
+            return
+    if _prime_match:
+        print("No answer found.")
+        return
+
     benefit_patterns = [
         (['physiotherapy', 'علاج طبيعي', 'العلاج الطبيعي'], {"02": "Does Remedy 02 include physiotherapy?", "03": "Does Remedy 03 include physiotherapy?", "04": "Does Remedy 04 include physiotherapy?", "05": "Does Remedy 05 include physiotherapy?", "06": "Does Remedy 06 include physiotherapy?"}),
         (['dental', 'أسنان', 'تغطية أسنان', 'الأسنان', 'الاسنان', 'dental coverage', 'dental benefit', 'dental included', 'dental covered', 'هل فيها أسنان', 'هل الخطة فيها تغطية أسنان', 'هل dental موجودة'], {"02": "Does Remedy 02 include dental?", "03": "Does Remedy 03 include dental?", "04": "Does Remedy 04 include dental?", "05": "Does Remedy 05 include dental?", "06": "Does Remedy 06 include dental?"}),
