@@ -12,6 +12,7 @@ if str(SRC_DIR) not in sys.path:
 from training_qa_lookup import lookup_training_qa
 from plan_lookup import lookup_plan
 from network_lookup import lookup_network
+from plan_alias_policy import resolve_plan_alias, CONFIRMED_CLASSIC_IDS, CONFIRMED_REMEDY_IDS
 
 DATA_DIR = Path(__file__).resolve().parent.parent / 'data'
 TRAINING_QA_CSV = DATA_DIR / 'training_questions_master.csv'
@@ -145,24 +146,18 @@ def main():
             print(f"[PLAN] {clean_output(plan_result['answer'])}")
             return
 
-    # Guard: if query explicitly names a Classic or Prime plan, bypass Remedy benefit shortcuts.
-    # Supported Classic plans → route through plan_lookup (which is Classic-aware).
-    # Excluded plans (Classic 1, all Prime) → block immediately.
-    import re as _re
-    _CONFIRMED_CLASSICS = {"HN_CLASSIC_1R", "HN_CLASSIC_2", "HN_CLASSIC_2R", "HN_CLASSIC_3", "HN_CLASSIC_4"}
-    _classic_match = _re.search(r'(?:hn[_\s]?)?classic[_\s]*(?:plan[_\s-]*)?(1r|2r|1|2|3|4)\b', qn)
-    _prime_match = _re.search(r'(?:hn[_\s]?)?prime[_\s]*(?:plan[_\s-]*)?(1|2)\b', qn)
-    if _classic_match:
-        _classic_code = f"HN_CLASSIC_{_classic_match.group(1).upper()}"
-        if _classic_code in _CONFIRMED_CLASSICS:
-            plan_result = lookup_plan(question)
-            if plan_result and plan_result.get('status') == 'found':
-                print(f"[PLAN] {_apply_unlimited_check(qn, clean_output(plan_result['answer']))}")
-                return
-        else:
-            print("No answer found.")
+    # Guard: if query explicitly names a non-Remedy plan family, bypass Remedy benefit shortcuts.
+    # Uses centralized alias policy from src/plan_alias_policy.py.
+    _resolved_id, _resolved_status = resolve_plan_alias(qn)
+    if _resolved_status == "confirmed" and _resolved_id and not _resolved_id.startswith("REMEDY_"):
+        plan_result = lookup_plan(question)
+        if plan_result and plan_result.get('status') == 'found':
+            print(f"[PLAN] {_apply_unlimited_check(qn, clean_output(plan_result['answer']))}")
             return
-    if _prime_match:
+    elif _resolved_status == "excluded":
+        print("No answer found.")
+        return
+    elif _resolved_status == "unrecognized_remedy":
         print("No answer found.")
         return
 

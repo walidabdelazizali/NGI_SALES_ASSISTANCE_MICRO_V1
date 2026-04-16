@@ -7,6 +7,7 @@ from network_lookup import lookup_network
 from plan_lookup import lookup_plan
 from rules_lookup import lookup_rules
 from training_lookup import search_training_records
+from plan_alias_policy import CLASSIC_PLAN_RE, REMEDY_PLAN_RE, CONFIRMED_CLASSIC_IDS, CONFIRMED_REMEDY_IDS
 
 
 FAQ_HINTS = [
@@ -119,12 +120,16 @@ def dispatch_query(query: str) -> dict[str, str]:
         # Extract plan and intent from query (simple heuristic)
         import re
         # Match supported plans: Remedy 02-06 and HN Classic plans.
-        plan_match = re.search(r"remedy[\s\-_]?(0[23456])", query, re.IGNORECASE)
-        classic_match = re.search(r"(?:hn[_\s]?)?classic[_\s]?(1r|2r|1|2|3|4)\b", query, re.IGNORECASE)
+        plan_match = REMEDY_PLAN_RE.search(query)
+        classic_match = CLASSIC_PLAN_RE.search(query)
         if plan_match:
-            plan = plan_match.group(0).replace(" ", "_").replace("-", "_").upper()
+            plan = f"REMEDY_{plan_match.group(1)}"
+            if plan not in CONFIRMED_REMEDY_IDS:
+                plan = None
         elif classic_match:
             plan = f"HN_CLASSIC_{classic_match.group(1).upper()}"
+            if plan not in CONFIRMED_CLASSIC_IDS:
+                plan = None
         else:
             plan = None
         # Try to extract intent by matching known benefit keywords

@@ -85,8 +85,8 @@ def _plan_name_variants(name: str) -> set:
         variants.add(f"hn_classic_{suffix}")
     return variants
 
-# Confirmed Classic plan IDs that are live in runtime
-CONFIRMED_CLASSIC_IDS = {"HN_CLASSIC_1R", "HN_CLASSIC_2", "HN_CLASSIC_2R", "HN_CLASSIC_3", "HN_CLASSIC_4"}
+# Import canonical plan sets from centralized alias policy
+from plan_alias_policy import CONFIRMED_CLASSIC_IDS, CONFIRMED_REMEDY_IDS
 
 def _all_allowed_variants() -> set:
     """Return the full set of allowed plan name variants (Remedy + Classic)."""
