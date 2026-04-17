@@ -128,8 +128,9 @@
     "id": 17,
     "category": "network",
     "query": "List all clinics in the network.",
-    "expected_behavior": "gap_check",
-    "notes": "Not supported"
+    "expected_behavior": "answer",
+    "expected_contains": "provide the hospital or clinic name",
+    "notes": "Clarification prompt — asks user to specify provider"
   },
   {
     "id": 18,

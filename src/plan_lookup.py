@@ -3,25 +3,25 @@ from __future__ import annotations
 
 # Deterministic attribute buckets for enriched fields
 ENRICHED_FIELD_MAP = [
-    (['deductible'], 'deductible', 'Deductible'),
-    (['outpatient'], 'outpatient_coverage', 'Outpatient Coverage'),
-    (['inpatient', 'ip'], 'inpatient_coverage', 'Inpatient Coverage'),
-    (['emergency'], 'emergency_coverage', 'Emergency Coverage'),
-    (['pharmacy', 'medicines', 'medication', 'drug'], 'pharmacy_coverage', 'Pharmacy Coverage'),
-    (['telemedicine', 'telemed', 'online consultation', 'online doctor', 'video consultation', 'remote consultation', 'doctor online', 'تلي ميديسن', 'التلي ميديسن', 'طب عن بعد'], 'telemedicine', 'Telemedicine'),
-    (['wellness'], 'wellness_benefits', 'Wellness Benefits'),
+    (['deductible', 'خصم', 'ديكتبل', 'ديدكتبل'], 'deductible', 'Deductible'),
+    (['outpatient', 'عيادات خارجية', 'خارجي'], 'outpatient_coverage', 'Outpatient Coverage'),
+    (['inpatient', 'ip', 'تنويم', 'داخلي', 'عيادات داخلية'], 'inpatient_coverage', 'Inpatient Coverage'),
+    (['emergency', 'طوارئ', 'الطوارئ'], 'emergency_coverage', 'Emergency Coverage'),
+    (['pharmacy', 'medicines', 'medication', 'drug', 'صيدلية', 'أدوية', 'دواء'], 'pharmacy_coverage', 'Pharmacy Coverage'),
+    (['telemedicine', 'telemed', 'online consultation', 'online doctor', 'video consultation', 'remote consultation', 'doctor online', 'تلي ميديسن', 'التلي ميديسن', 'طب عن بعد', 'تيليمديسن', 'تيليمديسين', 'استشارة عن بعد', 'استشاره عن بعد'], 'telemedicine', 'Telemedicine'),
+    (['wellness', 'عافية', 'العافية', 'ويلنس'], 'wellness_benefits', 'Wellness Benefits'),
 ]
 
 PLAN_FIELD_SYNONYMS = [
-    (['annual limit', 'annual maximum', 'maximum limit', 'limit'], 'annual_limit', 'Annual Limit'),
-    (['area of coverage', 'coverage area'], 'area_of_coverage', 'Area of Coverage'),
-    (['provider network', 'network', 'network provider'], 'provider_network', 'Provider Network'),
-    (['copayment', 'copay', 'copayment summary'], 'copayment_summary', 'Copayment'),
-    (['reimbursement inside uae', 'uae reimbursement inside', 'reimbursement in uae'], 'reimbursement_inside_uae', 'Reimbursement Inside UAE'),
-    (['reimbursement outside uae', 'outside uae reimbursement', 'reimbursement out uae'], 'reimbursement_outside_uae', 'Reimbursement Outside UAE'),
-    (['pre-existing conditions', 'pre existing conditions', 'preexisting conditions', 'existing conditions'], 'pre_existing_conditions_note', 'Pre-existing Conditions'),
-    (['maternity', 'maternity note', 'maternity benefit'], 'maternity_note', 'Maternity'),
-    (['declaration requirements', 'declaration requirement', 'declaration', 'require a declaration', 'declaration needed', 'declaration required'], 'declaration_requirements', 'Declaration Requirements'),
+    (['annual limit', 'annual maximum', 'maximum limit', 'limit', 'الحد السنوي', 'الحد الاقصى السنوي', 'السقف السنوي', 'حد سنوي', 'الحد الأقصى', 'كم الحد', 'شو الحد', 'الليمت', 'ليمت', 'انيوال ليمت'], 'annual_limit', 'Annual Limit'),
+    (['area of coverage', 'coverage area', 'منطقة التغطية', 'نطاق التغطية', 'التغطية الجغرافية', 'وين التغطية', 'اين التغطية', 'منطقه التغطيه', 'التغطية', 'تغطية'], 'area_of_coverage', 'Area of Coverage'),
+    (['provider network', 'network', 'network provider', 'شبكة المستشفيات', 'شبكة العلاج', 'الشبكة الطبية'], 'provider_network', 'Provider Network'),
+    (['copayment', 'copay', 'copayment summary', 'كوبي', 'الكوبي', 'كوباي', 'الكوباي', 'نسبة التحمل', 'تحمل المريض', 'نسبة المشاركة', 'حصة المريض'], 'copayment_summary', 'Copayment'),
+    (['reimbursement inside uae', 'uae reimbursement inside', 'reimbursement in uae', 'استرداد داخل الامارات', 'تعويض داخل'], 'reimbursement_inside_uae', 'Reimbursement Inside UAE'),
+    (['reimbursement outside uae', 'outside uae reimbursement', 'reimbursement out uae', 'استرداد خارج الامارات', 'تعويض خارج'], 'reimbursement_outside_uae', 'Reimbursement Outside UAE'),
+    (['pre-existing conditions', 'pre existing conditions', 'preexisting conditions', 'existing conditions', 'حالات مزمنة', 'حالة مزمنة', 'امراض سابقة', 'حالة سابقة', 'حالات سابقه'], 'pre_existing_conditions_note', 'Pre-existing Conditions'),
+    (['maternity', 'maternity note', 'maternity benefit', 'حمل', 'ولادة', 'ولاده', 'ماتيرنيتي', 'تغطية الحمل', 'تغطية حمل', 'تغطية الولادة', 'الأمومة', 'أمومة', 'الامومة', 'امومة'], 'maternity_note', 'Maternity'),
+    (['declaration requirements', 'declaration requirement', 'declaration', 'require a declaration', 'declaration needed', 'declaration required', 'اقرار', 'الاقرار', 'متطلبات الاقرار'], 'declaration_requirements', 'Declaration Requirements'),
 ]
 
 import csv
@@ -39,8 +39,10 @@ def robust_normalize(text):
     text = text.translate(str.maketrans('٠١٢٣٤٥٦٧٨٩', '0123456789'))
     text = ''.join(c for c in unicodedata.normalize('NFKD', text) if not unicodedata.combining(c))
     text = text.lower().strip()
+    # Strip Arabic punctuation (؟،؛) before the main cleanup
+    text = re.sub(r'[\u060C\u061B\u061F\u0640]', ' ', text)
     text = re.sub(r'[^\w\s\u0600-\u06FF]', ' ', text)
-    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'\s+', ' ', text).strip()
     return text
 
 _normalize = robust_normalize
@@ -74,11 +76,11 @@ def _plan_name_variants(name: str) -> set:
                 variants.add(f"{p} {num_ar}")
         except Exception:
             pass
-    # Classic plan variants: match "classic 1r", "hn_classic_1r", "hn classic plan 1r", etc.
-    cm = re.search(r'(?:hn[\s_]?)?classic[\s_]*(?:plan[\s_]*)?(1r|2r|1|2|3|4)\b', base)
+    # Classic plan variants: match "classic 1r", "hn_classic_1r", "hn classic plan 1r", "كلاسيك 2", etc.
+    cm = re.search(r'(?:hn[\s_]?)?(?:classic|\u0643\u0644\u0627\u0633\u064a\u0643)[\s_]*(?:plan[\s_]*)?(1r|2r|1|2|3|4)\b', base)
     if cm:
         suffix = cm.group(1)
-        for p in ["classic", "hn classic", "hn_classic"]:
+        for p in ["classic", "hn classic", "hn_classic", "\u0643\u0644\u0627\u0633\u064a\u0643"]:
             variants.add(f"{p} {suffix}")
             variants.add(f"{p} plan {suffix}")
             variants.add(f"{p}_{suffix}")
@@ -86,7 +88,7 @@ def _plan_name_variants(name: str) -> set:
     return variants
 
 # Import canonical plan sets from centralized alias policy
-from plan_alias_policy import CONFIRMED_CLASSIC_IDS, CONFIRMED_REMEDY_IDS
+from plan_alias_policy import CONFIRMED_CLASSIC_IDS, CONFIRMED_REMEDY_IDS, DEPLOYMENT_APPROVED_PLANS
 
 def _all_allowed_variants() -> set:
     """Return the full set of allowed plan name variants (Remedy + Classic)."""
@@ -113,26 +115,33 @@ def lookup_plan(query: str) -> dict:
         # Explicit unsupported Remedy plan: block any fallback
         return {"status": "not_found", "answer": "Plan not supported yet"}
 
+    # Deployment scope: confirmed but not-yet-approved plans return safe fallback
+    if plan_match:
+        _candidate = f"REMEDY_{plan_match.group(1)}"
+        if _candidate not in DEPLOYMENT_APPROVED_PLANS:
+            return {"status": "not_found"}
+
     # Classic plan gate: check if the query mentions a Classic plan
-    classic_regex = r"(?:hn[_\s]?)?classic[_\s]*(?:plan[_\s]*)?(1r|2r|2|3|4|1)\b"
+    classic_regex = r"(?:hn[_\s]?)?(?:classic|\u0643\u0644\u0627\u0633\u064a\u0643)[_\s]*(?:plan[_\s]*)?(1r|2r|2|3|4|1)\b"
     classic_match = re.search(classic_regex, query.lower())
     if classic_match:
         classic_suffix = classic_match.group(1).upper()
         classic_code = f"HN_CLASSIC_{classic_suffix}"
         if classic_code not in CONFIRMED_CLASSIC_IDS:
             return {"status": "not_found", "answer": "Plan not supported yet"}
+        if classic_code not in DEPLOYMENT_APPROVED_PLANS:
+            return {"status": "not_found"}
 
 
     # --- PATCH: prioritize explicit 'remedy 03' and 'remedy 02' plan id matching ---
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         allowed_variants = _all_allowed_variants()
-        # If the query contains an allowed variant (e.g., 'remedy 03'), match the corresponding row
+        # If the query contains an allowed variant (e.g., 'remedy 03', 'ريمدي 02'), match the corresponding row
         for allowed in allowed_variants:
             if allowed in normalized_query:
-                # Only match the correct plan row
-                if (row.get("plan_id", "").lower().replace("_", " ") == allowed or
-                    allowed in _normalize(row.get("plan_name", ""))):
+                # Only match the correct plan row — use plan_variants to handle Arabic names
+                if allowed in plan_variants:
                     matched_row = row
                     break
         if matched_row:
@@ -142,7 +151,7 @@ def lookup_plan(query: str) -> dict:
         for row in rows:
             plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
             for variant in plan_variants:
-                if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+                if variant and variant in normalized_query:
                     if variant in allowed_variants:
                         matched_row = row
                     else:
@@ -370,7 +379,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -474,7 +483,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -488,7 +497,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # --- PATCH: Remedy 03 pre-existing condition rules specialization ---
@@ -625,6 +634,38 @@ def lookup_plan(query: str) -> dict:
                         "answer": f"Newborn cover for Remedy 02: {brow['coverage']}. {brow.get('notes','').strip()}"
                     }
 
+    # 2a. Generic "benefits" / "فوائد" / "المزايا" overview handler
+    _generic_benefit_terms = ['فوائد', 'فوايد', 'المزايا', 'مزايا', 'benefits', 'what does it cover', 'شو يغطي', 'شو فيها']
+    if any(_normalize(t) in normalized_query for t in _generic_benefit_terms):
+        plan_short = row.get("plan_name") or row.get("plan_id", "")
+        _overview_parts = []
+        _annual = row.get("annual_limit")
+        _area = row.get("area_of_coverage")
+        _copay = row.get("copayment_summary")
+        _network = row.get("provider_network")
+        _maternity = row.get("maternity_note")
+        _reimburse_in = row.get("reimbursement_inside_uae")
+        if _annual:
+            _overview_parts.append(f"Annual Limit: {_annual}")
+        if _area:
+            _overview_parts.append(f"Area of Coverage: {_area}")
+        if _copay:
+            _overview_parts.append(f"Copayment: {_copay}")
+        if _network:
+            _overview_parts.append(f"Provider Network: {_network}")
+        if _maternity:
+            _overview_parts.append(f"Maternity: {_maternity}")
+        if _reimburse_in:
+            _overview_parts.append(f"Reimbursement (inside UAE): {_reimburse_in}")
+        if _overview_parts:
+            return {
+                "status": "found",
+                "route": "plan_lookup",
+                "plan_id": row.get("plan_id"),
+                "matched_plan": row.get("plan_name"),
+                "answer": f"{plan_short} — Overview:\n" + "\n".join(f"• {p}" for p in _overview_parts),
+            }
+
     # 2. Classic fields (non-enriched)
     for synonyms, col, label in PLAN_FIELD_SYNONYMS:
         for syn in synonyms:
@@ -836,7 +877,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -940,7 +981,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -954,7 +995,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -1168,7 +1209,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -1272,7 +1313,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -1286,7 +1327,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -1500,7 +1541,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -1604,7 +1645,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -1618,7 +1659,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -1832,7 +1873,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -1936,7 +1977,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -1950,7 +1991,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -2164,7 +2205,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -2268,7 +2309,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -2282,7 +2323,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -2496,7 +2537,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -2600,7 +2641,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -2614,7 +2655,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -2828,7 +2869,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -2932,7 +2973,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -2946,7 +2987,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -3160,7 +3201,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:
@@ -3264,7 +3305,7 @@ def lookup_plan(query: str) -> dict:
                     }
 
     # 1b. Reimbursement explicit routing
-    if "reimbursement" in normalized_query:
+    if any(t in normalized_query for t in ["reimbursement", "استرداد", "تعويض", "استرجاع"]):
         inside = row.get("reimbursement_inside_uae", "")
         outside = row.get("reimbursement_outside_uae", "")
         if inside or outside:
@@ -3278,7 +3319,7 @@ def lookup_plan(query: str) -> dict:
                 "route": "plan_lookup",
                 "plan_id": row.get("plan_id"),
                 "matched_plan": row.get("plan_name"),
-                "answer": f"Reimbursement for Remedy 02: {' | '.join(answer)}."
+                "answer": f"Reimbursement for {row.get("plan_name") or row.get("plan_id", "")}: {' | '.join(answer)}."
             }
 
     # 2. Classic fields (non-enriched)
@@ -3492,7 +3533,7 @@ def lookup_plan(query: str) -> dict:
     for row in rows:
         plan_variants = _plan_name_variants(row.get("plan_name", "")) | _plan_name_variants(row.get("plan_id", ""))
         for variant in plan_variants:
-            if variant and re.search(rf'\b{re.escape(variant)}\b', normalized_query):
+            if variant and variant in normalized_query:
                 # Allow Remedy 02, Remedy 03, and Remedy 04
                 allowed_variants = _all_allowed_variants()
                 if variant in allowed_variants:

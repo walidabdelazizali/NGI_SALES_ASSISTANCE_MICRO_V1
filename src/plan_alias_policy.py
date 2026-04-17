@@ -31,6 +31,15 @@ EXCLUDED_PLAN_PATTERNS = {
 
 ALL_CONFIRMED_IDS = CONFIRMED_REMEDY_IDS | CONFIRMED_CLASSIC_IDS
 
+# ── Deployment scope ──
+# Controls which confirmed plans are approved for production answers.
+# Plans outside this set return safe fallback even if data exists.
+# Expand this set only after answer-quality validation for the new plan.
+DEPLOYMENT_APPROVED_PLANS: frozenset[str] = frozenset({
+    "REMEDY_02", "REMEDY_03", "REMEDY_04", "REMEDY_05", "REMEDY_06",
+    "HN_CLASSIC_1R", "HN_CLASSIC_2", "HN_CLASSIC_2R", "HN_CLASSIC_3", "HN_CLASSIC_4",
+})
+
 # ── Alias table ──
 # Maps normalized lowercase alias → canonical plan_id.
 # Only confirmed, verified mappings are listed.
