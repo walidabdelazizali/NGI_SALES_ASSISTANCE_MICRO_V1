@@ -1,4 +1,12 @@
 rule_id,topic,rule_text,applies_to,status
-REF-002,Specialist referral and consultation,For Remedy 03: GP referral is required for specialist consultation, specialist care, and access to clinics and hospitals. The DHA e-referral process or equivalent approved method applies. No referral is needed for emergency cases.,REMEDY_03,Extracted
+REF-002,Specialist referral and consultation,For Remedy 03: GP referral is required for specialist consultation, specialist care, and access to clinics and hospitals. The DHA e-referral process or equivalent approved method applies. No referral is needed for emergency cases.
+REF-004,Specialist referral and consultation,For Remedy 04: GP referral is required for specialist consultation, specialist care, and access to clinics and hospitals. The DHA e-referral process or equivalent approved method applies. No referral is needed for emergency cases.
 REF-001,Specialist referral rule,For essential benefit style outpatient access specialist and consultant services require a GP referral through the DHA e-referral process or equivalent approved method.,General outpatient referral handling,Extracted
 REF-003,Specialist referral and consultation,For Remedy 02: GP referral is required for specialist consultation and specialist care. The DHA e-referral process or equivalent approved method applies. No referral is needed for emergency cases.,REMEDY_02,Extracted
+REF-005,Specialist referral and consultation,For Remedy 05: Direct Access to Specialist is provided. No GP referral is required for specialist consultation. Members may visit specialists at clinics and applicable hospitals directly. No referral is needed for emergency cases.,REMEDY_05,Extracted
+REF-005,Specialist referral and consultation,For Remedy 06: Direct Access to Specialist is provided. No GP referral is required for specialist consultation. Members may visit specialists at clinics and applicable hospitals directly. No referral is needed for emergency cases.,REMEDY_06,Extracted
+REF-HN-0006,Specialist referral policy,Direct access to specialists. No GP referral required.,HN_CLASSIC_1R,Extracted
+REF-HN-0007,Specialist referral policy,Direct access to specialists. No GP referral required.,HN_CLASSIC_2,Extracted
+REF-HN-0008,Specialist referral policy,Direct access to specialists. No GP referral required.,HN_CLASSIC_2R,Extracted
+REF-HN-0009,Specialist referral policy,Direct access to specialists. No GP referral required.,HN_CLASSIC_3,Extracted
+REF-HN-0010,Specialist referral policy,Direct access to specialists. No GP referral required.,HN_CLASSIC_4,Extracted

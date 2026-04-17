@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 .pytest_cache/RAG_PROTOTYPE_BUILD_V1/
+.env
+logs/

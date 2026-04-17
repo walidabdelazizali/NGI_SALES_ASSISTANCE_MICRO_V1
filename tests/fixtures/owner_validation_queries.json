@@ -83,8 +83,9 @@
     "id": 11,
     "category": "benefits",
     "query": "Does Remedy 02 include optical?",
-    "expected_behavior": "gap_check",
-    "notes": "Not supported"
+    "expected_behavior": "answer",
+    "notes": "Optical discount benefit now supported",
+    "expected_contains": "optical"
   },
   {
     "id": 12,
@@ -127,8 +128,9 @@
     "id": 17,
     "category": "network",
     "query": "List all clinics in the network.",
-    "expected_behavior": "gap_check",
-    "notes": "Not supported"
+    "expected_behavior": "answer",
+    "expected_contains": "provide the hospital or clinic name",
+    "notes": "Clarification prompt — asks user to specify provider"
   },
   {
     "id": 18,
@@ -230,22 +232,25 @@
     "id": 30,
     "category": "plan_core",
     "query": "What is the deductible for Remedy 04?",
-    "expected_behavior": "gap_check",
-    "notes": "Not supported"
+    "expected_behavior": "answer",
+    "notes": "R04/R05 now supported",
+    "expected_contains": "deductible"
   },
   {
     "id": 31,
     "category": "plan_core",
     "query": "What is the inpatient coverage for Remedy 04?",
-    "expected_behavior": "gap_check",
-    "notes": "Not supported"
+    "expected_behavior": "answer",
+    "notes": "R04/R05 now supported",
+    "expected_contains": "inpatient"
   },
   {
     "id": 32,
     "category": "plan_core",
     "query": "What emergency coverage does Remedy 05 have?",
-    "expected_behavior": "gap_check",
-    "notes": "Not supported"
+    "expected_behavior": "answer",
+    "notes": "R05 now supported",
+    "expected_contains": "emergency"
   },
   {
     "id": 33,

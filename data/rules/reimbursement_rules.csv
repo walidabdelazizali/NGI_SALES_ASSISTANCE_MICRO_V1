@@ -1,6 +1,30 @@
-RMB-002,Reimbursement outside network,Emergency medical treatment within the UAE can be reimbursed outside network based on plan terms.,REMEDY_03,Extracted
-RMB-003,Reimbursement outside UAE,Eligible claims outside the UAE within the covered territory are reimbursed at 100 percent based on UAE designated network UCR rates or actual incurred cost whichever is lower.,REMEDY_03,Extracted
+rule_id,topic,rule_text,applies_to,status
+RMB-R03-001,General reimbursement policy,General reimbursement is NOT allowed for Remedy 03 unless an explicit benefit or rule row grants reimbursement for that specific service.,REMEDY_03,Extracted
+RMB-R03-002,Reimbursement outside network,Emergency medical treatment within the UAE can be reimbursed outside network based on plan terms.,REMEDY_03,Extracted
+RMB-R03-003,Reimbursement outside UAE,Eligible claims outside the UAE within the covered territory are reimbursed at 100 percent based on UAE designated network UCR rates or actual incurred cost whichever is lower.,REMEDY_03,Extracted
+RMB-R03-004,Alternative medicine reimbursement,Alternative medical treatment is available on reimbursement basis only up to AED 1500 per person per year with 30 percent coinsurance.,REMEDY_03,Extracted
+RMB-R03-005,Repatriation reimbursement,Repatriation of mortal remains is covered on reimbursement basis up to AED 5000 per person per year.,REMEDY_03,Extracted
+RMB-R04-001,General reimbursement policy,General reimbursement is NOT allowed for Remedy 04 unless an explicit benefit or rule row grants reimbursement for that specific service.,REMEDY_04,Extracted
+RMB-R04-002,Reimbursement outside network,Emergency medical treatment within the UAE can be reimbursed outside network based on plan terms.,REMEDY_04,Extracted
+RMB-R04-003,Reimbursement outside UAE,Eligible claims outside the UAE within the covered territory are reimbursed at 100 percent based on UAE designated network UCR rates or actual incurred cost whichever is lower.,REMEDY_04,Extracted
+RMB-R04-004,Alternative medicine reimbursement,Alternative medical treatment is available on reimbursement basis only up to AED 1500 per person per year with 30 percent coinsurance.,REMEDY_04,Extracted
+RMB-R04-005,Repatriation reimbursement,Repatriation of mortal remains is covered on reimbursement basis up to AED 5000 per person per year.,REMEDY_04,Extracted
+RMB-R05-001,General reimbursement policy,General reimbursement is NOT allowed for Remedy 05 unless an explicit benefit or rule row grants reimbursement for that specific service.,REMEDY_05,Extracted
+RMB-R05-002,Reimbursement outside network,Emergency medical treatment within the UAE can be reimbursed outside network based on plan terms.,REMEDY_05,Extracted
+RMB-R05-003,Reimbursement outside UAE,Eligible claims outside the UAE within the covered territory are reimbursed at 100 percent based on UAE designated network UCR rates or actual incurred cost whichever is lower.,REMEDY_05,Extracted
+RMB-R05-004,Alternative medicine reimbursement,Alternative medical treatment is available on reimbursement basis only up to AED 1500 per person per year with 30 percent coinsurance.,REMEDY_05,Extracted
+RMB-R05-005,Repatriation reimbursement,Repatriation of mortal remains is covered on reimbursement basis up to AED 5000 per person per year.,REMEDY_05,Extracted
 rule_id,topic,rule_text,applies_to,status
 RMB-001,Direct billing vs reimbursement,Direct billing is used at eligible network providers while reimbursement requires the member to pay first and submit a claim afterward.,General training use,Approved
 RMB-002,Reimbursement outside network,Emergency medical treatment within the UAE can be reimbursed outside network based on plan terms.,REMEDY_02 through REMEDY_06,Extracted
 RMB-003,Reimbursement outside UAE,Eligible claims outside the UAE within the covered territory are reimbursed at 100 percent based on UAE designated network UCR rates or actual incurred cost whichever is lower.,REMEDY_02 through REMEDY_06,Extracted
+RMB-R06-001,General reimbursement policy,General reimbursement is NOT allowed for Remedy 06 unless an explicit benefit or rule row grants reimbursement for that specific service.,REMEDY_06,Extracted
+RMB-R06-002,Reimbursement outside network,Emergency medical treatment within the UAE can be reimbursed outside network based on plan terms.,REMEDY_06,Extracted
+RMB-R06-003,Reimbursement outside UAE,Eligible claims outside the UAE within the covered territory are reimbursed at 100 percent based on UAE designated network UCR rates or actual incurred cost whichever is lower.,REMEDY_06,Extracted
+RMB-R06-004,Alternative medicine reimbursement,Alternative medical treatment is available on reimbursement basis only up to AED 1500 per person per year with 30 percent coinsurance.,REMEDY_06,Extracted
+RMB-R06-005,Repatriation reimbursement,Repatriation of mortal remains is covered on reimbursement basis up to AED 5000 per person per year.,REMEDY_06,Extracted
+RMB-HN-0006,Reimbursement policy,Claims Settlement Basis (After application of Copayments): Direct Billing Available. Reimbursement is also possible but will be settled at 80% of the usual & customary rates of the selected Network.,HN_CLASSIC_2R,Extracted
+RMB-HN-0007,Reimbursement policy,Claims Settlement Basis (After application of Copayments): Direct Billing Available. Reimbursement is also possible but will be settled at 80% of the usual & customary rates of the selected Network.,HN_CLASSIC_2,Extracted
+RMB-HN-0008,Reimbursement policy,Claims Settlement Basis (After application of Copayments): Direct Billing Available. Reimbursement is also possible but will be settled at 80% of the usual & customary rates of the selected Network.,HN_CLASSIC_3,Extracted
+RMB-HN-0009,Reimbursement policy,Claims Settlement Basis (After application of Copayments): Direct Billing Available. Reimbursement is also possible but will be settled at 80% of the usual & customary rates of the selected Network.,HN_CLASSIC_4,Extracted
+RMB-HN-0010,Reimbursement policy,Claims Settlement Basis (After application of Copayments): Direct Billing Available. Reimbursement is also possible but will be settled at 80% of the usual & customary rates of the selected Network.,HN_CLASSIC_1R,Extracted

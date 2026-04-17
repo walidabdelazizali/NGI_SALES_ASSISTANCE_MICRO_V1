@@ -4,11 +4,62 @@ BEN-IP-102,REMEDY_03,NGI Healthnet – Remedy 03,Emergency treatment approval wi
 BEN-IP-103,REMEDY_03,NGI Healthnet – Remedy 03,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 03 extract.
 BEN-IP-104,REMEDY_03,NGI Healthnet – Remedy 03,Ambulance,Ground transportation services in the UAE for medical emergencies,Curated from Remedy 03 extract.
 BEN-IP-105,REMEDY_03,NGI Healthnet – Remedy 03,Intensive care unit,Covered,Curated from Remedy 03 extract.
-BEN-IP-106,REMEDY_03,NGI Healthnet – Remedy 03,Parent/guardian accommodation,Covered,Curated from Remedy 03 extract.
-BEN-IP-107,REMEDY_03,NGI Healthnet – Remedy 03,Adult accommodation with inpatient,Covered,Curated from Remedy 03 extract.
+BEN-IP-106,REMEDY_03,NGI Healthnet – Remedy 03,Parent/guardian accommodation with child under 16,AED 100 per night,Curated from Remedy 03 extract.
+BEN-IP-107,REMEDY_03,NGI Healthnet – Remedy 03,Adult accommodation with inpatient,Covered if medically necessary and pre-approved; AED 100 per night maximum,Curated from Remedy 03 extract.
+BEN-IP-201,REMEDY_04,NGI Healthnet – Remedy 04,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Elective IP outside UAE subject to prior approval. Curated from Remedy 04 extract.
+BEN-IP-202,REMEDY_04,NGI Healthnet – Remedy 04,Emergency treatment approval within 24 hours of admission,Covered,Curated from Remedy 04 extract.
+BEN-IP-203,REMEDY_04,NGI Healthnet – Remedy 04,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 04 extract.
+BEN-IP-204,REMEDY_04,NGI Healthnet – Remedy 04,Ambulance,Ground transportation services in the UAE for medical emergencies,Curated from Remedy 04 extract.
+BEN-IP-205,REMEDY_04,NGI Healthnet – Remedy 04,Intensive care unit,Covered,Curated from Remedy 04 extract.
+BEN-IP-206,REMEDY_04,NGI Healthnet – Remedy 04,Parent/guardian accommodation with child under 16,AED 100 per night,Curated from Remedy 04 extract.
+BEN-IP-207,REMEDY_04,NGI Healthnet – Remedy 04,Adult accommodation with inpatient,Covered if medically necessary and pre-approved; AED 100 per night maximum,Curated from Remedy 04 extract.
+BEN-IP-301,REMEDY_05,NGI Healthnet – Remedy 05,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Elective IP outside UAE subject to prior approval. Curated from Remedy 05 extract.
+BEN-IP-302,REMEDY_05,NGI Healthnet – Remedy 05,Emergency treatment approval within 24 hours of admission,Covered,Curated from Remedy 05 extract.
+BEN-IP-303,REMEDY_05,NGI Healthnet – Remedy 05,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 05 extract.
+BEN-IP-304,REMEDY_05,NGI Healthnet – Remedy 05,Ambulance,Ground transportation services in the UAE for medical emergencies,Curated from Remedy 05 extract.
+BEN-IP-305,REMEDY_05,NGI Healthnet – Remedy 05,Intensive care unit,Covered,Curated from Remedy 05 extract.
+BEN-IP-306,REMEDY_05,NGI Healthnet – Remedy 05,Parent/guardian accommodation with child under 16,AED 100 per night,Curated from Remedy 05 extract.
+BEN-IP-307,REMEDY_05,NGI Healthnet – Remedy 05,Adult accommodation with inpatient,Covered if medically necessary and pre-approved; AED 100 per night maximum,Curated from Remedy 05 extract.
 benefit_id,plan_id,plan_name,benefit_name,coverage,notes
 BEN-IP-001,REMEDY_02,REMEDY 02,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Elective IP outside UAE subject to prior approval. Curated from Remedy 02 extract.
 BEN-IP-002,REMEDY_02,REMEDY 02,Emergency treatment approval within 24 hours of admission,Covered,Curated from Remedy 02 extract.
 BEN-IP-003,REMEDY_02,REMEDY 02,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 02 extract.
 BEN-IP-004,REMEDY_02,REMEDY 02,Ambulance,Ground transportation services in the UAE for medical emergencies,Curated from Remedy 02 extract.
 BEN-IP-005,REMEDY_02,REMEDY 02,Intensive care unit,Covered,Curated from Remedy 02 extract.
+BEN-IP-401,REMEDY_06,NGI Healthnet – Remedy 06,Tests diagnosis treatments and surgeries for non-urgent cases,20 percent copay with maximum AED 500 per incident and AED 1000 per year in covered areas,Elective IP outside UAE subject to prior approval. Curated from Remedy 06 extract.
+BEN-IP-402,REMEDY_06,NGI Healthnet – Remedy 06,Emergency treatment approval within 24 hours of admission,Covered,Curated from Remedy 06 extract.
+BEN-IP-403,REMEDY_06,NGI Healthnet – Remedy 06,Room and board,In-patient services in rooms of two or more beds with prior approval required,Curated from Remedy 06 extract.
+BEN-IP-404,REMEDY_06,NGI Healthnet – Remedy 06,Ambulance,Ground transportation services in the UAE for medical emergencies,Curated from Remedy 06 extract.
+BEN-IP-405,REMEDY_06,NGI Healthnet – Remedy 06,Intensive care unit,Covered,Curated from Remedy 06 extract.
+BEN-IP-406,REMEDY_06,NGI Healthnet – Remedy 06,Parent/guardian accommodation with child under 16,AED 100 per night,Curated from Remedy 06 extract.
+BEN-IP-407,REMEDY_06,NGI Healthnet – Remedy 06,Adult accommodation with inpatient,Covered if medically necessary and pre-approved; AED 100 per night maximum,Curated from Remedy 06 extract.
+BEN-IP-408,HN_CLASSIC_2R,HN Classic Plan-2R,Room & Board,Private,Private
+BEN-IP-409,HN_CLASSIC_2R,HN Classic Plan-2R,"Tests, diagnosis, treatments and surgeries for Non-urgent cases Pre-approval is required for this benefit.",Covered,
+BEN-IP-410,HN_CLASSIC_2R,HN Classic Plan-2R,Cash Indemnity for In-Patient hospitalizations that are not submitted to the Insurance Company,Covered on Reimbursement up to AED 250 per night and a maximum of 10 nights. The Cash Indemnity claim must be submitted within 15 days after discharge from the hospital with a proof of hospitalization including a discharge summary.,
+BEN-IP-411,HN_CLASSIC_2R,HN Classic Plan-2R,Parent Accommodation for child under 16 years of age,Covered up to AED 300 / night,
+BEN-IP-412,HN_CLASSIC_2R,HN Classic Plan-2R,The cost of accommodating a person accompanying an in-patient in the same room in cases of medical necessity at the recommendation of the treating doctor and after the prior approval of the insurance,Covered up to AED 300 / night,
+BEN-IP-413,HN_CLASSIC_2R,HN Classic Plan-2R,Emergency road ambulance services to and from hospital by registered ambulance services provider,100% Covered,
+BEN-IP-414,HN_CLASSIC_2,HN Classic Plan-2,Room & Board,Private,Private
+BEN-IP-415,HN_CLASSIC_2,HN Classic Plan-2,"Tests, diagnosis, treatments and surgeries for Non-urgent cases Pre-approval is required for this benefit.",Covered,
+BEN-IP-416,HN_CLASSIC_2,HN Classic Plan-2,Cash Indemnity for In-Patient hospitalizations that are not submitted to the Insurance Company,Covered on Reimbursement up to AED 250 per night and a maximum of 10 nights. The Cash Indemnity claim must be submitted within 15 days after discharge from the hospital with a proof of hospitalization including a discharge summary.,
+BEN-IP-417,HN_CLASSIC_2,HN Classic Plan-2,Parent Accommodation for child under 16 years of age,Covered up to AED 300 / night,
+BEN-IP-418,HN_CLASSIC_2,HN Classic Plan-2,The cost of accommodating a person accompanying an in-patient in the same room in cases of medical necessity at the recommendation of the treating doctor and after the prior approval of the insurance,Covered up to AED 300 / night,
+BEN-IP-419,HN_CLASSIC_2,HN Classic Plan-2,Emergency road ambulance services to and from hospital by registered ambulance services provider,100% Covered,
+BEN-IP-420,HN_CLASSIC_3,HN Classic Plan-3,Room & Board,Private,Private
+BEN-IP-421,HN_CLASSIC_3,HN Classic Plan-3,"Tests, diagnosis, treatments and surgeries for Non-urgent cases Pre-approval is required for this benefit.",Covered,
+BEN-IP-422,HN_CLASSIC_3,HN Classic Plan-3,Cash Indemnity for In-Patient hospitalizations that are not submitted to the Insurance Company,Covered on Reimbursement up to AED 250 per night and a maximum of 10 nights. The Cash Indemnity claim must be submitted within 15 days after discharge from the hospital with a proof of hospitalization including a discharge summary.,
+BEN-IP-423,HN_CLASSIC_3,HN Classic Plan-3,Parent Accommodation for child under 16 years of age,Covered up to AED 150 / night,
+BEN-IP-424,HN_CLASSIC_3,HN Classic Plan-3,The cost of accommodating a person accompanying an in-patient in the same room in cases of medical necessity at the recommendation of the treating doctor and after the prior approval of the insurance,Covered up to AED 150 / night,
+BEN-IP-425,HN_CLASSIC_3,HN Classic Plan-3,Emergency road ambulance services to and from hospital by registered ambulance services provider,100% Covered,
+BEN-IP-426,HN_CLASSIC_4,HN Classic Plan-4,Room & Board,Private,Private
+BEN-IP-427,HN_CLASSIC_4,HN Classic Plan-4,"Tests, diagnosis, treatments and surgeries for Non-urgent cases Pre-approval is required for this benefit.",Covered,
+BEN-IP-428,HN_CLASSIC_4,HN Classic Plan-4,Cash Indemnity for In-Patient hospitalizations that are not submitted to the Insurance Company,Covered on Reimbursement up to AED 250 per night and a maximum of 10 nights. The Cash Indemnity claim must be submitted within 15 days after discharge from the hospital with a proof of hospitalization including a discharge summary.,
+BEN-IP-429,HN_CLASSIC_4,HN Classic Plan-4,Parent Accommodation for child under 16 years of age,Covered up to AED 150 / night,
+BEN-IP-430,HN_CLASSIC_4,HN Classic Plan-4,The cost of accommodating a person accompanying an in-patient in the same room in cases of medical necessity at the recommendation of the treating doctor and after the prior approval of the insurance,Covered up to AED 150 / night,
+BEN-IP-431,HN_CLASSIC_4,HN Classic Plan-4,Emergency road ambulance services to and from hospital by registered ambulance services provider,100% Covered,
+BEN-IP-432,HN_CLASSIC_1R,HN Classic Plan-1R,Room & Board,Private,Private
+BEN-IP-433,HN_CLASSIC_1R,HN Classic Plan-1R,"Tests, diagnosis, treatments and surgeries for Non-urgent cases Pre-approval is required for this benefit.",Covered,
+BEN-IP-434,HN_CLASSIC_1R,HN Classic Plan-1R,Cash Indemnity for In-Patient hospitalizations that are not submitted to the Insurance Company,Covered on Reimbursement up to AED 300 per night and a maximum of 10 nights. The Cash Indemnity claim must be submitted within 15 days after discharge from the hospital with a proof of hospitalization including a discharge summary.,
+BEN-IP-435,HN_CLASSIC_1R,HN Classic Plan-1R,Parent Accommodation for child under 16 years of age,Covered up to AED 350 / night,
+BEN-IP-436,HN_CLASSIC_1R,HN Classic Plan-1R,The cost of accommodating a person accompanying an in-patient in the same room in cases of medical necessity at the recommendation of the treating doctor and after the prior approval of the insurance,Covered up to AED 350 / night,
+BEN-IP-437,HN_CLASSIC_1R,HN Classic Plan-1R,Emergency road ambulance services to and from hospital by registered ambulance services provider,100% Covered,

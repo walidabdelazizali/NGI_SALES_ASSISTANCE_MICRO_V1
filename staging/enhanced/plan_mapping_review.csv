@@ -1,0 +1,9 @@
+source_file,workbook_plan_name,proposed_internal_code,proposed_display_name,workbook_network,comparison_network,annual_limit,status,confidence,review_notes
+MR.HUSSEIN 1R@.xlsx,Classic Plan-2R,HN_CLASSIC_2R,Classic Plan-2R,HN Standard Plus,Standard Plus,"AED 250,000",confirmed,high,Classic plan confirmed from workbook content | FILENAME MISLEADING: 'MR.HUSSEIN 1R@.xlsx' != 'Classic Plan-2R'
+MR.HUSSEIN CLASSIC 1@.xlsx,Classic Plan-2,HN_CLASSIC_2,Classic Plan-2,HN Standard Plus (Additional 10% Co-pay applicable on all OP Services excluding Pharmacy at NMC Royal Hosp. Sharjah),Standard Plus,"AED 250,000",confirmed,high,Classic plan confirmed from workbook content | FILENAME MISLEADING: 'MR.HUSSEIN CLASSIC 1@.xlsx' != 'Classic Plan-2'
+MR.HUSSEIN CLASSIC 2@.xlsx,Classic Plan-3,HN_CLASSIC_3,Classic Plan-3,HN Standard,Standard,"AED 250,000",confirmed,high,Classic plan confirmed from workbook content | FILENAME MISLEADING: 'MR.HUSSEIN CLASSIC 2@.xlsx' != 'Classic Plan-3'
+MR.HUSSEIN CLASSIC 3@.xlsx,Classic Plan-4,HN_CLASSIC_4,Classic Plan-4,HN Basic Plus,Basic Plus,"AED 150,000",confirmed,high,Classic plan confirmed from workbook content | FILENAME MISLEADING: 'MR.HUSSEIN CLASSIC 3@.xlsx' != 'Classic Plan-4'
+MR.HUSSEIN CLASSIC 4@.xlsx,Classic Plan-1R,HN_CLASSIC_1R,Classic Plan-1R,HN Advantage,Advantage,"AED 300,000",confirmed,high,Classic plan confirmed from workbook content | FILENAME MISLEADING: 'MR.HUSSEIN CLASSIC 4@.xlsx' != 'Classic Plan-1R'
+MR.HUSSEIN prime 1@.xlsx,Prime Plan-2,HN_PRIME_2,Prime Plan-2,HN Premier,Standard Plus,"AED 500,000",pending_mapping,medium,NETWORK CONFLICT: TOB='HN Premier' vs Comparison='Standard Plus' | FILENAME MISLEADING: 'MR.HUSSEIN prime 1@.xlsx' != 'Prime Plan-2'
+,,HN_PRIME_1,Prime Plan-1,,Advantage Plus,500K,pending_source,none,No TOB workbook found — do not fabricate
+,,HN_CLASSIC_1,Classic Plan-1,,Advantage,300K,pending_source,none,No TOB workbook found — do not fabricate

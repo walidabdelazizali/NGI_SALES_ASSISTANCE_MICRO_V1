@@ -1,9 +1,21 @@
 benefit_id,plan_id,plan_name,benefit_name,coverage,notes
 BEN-MAT-101,REMEDY_03,NGI Healthnet – Remedy 03,Waiting period,Nil,Curated from Remedy 03 extract.
-BEN-MAT-102,REMEDY_03,NGI Healthnet – Remedy 03,In-patient maternity services,10 percent copay with maximum AED 10,000 for normal delivery and medically necessary C-section including complications and medically necessary termination,Curated from Remedy 03 extract.
+BEN-MAT-102,REMEDY_03,NGI Healthnet – Remedy 03,In-patient maternity services,10 percent copay with maximum AED 10,000 for normal delivery and medically necessary C-section including complications and medically necessary termination
 BEN-MAT-103,REMEDY_03,NGI Healthnet – Remedy 03,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 03 extract.
 BEN-MAT-104,REMEDY_03,NGI Healthnet – Remedy 03,Prenatal services,Covered for up to 8 visits with 10 percent copay per visit; pre-approval required,Curated from Remedy 03 extract. Approved Remedy 03 logic.
+BEN-MAT-201,REMEDY_04,NGI Healthnet – Remedy 04,Waiting period,Nil,Curated from Remedy 04 extract.
+BEN-MAT-202,REMEDY_04,NGI Healthnet – Remedy 04,In-patient maternity services,10 percent copay with maximum AED 10,000 for normal delivery and medically necessary C-section including complications and medically necessary termination
+BEN-MAT-203,REMEDY_04,NGI Healthnet – Remedy 04,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 04 extract.
+BEN-MAT-204,REMEDY_04,NGI Healthnet – Remedy 04,Prenatal services,Covered for up to 8 visits with 10 percent copay per visit; pre-approval required,Curated from Remedy 04 extract. Approved Remedy 04 logic.
+BEN-MAT-301,REMEDY_05,NGI Healthnet – Remedy 05,Waiting period,Nil,Curated from Remedy 05 extract.
+BEN-MAT-302,REMEDY_05,NGI Healthnet – Remedy 05,In-patient maternity services,10 percent copay with maximum AED 10,000 for normal delivery and medically necessary C-section including complications and medically necessary termination
+BEN-MAT-303,REMEDY_05,NGI Healthnet – Remedy 05,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 05 extract.
+BEN-MAT-304,REMEDY_05,NGI Healthnet – Remedy 05,Prenatal services,Covered for up to 8 visits to PHC or Applicable Hospitals with Direct Access to Specialist; 10 percent copay per visit; pre-approval required,Curated from Remedy 05 extract. Direct Access to Specialist for prenatal visits.
 BEN-MAT-001,REMEDY_02,REMEDY 02,Waiting period,Nil,Curated from Remedy 02 extract.
 BEN-MAT-002,REMEDY_02,REMEDY 02,In-patient maternity services,10 percent copay with maximum AED 10000 for normal delivery and medically necessary C-section including complications and medically necessary termination,Deferred: commercial inclusion/add-on classification not finalized. Curated from Remedy 02 extract.
 BEN-MAT-003,REMEDY_02,REMEDY 02,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 02 extract.
 BEN-MAT-004,REMEDY_02,REMEDY 02,Prenatal services,Covered for up to 8 visits with 10 percent copay per visit; pre-approval required,Curated from Remedy 02 extract. Approved Remedy 02 logic.
+BEN-MAT-401,REMEDY_06,NGI Healthnet – Remedy 06,Waiting period,Nil,Curated from Remedy 06 extract.
+BEN-MAT-402,REMEDY_06,NGI Healthnet – Remedy 06,In-patient maternity services,10 percent copay with maximum AED 10,000 for normal delivery and medically necessary C-section including complications and medically necessary termination
+BEN-MAT-403,REMEDY_06,NGI Healthnet – Remedy 06,Newborn cover,30 days cover from date of birth including BCG Hepatitis B and neonatal screening tests,Curated from Remedy 06 extract.
+BEN-MAT-404,REMEDY_06,NGI Healthnet – Remedy 06,Prenatal services,Covered for up to 8 visits to PHC or Applicable Hospitals with Direct Access to Specialist; 10 percent copay per visit; pre-approval required,Curated from Remedy 06 extract. Direct Access to Specialist for prenatal visits.

@@ -7,6 +7,7 @@ from network_lookup import lookup_network
 from plan_lookup import lookup_plan
 from rules_lookup import lookup_rules
 from training_lookup import search_training_records
+from plan_alias_policy import CLASSIC_PLAN_RE, REMEDY_PLAN_RE, CONFIRMED_CLASSIC_IDS, CONFIRMED_REMEDY_IDS
 
 
 FAQ_HINTS = [
@@ -17,23 +18,61 @@ FAQ_HINTS = [
     "what should i do",
     "what qualifies",
     "difference between",
+    "كيف",
+    "ليش",
+    "شو لازم",
+    "شو اسوي",
+    "الفرق بين",
+    "ما الفرق",
 ]
 
 PLAN_HINTS = [
     "annual limit",
+    "الحد السنوي",
+    "الحد الأقصى السنوي",
+    "السقف السنوي",
+    "حد سنوي",
+    "كم الحد",
+    "شو الحد",
+    "الليمت",
     "area of coverage",
+    "منطقة التغطية",
+    "نطاق التغطية",
+    "وين التغطية",
+    "مناطق التغطية",
     "plan type",
     "provider network",
     "remedy 02",
     "remedy 03",
-        # "remedy 04",  # Isolated for cleanup
-        # "remedy 05",  # Isolated for cleanup
+    "remedy 04",
+    "remedy 05",
     "remedy 06",
     "remedy_02",
     "remedy_03",
     "remedy_04",
     "remedy_05",
     "remedy_06",
+    "ريمدي",
+    "ريميدي",
+    "classic plan",
+    "classic 1r",
+    "classic 2r",
+    "classic 2",
+    "classic 3",
+    "classic 4",
+    "hn_classic",
+    "hn classic",
+    "كلاسيك",
+    "كوبي",
+    "نسبة التحمل",
+    "copay",
+    "copayment",
+    "التغطية",
+    "فوائد",
+    "المزايا",
+    "استرداد",
+    "تعويض",
+    "reimbursement",
 ]
 
 BENEFIT_HINTS = [
@@ -49,6 +88,24 @@ BENEFIT_HINTS = [
     "room & board",
     "physiotherapy",
     "isa assist",
+    "حمل",
+    "ولادة",
+    "تغطية الحمل",
+    "أسنان",
+    "الاسنان",
+    "تطعيم",
+    "لقاح",
+    "تطعيمات",
+    "علاج طبيعي",
+    "صحة نفسية",
+    "زراعة أعضاء",
+    "غسيل كلى",
+    "أدوية",
+    "عمليات",
+    "تنويم",
+    "إقامة",
+    "نظارات",
+    "بصريات",
 ]
 
 NETWORK_HINTS = [
@@ -65,6 +122,15 @@ NETWORK_HINTS = [
     "أستر",
     "القصيص",
     "الشبكة",
+    "ضمن الشبكة",
+    "في الشبكة",
+    "خارج الشبكة",
+    "مستشفى",
+    "عيادة",
+    "دكتور",
+    "طبيب",
+    "ديركت بيلنج",
+    "مباشر",
 ]
 
 RULE_HINTS = [
@@ -78,6 +144,18 @@ RULE_HINTS = [
     "outside uae",
     "outside network",
     "pre existing",
+    "تحويل",
+    "إحالة",
+    "موافقة",
+    "موافقة مسبقة",
+    "استثناء",
+    "استثناءات",
+    "حالة مزمنة",
+    "حالات مزمنة",
+    "امراض سابقة",
+    "خارج الامارات",
+    "خارج الشبكة",
+    "بري ابروفال",
 ]
 
 
@@ -98,6 +176,7 @@ def route_question(query: str) -> str:
 
 
 def dispatch_query(query: str) -> dict[str, str]:
+    """Central dispatcher. Supported scope: Remedy 02-06. Plan gate is in plan_lookup.py."""
     route = route_question(query)
     # 1. Structured lookups (priority)
     if route == "plan_lookup":
@@ -109,8 +188,19 @@ def dispatch_query(query: str) -> dict[str, str]:
     if route == "benefit_lookup":
         # Extract plan and intent from query (simple heuristic)
         import re
-        plan_match = re.search(r"remedy[\s\-_]?(0[23])", query, re.IGNORECASE)
-        plan = plan_match.group(0).replace(" ", "_").replace("-", "_").upper() if plan_match else None
+        # Match supported plans: Remedy 02-06 and HN Classic plans.
+        plan_match = REMEDY_PLAN_RE.search(query)
+        classic_match = CLASSIC_PLAN_RE.search(query)
+        if plan_match:
+            plan = f"REMEDY_{plan_match.group(1)}"
+            if plan not in CONFIRMED_REMEDY_IDS:
+                plan = None
+        elif classic_match:
+            plan = f"HN_CLASSIC_{classic_match.group(1).upper()}"
+            if plan not in CONFIRMED_CLASSIC_IDS:
+                plan = None
+        else:
+            plan = None
         # Try to extract intent by matching known benefit keywords
         from benefit_lookup import BENEFIT_KEYWORDS
         lowered = query.lower()
@@ -137,6 +227,34 @@ def dispatch_query(query: str) -> dict[str, str]:
         result = lookup_network(query)
         if result.get("status") == "found":
             return result
+        # Clarification patch: generic network / direct billing queries without a specific provider
+        lowered_q = query.lower()
+        _direct_billing_terms = ["direct billing", "direct bill", "مباشر", "ديركت بيلنج", "ديرکت بيلنج"]
+        _is_direct_billing = any(t in lowered_q for t in _direct_billing_terms)
+        if _is_direct_billing:
+            return {
+                "status": "clarification",
+                "route": "network_lookup",
+                "answer": (
+                    "Please provide the hospital or clinic name so I can check whether direct billing is available.\n"
+                    "يرجى تزويدنا باسم المستشفى أو العيادة حتى نتمكن من التحقق من توفر الدفع المباشر."
+                ),
+            }
+        # Generic network query (mentions hospital/clinic/network but no specific provider)
+        _network_generic_terms = [
+            "network", "hospital", "clinic", "provider", "in network", "in-network",
+            "الشبكة", "ضمن الشبكة", "في الشبكة", "خارج الشبكة", "مستشفى", "عيادة",
+            "دكتور", "طبيب",
+        ]
+        if any(t in lowered_q for t in _network_generic_terms):
+            return {
+                "status": "clarification",
+                "route": "network_lookup",
+                "answer": (
+                    "Please provide the hospital or clinic name so I can check whether it is in the network.\n"
+                    "يرجى تزويدنا باسم المستشفى أو العيادة حتى نتمكن من التحقق من وجودها ضمن الشبكة."
+                ),
+            }
     if route == "rules_lookup":
         result = lookup_rules(query)
         if result.get("status") == "found":
